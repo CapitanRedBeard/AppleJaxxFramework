@@ -43,7 +43,8 @@
     "mocha": "^2.5.3",
     "react-test-renderer": "15.3.2",
     "remote-redux-devtools-on-debugger": "^0.4.6",
-    "remotedev-server": "^0.1.2"
+    "remotedev-server": "^0.1.2",
+    "underscore": "^1.8.3"
   },
   "keywords": [
     "android",
