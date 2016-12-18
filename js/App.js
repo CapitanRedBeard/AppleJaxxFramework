@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import AppNavigator from './AppNavigator';
-import frame from './frame.json';
+import _ from 'underscore';
 class App extends Component {
 
   constructor(props) {
     super(props);
   }
 
-  componentWillMount
+  componentWillMount() {
+    _updateRoutes = (action, routes) => {
+      const pages = reducer(this.state.pages, action, routes)
+      this.setState({
+        pages
+      })
+    }
+  }
 
   render() {
-    return <AppNavigator frame={frame}/>;
+    return <AppNavigator routes={this.routes}/>;
   }
 }
 

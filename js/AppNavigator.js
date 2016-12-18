@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { actions } from 'react-native-navigation-redux-helpers';
 import BlankPage from './components/blankpage';
 import SplashPage from './components/splashscreen/';
+import CustomPage from './components/custompage';
 import _ from 'underscore';
 
 const {
@@ -22,13 +23,9 @@ class AppNavigator extends Component {
     navigation: React.PropTypes.shape({
       key: React.PropTypes.string,
       routes: React.PropTypes.array,
-    }),
-    frame: React.PropTypes.object
+    })
   }
 
-  componentWillMount() {
-    console.log("nav routs", this.props);
-  }
   componentDidMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
       const routes = this.props.navigation.routes;
@@ -42,11 +39,16 @@ class AppNavigator extends Component {
   }
 
   _renderScene(props) { // eslint-disable-line class-methods-use-this
-    switch (props.scene.route.key) {
+    console.log("_renderScene", props.scene.route.type)
+    console.log("nav", props)
+
+    switch (props.scene.route.type) {
       case 'splashscreen':
-        return <SplashPage />;
-      default :
-        return <BlankPage />;
+        return <SplashPage {...props.scene.route}/>;
+      case 'custom':
+        return <CustomPage {...props.scene.route}/>;
+      default:
+        return <BlankPage {...props.scene.route}/>;
     }
   }
 
