@@ -1,5 +1,8 @@
 ## [Current WIP Frame](https://github.com/CapitanRedBeard/AppleJaxx/blob/master/frames/sampleSchema.json)
 
+## Strategy
+
+Basically just map NativeBase components to a schema so we can futz with it on an editor
 
 ## Technologies
 
