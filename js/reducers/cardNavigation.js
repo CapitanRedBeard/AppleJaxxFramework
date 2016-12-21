@@ -1,7 +1,7 @@
 
 import { cardStackReducer } from 'react-native-navigation-redux-helpers';
 import frame from '../../frames/sampleSchema.json';
-
+import _ from 'underscore';
 
 var initialState = {
   key: 'global',

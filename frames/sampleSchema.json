@@ -2,53 +2,71 @@
   "pages": [
     {
         "key": "splash_page1",
-        "type": "splashscreen",
+        "layout": "2:2",
         "style": {
-          "background": {
             "backgroundColor": "green"
-          },
-          "logo": {
-            "width": 64,
-            "height": 64
-          },
-          "logoText": {
-            "fontSize": 50,
-            "fontFamily": "Helvetica Neue",
-            "color": "red"
-          }
         },
-        "resources": {
-          "logo": {
+        "components": [
+          {
+            "layout": "1:1",
+            "type": "thumbnail",
+            "style": {
+                "width": 64,
+                "height": 64
+            },
             "imageSrc": "foo.png"
           },
-          "logoText": {
+          {
+            "layout": "1:2",
+            "type": "text",
+            "style": {
+              "fontSize": 50,
+              "fontFamily": "Helvetica Neue",
+              "color": "blue"
+            },
             "text": "Merry Christmas"
+          },
+          {
+            "type": "button",
+            "layout": "1:2",
+            "text": "log out",
+            "eval": "login_page",
+            "style": {
+              "border": {
+                "boderWidth": "2",
+                "borderColor": "red"
+              },
+              "text": {
+                "color": "red"
+              },
+              "icon": {
+                "width": "24",
+                "height": "24"
+              }
+            }
           }
-        },
+        ],
+        "autoNavigate": 2500,
         "transitions": {
           "*": "login_page"
         }
     },
     {
         "key": "login_page",
-        "type": "blankpage",
+        "components": [],
         "style": {
-          "pageBackground": {
             "backgroundColor": "blue"
-          }
         },
-        "resources": {},
         "transitions": {
           "*": "main_page"
         }
     },
     {
         "key": "main_page",
-        "type": "custom",
         "components": [
           {
             "type": "button",
-            "layoutCell": 2,
+            "layout": "1:2",
             "text": "log out",
             "iconLayout": "right",
             "imageSrc": "foo.png",
@@ -69,7 +87,7 @@
           },
           {
             "type": "button",
-            "layoutCell": 1,
+            "layout": "1:1",
             "text": "restart",
             "iconLayout": "left",
             "imageSrc": "bar.png",
@@ -90,7 +108,7 @@
           }
         ],
         "style": {},
-        "layout": "2x1",
+        "layout": "1:2",
         "transitions": {
           "foo": "login_page",
           "bar": "splash_page"

@@ -3,13 +3,12 @@ import React, { Component } from 'react';
 import { BackAndroid, StatusBar, NavigationExperimental } from 'react-native';
 import { connect } from 'react-redux';
 import { actions } from 'react-native-navigation-redux-helpers';
-import BlankPage from './components/blankpage';
-import SplashPage from './components/splashscreen/';
-import CustomPage from './components/custompage';
+import Page from './pages/page';
 import _ from 'underscore';
 
 const {
   popRoute,
+  pushRoute
 } = actions;
 
 const {
@@ -41,15 +40,8 @@ class AppNavigator extends Component {
   _renderScene(props) { // eslint-disable-line class-methods-use-this
     console.log("_renderScene", props.scene.route.type)
     console.log("nav", props)
-
-    switch (props.scene.route.type) {
-      case 'splashscreen':
-        return <SplashPage {...props.scene.route}/>;
-      case 'custom':
-        return <CustomPage {...props.scene.route}/>;
-      default:
-        return <BlankPage {...props.scene.route}/>;
-    }
+    console.log("this.props", this.props)
+    return <Page {...props.scene.route}/>;
   }
 
   render() {
@@ -65,7 +57,8 @@ class AppNavigator extends Component {
 
 function bindAction(dispatch) {
   return {
-    popRoute: key => dispatch(popRoute(key))
+    popRoute: key => dispatch(popRoute(key)),
+    pushRoute: key => dispatch(pushRoute(key))
   };
 }
 
