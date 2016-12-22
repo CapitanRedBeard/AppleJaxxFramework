@@ -2,7 +2,139 @@
 
 ## Strategy
 
-Basically just map NativeBase components to a schema so we can futz with it on an editor
+Basically just mapw components to a schema so we can futz with it on an editor
+
+#### Navigation: Minimalally working
+#### Custom Components:
+- Music Player
+- Store
+- Punch Card 
+- Calendar
+- Gallary
+- Social Buttons
+
+#### Data apis:
+- Facebook Graph
+- Twitter
+- Instagram (LLC?)
+- Soundcloud
+- Google Services (Calendar, mail)
+- Outlook
+- Custom: local data souce
+
+#### NativeBase Components: 
+
+- Badge 
+    - [ ] basic
+    - [ ] full
+- Button
+    - [ ] basic
+    - [ ] full
+- Card 
+    - [ ] basic
+    - [ ] full
+- CardItem
+    - [ ] basic
+    - [ ] full
+- CardSwiper
+    - [ ] basic
+    - [ ] full
+- Checkbox
+    - [ ] basic
+    - [ ] full
+- Container
+    - [ ] basic
+    - [ ] full
+- Content
+    - [ ] basic
+    - [ ] full
+- DeckSwiper
+    - [ ] basic
+    - [ ] full
+- Fab
+    - [ ] basic
+    - [ ] full
+- Footer
+    - [ ] basic
+    - [ ] full
+- FooterTab
+    - [ ] basic
+    - [ ] full
+- Gravatar
+    - [ ] basic
+    - [ ] full
+- H1
+    - [ ] basic
+    - [ ] full
+- H2
+    - [ ] basic
+    - [ ] full
+- H3
+    - [ ] basic
+    - [ ] full
+- Header 
+    - [ ] basic
+    - [ ] full
+- Icon
+    - [ ] basic
+    - [ ] full
+- Input
+    - [ ] basic
+    - [ ] full
+- InputGroup
+    - [ ] basic
+    - [ ] full
+- List
+    - [ ] basic
+    - [ ] full
+- ListItem
+    - [ ] basic
+    - [ ] full
+- Picker.ios
+    - [ ] basic
+    - [ ] full
+- Picker 
+    - [ ] basic
+    - [ ] full
+- ProgressBar.android
+    - [ ] basic
+    - [ ] full
+- ProgressBar.ios
+    - [ ] basic
+    - [ ] full
+- Radio
+    - [ ] basic
+    - [ ] full
+- Spinner
+    - [ ] basic
+    - [ ] full
+- Subtitle
+    - [ ] basic
+    - [ ] full
+- Switch
+    - [ ] basic
+    - [ ] full
+- Tab
+    - [ ] basic
+    - [ ] full
+- Tabs
+    - [ ] basic
+    - [ ] full
+- Text
+    - [ ] basic
+    - [ ] full
+- Textarea
+    - [ ] basic
+    - [ ] full
+- Thumbnail
+    - [ ] basic
+    - [ ] full
+- Title
+    - [ ] basic
+    - [ ] full
+- View
+    - [ ] basic
+    - [ ] full 
 
 ## Technologies
 
