@@ -25,8 +25,9 @@ class Page extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
+    let overridedStyles = [styles.container, this.props.style];
     return (
-      <View style={styles.container}>
+      <View style={overridedStyles}>
           {this.getComponents()}
       </View>
     );

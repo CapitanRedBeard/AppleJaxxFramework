@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import { Text } from 'native-base';
+import { Text } from 'react-native';
+import { textColor } from '../../themes/base-theme'
 // import defaultStyles from './styles';
 
 export default class TextComponent extends Component {
 
   static propTypes = {
-    // navigator: React.PropTypes.shape({}),
-    // resources: React.PropTypes.object.isRequired,
-    // style: React.PropTypes.object.isRequired
+    style: React.PropTypes.object.isRequired
   }
 
   render() { // eslint-disable-line class-methods-use-this
-    // const {logo, logoText} = this.props.resources;
-    // const overrideStyles = this.props.style;
-    return <Text> Click Me! </Text>;
+    const {style, text} = this.props;
+    const overrideStyles = [styles.text, style];
+    return <Text style={overrideStyles}>{text}</Text>;
+  }
+}
+
+const styles = {
+  text: {
+    fontSize: 12,
+    fontFamily: "Futura-CondensedMedium",
+    // color: textColor
   }
 }

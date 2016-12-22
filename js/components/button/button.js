@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'native-base';
 import { navigatePush } from '../../actions/navigatePush'
+import { textColor } from '../../themes/base-theme'
 
 import {
   View
@@ -22,8 +23,23 @@ export default class ButtonComponent extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
-    // const {logo, logoText} = this.props.resources;
-    // const overrideStyles = this.props.style;
-    return <Button onPress={() => this.props.onButtonPress(this.props.eval)}> Click Me! </Button>
+    const {buttonText, button} = this.props.style;
+    const overrideButtonStyles = [styles.button, button];
+    const overrideButtonTextStyles = [styles.text, buttonText];
+    console.log("overrideButtonStyles", overrideButtonStyles)
+    console.log("overrideButtonTextStyles", overrideButtonTextStyles)
+    return <Button style={overrideButtonStyles} textStyle={buttonText} onPress={() => this.props.onButtonPress(this.props.eval)}> Click Me! </Button>
+  }
+}
+
+const styles = {
+  text: {
+    fontSize: 12,
+    fontFamily: "Futura-CondensedMedium",
+    // color: textColor
+  },
+  button: {
+    backgroundColor: "blue"
+    // color: textColor
   }
 }
