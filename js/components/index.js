@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import Button from './button/button';
 import Text from './text/text';
-import { connect } from 'react-redux';
-import { actions } from 'react-native-navigation-redux-helpers';
-import { View } from 'react-native';
-
-const {
-  popRoute,
-  pushRoute,
-} = actions;
+import { View, TouchableHighlight } from 'react-native';
 
 const components = {
   "button": Button,
@@ -17,35 +10,32 @@ const components = {
 };
 
 
-class BaseComponent extends Component {
+export default class BaseComponent extends Component {
 
   static propTypes = {
     type: React.PropTypes.string,
     onButtonPress: React.PropTypes.func
   }
+    //
+    // setNativeProps(props) {
+    //     this._node.setNativeProps(props);
+    // }
+    // 
+    // onPress() {
+    //   console.log("Navigating to", this.props)
+    //   this.props.onButtonPress("login_page");
+    // }
 
   render() { // eslint-disable-line class-methods-use-this
 
-    console.log("components", components, this.props);
-
     let Instance = components[this.props.type];
-    console.log("components", components);
     return (
-      <View style={{borderColor: "red", borderWidth: 1}}>
-          <Instance {...this.props}/>
-      </View>
+
+        <TouchableHighlight onPress={this.onPress}>
+          <View style={{borderColor: "red", borderWidth: 1}}>
+              <Instance onButtonPress={this.props.onButtonPress} {...this.props}/>
+          </View>
+        </TouchableHighlight>
     );
   }
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onPress: key => dispatch(popRoute(key))
-  };
-}
-
-const mapStateToProps = (state) => {
-	return {}
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BaseComponent);

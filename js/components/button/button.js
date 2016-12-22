@@ -2,28 +2,28 @@ import React, { Component } from 'react';
 import { Button } from 'native-base';
 import { navigatePush } from '../../actions/navigatePush'
 
-const {
+import {
   View
-} = React;
+} from "react-native";
 // import defaultStyles from './styles';
 
 export default class ButtonComponent extends Component {
 
   static propTypes = {
-    eval: React.PropTypes.shape({}),
+    eval: React.PropTypes.string,
     // resources: React.PropTypes.object.isRequired,
-    style: React.PropTypes.object.isRequired,
-    onPress: React.PropTypes.object
+    onButtonPress: React.PropTypes.func
   }
 
+
   onPress() {
-    console.log("Yo", this.props)
-    this.props.onPress(this.props.eval);
+    // console.log("Navigating to", this.props.eval)
+    this.props.onButtonPress("login_page");
   }
 
   render() { // eslint-disable-line class-methods-use-this
     // const {logo, logoText} = this.props.resources;
     // const overrideStyles = this.props.style;
-    return <Button onPress={() => {this.onPress()}}> Click Me! </Button>;
+    return <Button onPress={() => this.props.onButtonPress(this.props.eval)}> Click Me! </Button>
   }
 }

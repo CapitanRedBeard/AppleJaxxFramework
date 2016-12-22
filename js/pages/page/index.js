@@ -1,8 +1,12 @@
+import { connect } from 'react-redux'
+
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import BaseComponent from '../../components'
 import _ from 'underscore'
-export default class Page extends Component {
+import { navigateJumpToKey } from '../../actions/navActions'
+
+class Page extends Component {
 
   static propTypes = {
     navigator: React.PropTypes.shape({}),
@@ -10,13 +14,12 @@ export default class Page extends Component {
 
   componentWillMount() {
     const navigator = this.props.navigator;
-    console.log("Nav", this.props);
   }
 
   getComponents() {
     let components = []
-    _.each(this.props.components, (component) => {
-      components.push(<BaseComponent {...component}/>)
+    _.each(this.props.components, (component, index) => {
+      components.push(<BaseComponent key={component.type + index} onButtonPress={this.props.onButtonPress} {...component}/>)
     });
     return components;
   }
@@ -30,6 +33,19 @@ export default class Page extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+	return {
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+		onButtonPress: (key) => {
+			dispatch(navigateJumpToKey(key))
+		}
+	}
+}
+
 const styles = {
   container: {
     flex: 1,
@@ -38,3 +54,8 @@ const styles = {
     backgroundColor: "grey"
   }
 }
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Page)
