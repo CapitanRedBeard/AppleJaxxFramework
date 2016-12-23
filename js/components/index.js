@@ -34,6 +34,8 @@ const styles = {
     flexDirection:'row',
     alignItems: "center",
     alignSelf: "stretch",
-    padding: 20
+    padding: 5,
+    // borderColor: "red",
+    // borderWidth: 2
   }
 }

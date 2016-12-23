@@ -8,6 +8,21 @@ import {
 } from "react-native";
 // import defaultStyles from './styles';
 
+const ATTRIBUTES = [
+  "success",
+  "info",
+  "warning",
+  "danger",
+  "disabled",
+
+  "rounded",
+  "bordered",
+  "transparent",
+
+  "small",
+  "large"
+];
+
 export default class ButtonComponent extends Component {
 
   static propTypes = {
@@ -42,23 +57,21 @@ export default class ButtonComponent extends Component {
     const text = this.props.text;
     const overrideButtonStyles = [styles.button, button];
     const overrideButtonTextStyles = [styles.text, buttonText];
-    let component;
+    let componentStyles = {style: overrideButtonStyles, textStyles: overrideButtonTextStyles};
     let attributes = {};
+
     _.each(this.props.attributes, (attribute) => {
-      attributes[attribute] = true;
+      if(ATTRIBUTES.indexOf(attribute) > -1) attributes[attribute] = true;
     });
 
+    let componentAttributes = _.size(attributes) ? attributes : componentStyles;
 
-    if(_.size(attributes)){
-      component = <Button {...attributes} textStyle={buttonText} onPress={() => this.onButtonPress()}>{text}</Button>;
-    }else {
-      component = <Button style={overrideButtonStyles} textStyle={buttonText} onPress={() => this.onButtonPress()}>{text}</Button>;
-    }
+    return <Button {...componentAttributes} {...componentStyles} onPress={() => this.onButtonPress()}>{text}</Button>;
+
     // const component = <Button style={overrideButtonStyles} textStyle={buttonText} onPress={() => this.props.onButtonPress(this.props.eval)}> Click Me! </Button>;
     // const component = <Button rounded danger> Danger </Button>;
     // console.log("Hmm", component, attributes)
 
-    return component;
   }
 }
 

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import * as NavigationStateUtils from 'NavigationStateUtils'
-import frame from '../../frames/navigationFrame.json';
+import frame from '../../frames/buttonFrame.json';
 
 import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from '../actions/navActions'
 import _ from 'underscore';

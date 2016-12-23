@@ -19,7 +19,7 @@ export default class TextComponent extends Component {
 const styles = {
   text: {
     fontSize: 12,
-    fontFamily: "Futura-CondensedMedium",
+    fontFamily: "Helvetica Neue",
     // color: textColor
   }
 }

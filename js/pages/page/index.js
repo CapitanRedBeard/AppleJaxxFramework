@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 import BaseComponent from '../../components'
 import _ from 'underscore'
 import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'
@@ -27,9 +27,9 @@ class Page extends Component {
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.props.style];
     return (
-      <View style={overridedStyles}>
+      <ScrollView containerStyleProps={overridedStyles}>
           {this.getComponents()}
-      </View>
+      </ScrollView>
     );
   }
 }
