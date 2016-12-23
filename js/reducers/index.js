@@ -1,8 +1,8 @@
 
 import { combineReducers } from 'redux';
 
-import cardNavigation from './cardNavigation';
+import navReducers from './navReducers';
 
 export default combineReducers({
-  cardNavigation
+  navReducers
 });

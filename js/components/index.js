@@ -21,9 +21,19 @@ export default class BaseComponent extends Component {
 
     let Instance = components[this.props.type];
     return (
-          <View >
+          <View style={styles.instanceWrapper}>
               <Instance onButtonPress={this.props.onButtonPress} {...this.props}/>
           </View>
     );
+  }
+}
+
+const styles = {
+  instanceWrapper: {
+    justifyContent: "center",
+    flexDirection:'row',
+    alignItems: "center",
+    alignSelf: "stretch",
+    padding: 20
   }
 }

@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import BaseComponent from '../../components'
 import _ from 'underscore'
-import { navigateJumpToKey } from '../../actions/navActions'
+import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'
 
 class Page extends Component {
 
@@ -17,9 +17,9 @@ class Page extends Component {
   }
 
   getComponents() {
-    let components = []
+    let components = [];
     _.each(this.props.components, (component, index) => {
-      components.push(<BaseComponent key={component.type + index} onButtonPress={this.props.onButtonPress} {...component}/>)
+      components.push(<BaseComponent key={component.type + index} {...this.props} {...component}/>)
     });
     return components;
   }
@@ -41,7 +41,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-		onButtonPress: (key) => {
+		pop: (key) => {
+  		dispatch(navigatePop())
+    },
+		push: (key) => {
+			dispatch(navigatePush(key))
+		},
+		reset: (index) => {
+  		dispatch(navigateReset(index))
+    },
+		jump: (key) => {
 			dispatch(navigateJumpToKey(key))
 		}
 	}

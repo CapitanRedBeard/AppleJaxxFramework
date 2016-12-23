@@ -6,15 +6,12 @@ export const NAV_JUMP_TO_KEY = 'NAV_JUMP_TO_KEY'
 export const NAV_JUMP_TO_INDEX = 'NAV_JUMP_TO_INDEX'
 export const NAV_RESET = 'NAV_RESET'
 
-
 // *** Action Creators ***
 // The following action creators were derived from NavigationStackReducer
-export function navigatePush(state) {
-	state = typeof state === 'string' ? { key: state, title: state } : state
-  console.log("NAV PUSH", state);
-  return {
-		type: NAV_JUMP_TO_KEY,
-		state
+export function navigatePush(key) {
+	return {
+		type: NAV_PUSH,
+		key
 	}
 }
 
@@ -38,10 +35,9 @@ export function navigateJumpToIndex(index) {
 	}
 }
 
-export function navigateReset(routes, index) {
+export function navigateReset(index) {
 	return {
 		type: NAV_RESET,
-		index,
-		routes
+		index
 	}
 }

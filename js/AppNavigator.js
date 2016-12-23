@@ -1,66 +1,105 @@
 'use strict'
 
 import React, {PropTypes} from 'react'
-import {NavigationExperimental, StyleSheet} from 'react-native'
+import {NavigationExperimental, StyleSheet, View} from 'react-native'
 import { connect } from 'react-redux'
 
 import Page from './pages/page';
 import { navigatePop } from './actions/navActions'
 
 const {
+  Transitioner: NavigationTransitioner,
 	CardStack: NavigationCardStack,
 	Card: NavigationCard,
 	Header: NavigationHeader
 } = NavigationExperimental
 
 
+
 class AppNavigator extends React.Component {
 	render() {
-    console.log("props", this.props)
-		let { navigationState, backAction } = this.props
+    // console.log("props", this.props)
 
 		return (
 			// Redux is handling the reduction of our state for us. We grab the navigationState
 			// we have in our Redux store and pass it directly to the <NavigationCardStack />.
-			<NavigationCardStack
-				navigationState={navigationState}
-				onNavigateBack={backAction}
-				style={styles.container}
-				direction={navigationState.routes[navigationState.index].key === 'Modal' ?
-					'vertical' : 'horizontal'
-				}
-				renderHeader={props => (
-					<NavigationHeader
-						{...props}
-						onNavigateBack={backAction}
-						renderTitleComponent={props => {
-							const title = props.scene.route.key
-							return <NavigationHeader.Title>{title}</NavigationHeader.Title>
-						}}
-						// When dealing with modals you may also want to override renderLeftComponent...
-					/>
-				)}
-				renderScene={this._renderScene}
-			/>
+			this.getNavigationCardStack()
+      // this.getNavigationTransitioner()
 		)
 	}
 
+  getNavigationTransitioner() {
+    let { navigationState, backAction } = this.props
+    return <NavigationTransitioner
+				navigationState={navigationState}
+				style={styles.container}
+				render={props => (
+					// This mimics the same type of work done in a NavigationCardStack component
+					<View style={styles.container}>
+						<NavigationCard
+							// <NavigationTransitioner>'s render method passes `navigationState` as a
+							// prop to here, so we expand it plus other props out in <NavigationCard>.
+							{...props}
+							// Transition animations are determined by the StyleInterpolators. Here we manually
+							// override the default horizontal style interpolator that gets applied inside of
+							// NavigationCard for a vertical direction animation if we are showing a modal.
+							// (Passing undefined causes the default interpolator to be used in NavigationCard.)
+							style={props.scene.route.key === 'Modal' ?
+										NavigationCard.CardStackStyleInterpolator.forVertical(props) :
+										undefined
+							}
+							onNavigateBack={backAction}
+							// By default a user can swipe back to pop from the stack. Disable this for modals.
+							// Just like for style interpolators, returning undefined lets NavigationCard override it.
+							panHandlers={props.scene.route.key === 'Modal' ? null : undefined }
+							renderScene={this._renderScene}
+							key={props.scene.route.key}
+						/>
+						<NavigationHeader
+							{...props}
+							onNavigateBack={backAction}
+							renderTitleComponent={props => {
+								const title = props.scene.route.title
+								return <NavigationHeader.Title>{title}</NavigationHeader.Title>
+							}}
+							// When dealing with modals you may also want to override renderLeftComponent...
+						/>
+					</View>
+				)}
+			/>
+  }
+
+  getNavigationCardStack() {
+    let { navigationState, backAction } = this.props
+    return <NavigationCardStack
+      navigationState={navigationState}
+      onNavigateBack={backAction}
+      style={styles.container}
+      direction={navigationState.routes[navigationState.index].key === 'Modal' ?
+        'vertical' : 'horizontal'
+      }
+      renderHeader={props => (
+        <NavigationHeader
+          {...props}
+          onNavigateBack={backAction}
+          renderTitleComponent={props => {
+            const title = props.scene.route.key
+            return <NavigationHeader.Title>{title}</NavigationHeader.Title>
+          }}
+          // When dealing with modals you may also want to override renderLeftComponent...
+        />
+      )}
+      renderScene={this._renderScene}
+    />
+  }
 
 	_renderScene({scene}) {
 		const { route } = scene
-    console.log("Rendering the scene: ", scene);
+    // console.log("Rendering the scene: ", scene);
     return <Page key={route.key} {...route}/>;
 
 	}
 }
-
-//   _renderScene(props) { // eslint-disable-line class-methods-use-this
-//     console.log("_renderScene", props.scene.route.type)
-//     console.log("nav", props)
-//     console.log("this.props", this.props)
-//     return <Page {...props.scene.route}/>;
-//   }
-//
 
 AppNavigator.propTypes = {
 	navigationState: PropTypes.object,
@@ -83,72 +122,3 @@ export default connect(
 		}
 	})
 )(AppNavigator)
-//
-// import React, { Component } from 'react';
-// import { BackAndroid, StatusBar, NavigationExperimental } from 'react-native';
-// import { connect } from 'react-redux';
-// import { actions } from 'react-native-navigation-redux-helpers';
-// import Page from './pages/page';
-// import _ from 'underscore';
-//
-// const {
-//   popRoute,
-//   pushRoute
-// } = actions;
-//
-// const {
-//   CardStack: NavigationCardStack,
-// } = NavigationExperimental;
-//
-// class AppNavigator extends Component {
-//
-//   static propTypes = {
-//     popRoute: React.PropTypes.func,
-//     navigation: React.PropTypes.shape({
-//       key: React.PropTypes.string,
-//       routes: React.PropTypes.array,
-//     })
-//   }
-//
-//   componentDidMount() {
-//     BackAndroid.addEventListener('hardwareBackPress', () => {
-//       const routes = this.props.navigation.routes;
-//       this.props.popRoute(this.props.navigation.key);
-//       return true;
-//     });
-//   }
-//
-//   popRoute() {
-//     this.props.popRoute();
-//   }
-//
-//   _renderScene(props) { // eslint-disable-line class-methods-use-this
-//     console.log("_renderScene", props.scene.route.type)
-//     console.log("nav", props)
-//     console.log("this.props", this.props)
-//     return <Page {...props.scene.route}/>;
-//   }
-//
-//   render() {
-//     return (
-//         <NavigationCardStack
-//           navigationState={this.props.navigation}
-//           renderOverlay={this._renderOverlay}
-//           renderScene={this._renderScene}
-//         />
-//           );
-//   }
-// }
-//
-// function bindAction(dispatch) {
-//   return {
-//     popRoute: key => dispatch(popRoute(key)),
-//     pushRoute: key => dispatch(pushRoute(key))
-//   };
-// }
-//
-// const mapStateToProps = state => ({
-//   navigation: state.cardNavigation
-// });
-//
-// export default connect(mapStateToProps, bindAction)(AppNavigator);
