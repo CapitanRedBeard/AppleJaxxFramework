@@ -2,7 +2,64 @@
 
 ## Strategy
 
-Basically just map NativeBase components to a schema so we can futz with it on an editor
+Basically just mapw components to a schema so we can futz with it on an editor
+
+#### Navigation: Minimalally working
+#### Custom Components:
+- Music Player
+- Store
+- Punch Card 
+- Calendar
+- Gallary
+- Social Buttons
+
+#### Data apis:
+- Facebook Graph
+- Twitter
+- Instagram (LLC?)
+- Soundcloud
+- Google Services (Calendar, mail)
+- Outlook
+- Custom: local data souce
+
+#### NativeBase Components: 
+- Badge 
+- Button
+- Card 
+- CardItem
+- CardSwiper
+- Checkbox
+- Container
+- Content
+- DeckSwiper
+- Fab
+- Footer
+- FooterTab
+- Gravatar
+- H1
+- H2
+- H3
+- Header 
+- Icon
+- Input
+- InputGroup
+- List
+- ListItem
+- Picker.ios
+- Picker 
+- ProgressBar.android
+- ProgressBar.ios
+- Radio
+- Spinner
+- Subtitle
+- Switch
+- Tab
+- Tabs
+- Text
+- Textarea
+- Thumbnail
+- Title
+- View 
 
 ## Technologies
 
