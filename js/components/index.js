@@ -9,7 +9,6 @@ const components = {
   "thumbnail": Text
 };
 
-
 export default class BaseComponent extends Component {
 
   static propTypes = {
@@ -22,7 +21,7 @@ export default class BaseComponent extends Component {
     let Instance = components[this.props.type];
     return (
           <View style={styles.instanceWrapper}>
-              <Instance onButtonPress={this.props.onButtonPress} {...this.props}/>
+              <Instance {...this.props}/>
           </View>
     );
   }

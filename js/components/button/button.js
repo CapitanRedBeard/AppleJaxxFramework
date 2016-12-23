@@ -36,6 +36,7 @@ export default class ButtonComponent extends Component {
 
   onButtonPress() {
     var {type, index, key} = this.props.eval;
+    // console.log("HMMm", this.props.eval)
     switch(type){
       case "push":
         this.props.push(key);
@@ -65,6 +66,7 @@ export default class ButtonComponent extends Component {
     });
 
     let componentAttributes = _.size(attributes) ? attributes : componentStyles;
+    // console.log("HMMm", this.props)
 
     return <Button {...componentAttributes} {...componentStyles} onPress={() => this.onButtonPress()}>{text}</Button>;
 

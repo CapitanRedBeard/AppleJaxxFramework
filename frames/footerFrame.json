@@ -1,0 +1,113 @@
+{
+  "pages": [
+    {
+      "key": "page1",
+      "style": {
+          "backgroundColor": "#4D5057"
+      },
+      "components": [
+        {
+          "type": "text",
+          "style": {
+            "fontSize": 20,
+            "color": "#254E70"
+          },
+          "text": "Page One"
+        }
+      ]
+    },
+    {
+      "key": "page2",
+      "style": {
+          "backgroundColor": "#4D5057"
+      },
+      "components": [
+        {
+          "type": "text",
+          "style": {
+            "fontSize": 20,
+            "color": "#254E70"
+          },
+          "text": "Page Two"
+        }
+      ]
+    },
+    {
+      "key": "page3",
+      "style": {
+          "backgroundColor": "#4D5057"
+      },
+      "components": [
+        {
+          "type": "text",
+          "style": {
+            "fontSize": 20,
+            "color": "#254E70"
+          },
+          "text": "Page Three"
+        }
+      ]
+    },
+    {
+      "key": "page4",
+      "style": {
+          "backgroundColor": "#4D5057"
+      },
+      "components": [
+        {
+          "type": "text",
+          "style": {
+            "fontSize": 20,
+            "color": "#254E70"
+          },
+          "text": "Page Four"
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "style": {
+      "tabBarTextColor": "#9E9CBC",
+      "tabBarActiveTextColor": "#6457A6",
+      "tabActiveBgColor": "#7D7ABC"
+    },
+    "tabs": [
+      {
+        "text": "Arrival",
+        "icon": "ios-apps-outline",
+        "eval": {
+            "key": "page1",
+            "type": "jump"
+        }
+      },
+      {
+        "text": "Camera",
+        "icon": "ios-camera-outline",
+        "eval": {
+            "key": "page2",
+            "type": "jump"
+        }
+      },
+      {
+        "text": "Navigate",
+        "icon": "ios-compass",
+        "eval": {
+            "key": "page3",
+            "type": "jump"
+        }
+      },
+      {
+        "text": "Contact",
+        "icon": "ios-contact-outline",
+        "eval": {
+            "key": "page4",
+            "type": "jump"
+        }
+      }
+    ]
+  },
+
+  "metaData": {
+    "frameID": "buttonFrame"
+  }
+}

@@ -6,7 +6,7 @@ import { textColor } from '../../themes/base-theme'
 export default class TextComponent extends Component {
 
   static propTypes = {
-    style: React.PropTypes.object.isRequired
+    style: React.PropTypes.object
   }
 
   render() { // eslint-disable-line class-methods-use-this

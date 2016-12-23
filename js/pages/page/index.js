@@ -1,15 +1,16 @@
 import { connect } from 'react-redux'
 
 import React, { Component } from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, View} from 'react-native';
 import BaseComponent from '../../components'
 import _ from 'underscore'
+import {Container, Content} from 'native-base';
 import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'
-
+import Footer from '../../components/footer/footer'
 class Page extends Component {
 
   static propTypes = {
-    navigator: React.PropTypes.shape({}),
+    // navigator: React.PropTypes.shape({}),
   }
 
   componentWillMount() {
@@ -26,10 +27,16 @@ class Page extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.props.style];
+    console.log("this.props", this.props)
     return (
-      <ScrollView containerStyleProps={overridedStyles}>
-          {this.getComponents()}
-      </ScrollView>
+      <Container>
+        <View style={{flex: 1}}>
+          <ScrollView containerStyleProps={overridedStyles}>
+              {this.getComponents()}
+          </ScrollView>
+          {this.props.footer && <Footer footer={this.props.footer} />}
+        </View>
+      </Container>
     );
   }
 }
@@ -62,6 +69,10 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "grey"
+  },
+  content: {
+    flex: 1,
+    justifyContent: "flex-end"
   }
 }
 

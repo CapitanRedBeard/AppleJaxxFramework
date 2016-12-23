@@ -18,7 +18,7 @@ const {
 
 class AppNavigator extends React.Component {
 	render() {
-    // console.log("props", this.props)
+    // console.log("props", this.props);
 
 		return (
 			// Redux is handling the reduction of our state for us. We grab the navigationState
@@ -89,15 +89,13 @@ class AppNavigator extends React.Component {
           // When dealing with modals you may also want to override renderLeftComponent...
         />
       )}
-      renderScene={this._renderScene}
+      renderScene={(param) => this._renderScene(param, navigationState.footer)}
     />
   }
 
-	_renderScene({scene}) {
+	_renderScene({scene}, footer) {
 		const { route } = scene
-    // console.log("Rendering the scene: ", scene);
-    return <Page key={route.key} {...route}/>;
-
+    return <Page key={route.key} {...route} footer={footer}/>;
 	}
 }
 

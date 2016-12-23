@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import * as NavigationStateUtils from 'NavigationStateUtils'
-import frame from '../../frames/buttonFrame.json';
+import frame from '../../frames/footerFrame.json';
 
 import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from '../actions/navActions'
 import _ from 'underscore';
@@ -23,8 +23,8 @@ function getInitialState(frame){
   _.each(frame.pages, (page, index) => {
     this.routes.push( {index: index, ...page})
   }) : initialState.routes;
-
-  return initialState
+  if(frame.footer) initialState.footer = frame.footer;
+  return initialState;
 }
 
 //checks if the key in the routes array matches a certain key.
@@ -71,10 +71,11 @@ function navigationState(state = getInitialState(frame), action) {
   		}
 
   	default:
-      console.log("default")
   		return state
 	}
 }
+
+
 
 const appReducers = combineReducers({
 	navigationState
