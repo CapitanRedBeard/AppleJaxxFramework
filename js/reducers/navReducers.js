@@ -5,19 +5,19 @@ import frame from '../../frames/footerFrame.json';
 import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from '../actions/navActions'
 import _ from 'underscore';
 
-var initialState = {
-  key: 'global',
-  index: 0,
-  routes: [
-    {
-      key: 'splashscreen0',
-      type: 'splashscreen',
-      index: 0,
-    }
-  ],
-};
-
 function getInitialState(frame){
+  let state = getFrameState(frame);
+  state.routes = [state.routes[state.index]];
+  return state;
+}
+
+function getFrameState(frame){
+  let initialState = {
+    key: 'global',
+    index: 0,
+    routes: []
+  };
+
   this.routes = [];
   initialState.routes = frame.pages ?
   _.each(frame.pages, (page, index) => {
@@ -37,19 +37,20 @@ function checkAndGetExistingRoute(routes, key) {
     return exists;
 }
 
-function navigationState(state = getInitialState(frame), action) {
+function navigationState(state = getFrameState(frame), action) {
   switch (action.type) {
-    case NAV_JUMP_TO_KEY:
+    // case NAV_JUMP_TO_KEY:
     case NAV_PUSH:
   		if (state.routes[state.index].key === (action.state && action.state.key)){
         return state
       }
-
       if(checkAndGetExistingRoute(state.routes, action.key)){
-        return NavigationStateUtils.jumpTo(state, action.key)
+        // return NavigationStateUtils.jumpTo(state, action.key)
+        return state
       }
       else {
-        const route = checkAndGetExistingRoute(getInitialState(frame).routes, action.key);
+        const route = checkAndGetExistingRoute(getFrameState(frame).routes, action.key);
+
         return NavigationStateUtils.push(state, route)
       }
 
@@ -57,8 +58,8 @@ function navigationState(state = getInitialState(frame), action) {
   		if (state.index === 0 || state.routes.length === 1) return state
   		return NavigationStateUtils.pop(state)
 
-  	// case NAV_JUMP_TO_KEY:
-    //   return checkAndGetExistingRoute(state.routes, action.key) ? NavigationStateUtils.jumpTo(state, action.key) : state;
+  	case NAV_JUMP_TO_KEY:
+      return checkAndGetExistingRoute(state.routes, action.key) ? NavigationStateUtils.jumpTo(state, action.key) : state;
 
   	case NAV_JUMP_TO_INDEX:
   		return NavigationStateUtils.jumpToIndex(state, action.index)
@@ -67,7 +68,7 @@ function navigationState(state = getInitialState(frame), action) {
   		return {
   			...state,
   			index: action.index,
-  			routes: getInitialState(frame).routes
+  			routes: getFrameState(frame).routes
   		}
 
   	default:

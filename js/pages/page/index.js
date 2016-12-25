@@ -34,7 +34,7 @@ class Page extends Component {
           <ScrollView containerStyleProps={overridedStyles}>
               {this.getComponents()}
           </ScrollView>
-          {this.props.footer && <Footer footer={this.props.footer} />}
+          {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
         </View>
       </Container>
     );
@@ -48,19 +48,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-		pop: (key) => {
-  		dispatch(navigatePop())
-    },
-		push: (key) => {
-			dispatch(navigatePush(key))
-		},
-		reset: (index) => {
-  		dispatch(navigateReset(index))
-    },
-		jump: (key) => {
-			dispatch(navigateJumpToKey(key))
-		}
-	}
+    navigation: {
+  		pop: (key) => {
+    		dispatch(navigatePop())
+      },
+  		push: (key) => {
+  			dispatch(navigatePush(key))
+  		},
+  		reset: (index) => {
+    		dispatch(navigateReset(index))
+      },
+  		jump: (key) => {
+  			dispatch(navigateJumpToKey(key))
+  		}
+  	}
+  }
 }
 
 const styles = {

@@ -17,7 +17,6 @@ export default class BaseComponent extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
-
     let Instance = components[this.props.type];
     return (
           <View style={styles.instanceWrapper}>

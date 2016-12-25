@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'native-base';
-import { navigatePush } from '../../actions/navigatePush'
 import { textColor } from '../../themes/base-theme'
-
+import onButtonPress from './buttonActions'
 import {
   View
 } from "react-native";
@@ -34,25 +33,6 @@ export default class ButtonComponent extends Component {
     reset: React.PropTypes.func,
   }
 
-  onButtonPress() {
-    var {type, index, key} = this.props.eval;
-    // console.log("HMMm", this.props.eval)
-    switch(type){
-      case "push":
-        this.props.push(key);
-        break;
-      case "pop":
-        this.props.pop();
-        break;
-      case "jump":
-        this.props.jump(key);
-        break;
-      case "reset":
-        this.props.reset(index);
-        break;
-    }
-  }
-
   render() { // eslint-disable-line class-methods-use-this
     const {buttonText, button} = this.props.style;
     const text = this.props.text;
@@ -66,9 +46,12 @@ export default class ButtonComponent extends Component {
     });
 
     let componentAttributes = _.size(attributes) ? attributes : componentStyles;
-    // console.log("HMMm", this.props)
 
-    return <Button {...componentAttributes} {...componentStyles} onPress={() => this.onButtonPress()}>{text}</Button>;
+    return <Button {...componentAttributes} {...componentStyles} onPress={
+              () => onButtonPress(this.props.eval, this.props.navigation)
+            }>
+              {text}
+          </Button>;
 
     // const component = <Button style={overrideButtonStyles} textStyle={buttonText} onPress={() => this.props.onButtonPress(this.props.eval)}> Click Me! </Button>;
     // const component = <Button rounded danger> Danger </Button>;

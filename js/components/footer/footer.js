@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { textColor } from '../../themes/base-theme'
 // import defaultStyles from './styles';
-import { Footer, FooterTab, Icon, Badge } from 'native-base';
-import Button from "../button/button"
+import { Footer, FooterTab, Icon, Button } from 'native-base';
+import onButtonPress from '../button/buttonActions'
+
+
 export default class FooterComponent extends Component {
 
   static propTypes = {
@@ -13,8 +15,10 @@ export default class FooterComponent extends Component {
   _renderButtons(tabs) {
     let buttons = [];
     _.each(tabs, (tab, index) => {
-      // console.log("tab: ", tab)
-      buttons.push(<Button key={"footerTab" + index} eval={tab.eval}>
+      // console.log("tab: ", tab, this.props)
+      buttons.push(<Button key={"footerTab" + index} onPress={
+                () => onButtonPress(tab.eval, this.props.navigation)
+              }>
                   {tab.text}
                   <Icon name={tab.icon} />
               </Button>);
