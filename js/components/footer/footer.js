@@ -34,7 +34,7 @@ export default class FooterComponent extends Component {
 
     return (
       <Footer key="Footer">
-        <FooterTab>
+        <FooterTab {...styles.tab}>
           {this._renderButtons(this.props.footer.tabs)}
         </FooterTab>
       </Footer>
@@ -43,9 +43,9 @@ export default class FooterComponent extends Component {
 }
 
 const styles = {
-  // tab: {
-  //   tabBarTextColor: 12,
-  //   tabBarActiveTextColor: "Helvetica Neue",
-  //   tabActiveBgColor: textColor
-  // }
+  tab: {
+    tabBarTextColor: "blue",
+    tabBarActiveTextColor: "red",
+    tabActiveBgColor: "green"
+  }
 }

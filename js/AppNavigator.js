@@ -3,9 +3,13 @@
 import React, {PropTypes} from 'react'
 import {NavigationExperimental, StyleSheet, View} from 'react-native'
 import { connect } from 'react-redux'
+import { Button, Icon } from 'native-base';
 
 import Page from './pages/page';
 import { navigatePop } from './actions/navActions'
+import Animated from 'Animated';
+
+import Easing from 'Easing';
 
 const {
   Transitioner: NavigationTransitioner,
@@ -14,7 +18,11 @@ const {
 	Header: NavigationHeader
 } = NavigationExperimental
 
-
+const navTransitionSpec = {
+  duration: 0,
+  easing: Easing.inOut(Easing.ease),
+  timing: Animated.timing,
+}
 
 class AppNavigator extends React.Component {
 	render() {
@@ -23,16 +31,18 @@ class AppNavigator extends React.Component {
 		return (
 			// Redux is handling the reduction of our state for us. We grab the navigationState
 			// we have in our Redux store and pass it directly to the <NavigationCardStack />.
-			this.getNavigationCardStack()
+			this.getNavigationTransitioner()
       // this.getNavigationTransitioner()
 		)
 	}
 
   getNavigationTransitioner() {
     let { navigationState, backAction } = this.props
+
     return <NavigationTransitioner
 				navigationState={navigationState}
 				style={styles.container}
+        configureTransition={this._configureTransition}
 				render={props => (
 					// This mimics the same type of work done in a NavigationCardStack component
 					<View style={styles.container}>
@@ -52,16 +62,18 @@ class AppNavigator extends React.Component {
 							// By default a user can swipe back to pop from the stack. Disable this for modals.
 							// Just like for style interpolators, returning undefined lets NavigationCard override it.
 							panHandlers={props.scene.route.key === 'Modal' ? null : undefined }
-							renderScene={this._renderScene}
+							renderScene={(param) => this._renderScene(param, navigationState.footer)}
 							key={props.scene.route.key}
 						/>
 						<NavigationHeader
 							{...props}
-							onNavigateBack={backAction}
-							renderTitleComponent={props => {
-								const title = props.scene.route.title
-								return <NavigationHeader.Title>{title}</NavigationHeader.Title>
-							}}
+							// onNavigateBack={backAction}
+							renderRightComponent={props => this._renderMenu(props)}
+              renderTitleComponent={props => {
+                const title = props.scene.route.key
+                return <NavigationHeader.Title>{title}</NavigationHeader.Title>
+              }}
+              // renderLeftComponent={props => null}
 							// When dealing with modals you may also want to override renderLeftComponent...
 						/>
 					</View>
@@ -69,9 +81,21 @@ class AppNavigator extends React.Component {
 			/>
   }
 
+  _configureTransition() {
+    return navTransitionSpec;
+  }
+
+  _renderMenu(props) {
+    return <Button transparent onPress={()=> console.log("Open Drawer")}>
+      <Icon name='ios-menu' />
+    </Button>
+  }
+
   getNavigationCardStack() {
+    console.log("props", this.props)
     let { navigationState, backAction } = this.props
     return <NavigationCardStack
+      configureTransition
       navigationState={navigationState}
       onNavigateBack={backAction}
       style={styles.container}
@@ -81,7 +105,9 @@ class AppNavigator extends React.Component {
       renderHeader={props => (
         <NavigationHeader
           {...props}
+          // style={}
           onNavigateBack={backAction}
+          renderRightComponent={props => this._renderMenu(props)}
           renderTitleComponent={props => {
             const title = props.scene.route.key
             return <NavigationHeader.Title>{title}</NavigationHeader.Title>

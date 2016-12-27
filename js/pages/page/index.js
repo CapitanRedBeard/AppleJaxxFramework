@@ -27,7 +27,6 @@ class Page extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.props.style];
-    console.log("this.props", this.props)
     return (
       <Container>
         <View style={{flex: 1}}>

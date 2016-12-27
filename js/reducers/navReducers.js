@@ -38,6 +38,7 @@ function checkAndGetExistingRoute(routes, key) {
 }
 
 function navigationState(state = getFrameState(frame), action) {
+console.log(state, action)
   switch (action.type) {
     // case NAV_JUMP_TO_KEY:
     case NAV_PUSH:
@@ -65,6 +66,7 @@ function navigationState(state = getFrameState(frame), action) {
   		return NavigationStateUtils.jumpToIndex(state, action.index)
 
   	case NAV_RESET:
+
   		return {
   			...state,
   			index: action.index,

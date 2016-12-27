@@ -76,32 +76,32 @@
         "text": "Arrival",
         "icon": "ios-apps-outline",
         "eval": {
-            "key": "page1",
-            "type": "jump"
+            "index": 0,
+            "type": "reset"
         }
       },
       {
         "text": "Camera",
         "icon": "ios-camera-outline",
         "eval": {
-            "key": "page2",
-            "type": "jump"
+            "index": 1,
+            "type": "reset"
         }
       },
       {
         "text": "Navigate",
         "icon": "ios-compass",
         "eval": {
-            "key": "page3",
-            "type": "jump"
+            "index": 2,
+            "type": "reset"
         }
       },
       {
         "text": "Contact",
         "icon": "ios-contact-outline",
         "eval": {
-            "key": "page4",
-            "type": "jump"
+            "index": 3,
+            "type": "reset"
         }
       }
     ]
