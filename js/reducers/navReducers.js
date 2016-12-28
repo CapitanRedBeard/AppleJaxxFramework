@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import * as NavigationStateUtils from 'NavigationStateUtils'
-import frame from '../../frames/footerFrame.json';
+import frame from '../../frames/menuFrame.json';
 
 import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from '../actions/navActions'
 import _ from 'underscore';
@@ -24,6 +24,7 @@ function getFrameState(frame){
     this.routes.push( {index: index, ...page})
   }) : initialState.routes;
   if(frame.footer) initialState.footer = frame.footer;
+  if(frame.drawer) initialState.drawer = frame.drawer;
   return initialState;
 }
 

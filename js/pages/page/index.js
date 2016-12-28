@@ -7,6 +7,8 @@ import _ from 'underscore'
 import {Container, Content} from 'native-base';
 import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'
 import Footer from '../../components/footer/footer'
+// import Drawer from 'react-native-drawer'
+import ControlPanel from 'react-native-drawer'
 class Page extends Component {
 
   static propTypes = {
@@ -74,7 +76,11 @@ const styles = {
   content: {
     flex: 1,
     justifyContent: "flex-end"
-  }
+  },
+  drawer: {
+    shadowColor: '#000000',
+    shadowOpacity: 0.8,
+    shadowRadius: 3},
 }
 
 export default connect(
