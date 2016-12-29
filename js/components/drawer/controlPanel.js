@@ -18,9 +18,6 @@ export default class ControlPanel extends Component {
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.controlText}>Control Panel</Text>
-        <TouchableOpacity style={styles.button} onPress={closeDrawer}>
-          <Text>Close Drawer</Text>
-        </TouchableOpacity>
       </ScrollView>
     )
   }
@@ -30,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: 'black',
+    backgroundColor: '#515151',
   },
   controlText: {
     color: 'white',

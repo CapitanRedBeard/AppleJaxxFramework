@@ -1,6 +1,10 @@
 {
   "drawer": {
-      "type": "overlay",
+    "content": {
+
+    },
+    "attributes": {
+      "type": "displace",
       "openDrawerOffset":100,
       "closedDrawerOffset":0,
       "panOpenMask": 0.1,
@@ -8,15 +12,17 @@
       "relativeDrag": false,
       "panThreshold": 0.25,
       "tweenHandlerOn": false,
-      "tweenDuration": 350,
-      "tweenEasing": "linear",
+      "tweenHandler": "parallax",
+      "tweenDuration": 250,
+      "tweenEasing": "easeOutCubic",
       "disabled": false,
       "acceptDoubleTap": false,
-      "acceptTap": false,
+      "acceptTap": true,
       "acceptPan": true,
       "tapToClose": false,
       "negotiatePan": false,
-      "rightSide": true,
+      "side": "right"
+    }
   },
   "pages": [
     {
