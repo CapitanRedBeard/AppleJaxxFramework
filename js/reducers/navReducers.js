@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import * as NavigationStateUtils from 'NavigationStateUtils'
-import frame from '../../frames/menuFrame.json';
+import demoFrame from '../../frames/listFrame.json';
 
 import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from '../actions/navActions'
 import _ from 'underscore';
@@ -25,6 +25,7 @@ function getFrameState(frame){
   }) : initialState.routes;
   if(frame.footer) initialState.footer = frame.footer;
   if(frame.drawer) initialState.drawer = frame.drawer;
+
   return initialState;
 }
 
@@ -38,8 +39,7 @@ function checkAndGetExistingRoute(routes, key) {
     return exists;
 }
 
-function navigationState(state = getFrameState(frame), action) {
-console.log(state, action)
+function navigationState(state = getFrameState(demoFrame), action) {
   switch (action.type) {
     // case NAV_JUMP_TO_KEY:
     case NAV_PUSH:
@@ -51,7 +51,7 @@ console.log(state, action)
         return state
       }
       else {
-        const route = checkAndGetExistingRoute(getFrameState(frame).routes, action.key);
+        const route = checkAndGetExistingRoute(getFrameState(demoFrame).routes, action.key);
 
         return NavigationStateUtils.push(state, route)
       }
@@ -71,7 +71,7 @@ console.log(state, action)
   		return {
   			...state,
   			index: action.index,
-  			routes: getFrameState(frame).routes
+  			routes: getFrameState(demoFrame).routes
   		}
 
   	default:

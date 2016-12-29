@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import React, { Component } from 'react';
 import { Text, ScrollView, View} from 'react-native';
-import BaseComponent from '../../components'
+import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
 import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'

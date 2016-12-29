@@ -51,12 +51,13 @@ class AppNavigator extends React.Component {
 
   getNavigationTransitioner() {
     let { navigationState, backAction } = this.props
+    const drawerAttributes = navigationState.drawer ? navigationState.drawer.attributes : {};
 
     return (
       <Drawer
         ref={(ref) => this._drawer = ref}
         content={<ControlPanel closeDrawer={this.closeControlPanel}/>}
-        {...navigationState.drawer.attributes}
+        {...drawerAttributes}
         tweenHandler={Drawer.tweenPresets.parallax}
         >
           <NavigationTransitioner

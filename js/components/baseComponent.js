@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Button from './button/button';
 import Text from './text/text';
+import Thumbnail from './thumbnail/thumbnail';
+import List from './list/list';
 import { View } from 'react-native';
 
 const components = {
   "button": Button,
   "text": Text,
-  "thumbnail": Text
+  "thumbnail": Thumbnail,
+  "list": List
 };
 
 export default class BaseComponent extends Component {

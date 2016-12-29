@@ -1,0 +1,47 @@
+{
+  "pages": [
+    {
+      "key": "list_page",
+      "style": {
+          "backgroundColor": "#4D5057"
+      },
+      "components": [
+        {
+          "type": "list",
+          "style": {
+            "backgroundColor": "#999999"
+          },
+          "dataSourceID": "dataSource1.json",
+          "rowComponents": [
+            {
+              "type": "thumbnail",
+              "style": {
+                "borderColor": "red",
+                "borderWidth": 2
+              },
+              "attributes": {
+                "source": "picture.thumbnail",
+                "size": 50
+              }
+            },
+            {
+              "type": "text",
+              "style": {
+                "fontSize": 20,
+                "color": "#254E70"
+              },
+              "text": "name.first"
+            }
+          ],
+          "separator": {},
+          "header": {},
+          "footer": {},
+          "sectionHeader": {}
+        }
+      ]
+    }
+  ],
+  "metaData": {
+    "frameID": "listFrame"
+  }
+}
