@@ -1,4 +1,4 @@
-## [Current WIP Frame](https://github.com/CapitanRedBeard/AppleJaxx/blob/master/frames/sampleSchema.json)
+## [Wiki](https://github.com/CapitanRedBeard/AppleJaxx/wiki)
 
 ## Strategy
 
