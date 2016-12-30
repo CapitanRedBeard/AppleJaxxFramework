@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import BaseComponent from '../baseComponent'
+import getValue from '../../util/getValue'
 import _ from 'underscore'
 const AVAILABLE_LIST_COMPONENTS = [
   "thumbnail",
@@ -9,11 +10,14 @@ const AVAILABLE_LIST_COMPONENTS = [
 
 export default class Row extends Component {
 
-  getComponents(components) {
+  getComponents(components, data) {
     let constructedComponents = [];
     _.each(components, (component, index) => {
-
       if(_.contains(AVAILABLE_LIST_COMPONENTS, component.type)) {
+        if(component.binding) {
+          console.log("Set value?", getValue(data, component.binding));
+          component.dataVal = getValue(data, component.binding);
+        }
         constructedComponents.push(
           <BaseComponent key={component.type + index} {...component} />
         )
@@ -24,10 +28,10 @@ export default class Row extends Component {
   }
 
   render() {
-    console.log("Row props", this.props)
+    console.log("Props", this.props)
 
     return <View style={[styles.container, this.props.style]}>
-      {this.getComponents(this.props.components)}
+      {this.getComponents(this.props.components, this.props.data)}
     </View>
   }
 };

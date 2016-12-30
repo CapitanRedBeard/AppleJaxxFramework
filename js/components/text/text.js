@@ -10,9 +10,11 @@ export default class TextComponent extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
-    const {style, text} = this.props;
+    const {style, text, dataVal} = this.props;
     const overrideStyles = [styles.text, style];
-    return <Text style={overrideStyles}>{text}</Text>;
+
+    const textValue = dataVal ? dataVal : text;
+    return <Text style={overrideStyles}>{textValue}</Text>;
   }
 }
 

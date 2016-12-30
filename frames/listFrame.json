@@ -17,23 +17,20 @@
           "rowDataBinding": "movies",
           "rowComponents": [
             {
-              "type": "thumbnail",
-              "style": {
-                "borderColor": "white",
-                "borderWidth": 2
-              },
-              "attributes": {
-                "source": "picture.thumbnail",
-                "size": 50
-              }
-            },
-            {
               "type": "text",
               "style": {
                 "fontSize": 20,
                 "color": "white"
               },
-              "text": "name.first"
+              "binding": "title"
+            },
+            {
+              "type": "text",
+              "style": {
+                "fontSize": 16,
+                "color": "#CCCCCC"
+              },
+              "binding": "releaseYear"
             }
           ],
           "separator": {},
