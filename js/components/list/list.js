@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { ListView} from 'react-native';
+import { Spinner } from 'native-base'
 import { textColor } from '../../themes/base-theme'
 import SectionHeader from './sectionHeader';
 import demoData from '../../../dataSources/demoDataSource';
 import Row from './row';
+import API from '../../API/api';
 import {
   View,
+  AlertIOS,
   StyleSheet
 } from "react-native";
 // import defaultStyles from './styles';
@@ -13,77 +16,43 @@ import {
 export default class ListComponent extends Component {
   constructor(props) {
     super(props);
+    console.log("props", props);
 
-    const getSectionData = (dataBlob, sectionId) => dataBlob[sectionId];
-    const getRowData = (dataBlob, sectionId, rowId) => dataBlob[`${rowId}`];
-
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged : (s1, s2) => s1 !== s2,
-      getSectionData,
-      getRowData,
-    });
-
-    const { dataBlob, sectionIds, rowIds } = this.formatData(demoData);
     this.state = {
-      dataSource: ds.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds),
+      dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
+      loading: true
     };
+
   }
 
-  formatData(data) {
-      // We're sorting by alphabetically so we need the alphabet
-      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  async _constructDataSource(url, binding) {
+    console.log("Fetching ", url);
 
-      // Need somewhere to store our data
-      const dataBlob = {};
-      const sectionIds = [];
-      const rowIds = [];
-
-      // Each section is going to represent a letter in the alphabet so we loop over the alphabet
-      for (let sectionId = 0; sectionId < alphabet.length; sectionId++) {
-        // Get the character we're currently looking for
-        const currentChar = alphabet[sectionId];
-
-        // Get users whose first name starts with the current letter
-        const users = data.filter((user) => user.name.first.toUpperCase().indexOf(currentChar) === 0);
-
-        // If there are any users who have a first name starting with the current letter then we'll
-        // add a new section otherwise we just skip over it
-        if (users.length > 0) {
-          // Add a section id to our array so the listview knows that we've got a new section
-          sectionIds.push(sectionId);
-
-          // Store any data we would want to display in the section header. In our case we want to show
-          // the current character
-          dataBlob[sectionId] = { character: currentChar };
-
-          // Setup a new array that we can store the row ids for this section
-          rowIds.push([]);
-
-          // Loop over the valid users for this section
-          for (let i = 0; i < users.length; i++) {
-            // Create a unique row id for the data blob that the listview can use for reference
-            const rowId = `${sectionId}:${i}`;
-
-            // Push the row id to the row ids array. This is what listview will reference to pull
-            // data from our data blob
-            rowIds[rowIds.length - 1].push(rowId);
-
-            // Store the data we care about for this row
-            dataBlob[rowId] = users[i];
-          }
-        }
-      }
-
-      return { dataBlob, sectionIds, rowIds };
+    try {
+      let response = await fetch(url);
+      let responseJson = await response.json();
+      console.log("Success", responseJson[binding]);
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(responseJson.movies),
+        loading: false
+      });
+    } catch(error) {
+      console.error("ERROR", error);
+      this.setState({loading: false})
     }
+  }
 
-    _renderRow(data, sectionIds, rowIds, rowComponents) {
-      return <Row data={data} components={rowComponents}/>
-    }
+  componentWillMount() {
+    this._constructDataSource(this.props.dataSource.url, this.props.rowDataBinding);
+  }
+
+  _renderRow(data, sectionIds, rowIds, rowComponents) {
+    return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} components={rowComponents}/>
+  }
 
   render() {
-    return (
+    return (this.state.loading ?
+      <Spinner color="red"/> :
       <ListView
         style={styles.container}
         dataSource={this.state.dataSource}
@@ -91,7 +60,7 @@ export default class ListComponent extends Component {
         renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
       />
     );
-    // return (
+    
     //   <ListView
     //     style={styles.container}
     //     dataSource={this.state.dataSource}
@@ -101,7 +70,6 @@ export default class ListComponent extends Component {
     //     renderFooter={() => <Footer />}
     //     renderSectionHeader={(sectionData) => <SectionHeader {...sectionData} />}
     //   />
-    // );
   }
 }
 
@@ -110,8 +78,7 @@ const styles = {
     flex: 1
   },
   separator: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
+    height: 1,
     backgroundColor: '#8E8E8E',
   }
 }

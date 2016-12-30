@@ -24,7 +24,7 @@ export default class Row extends Component {
   }
 
   render() {
-    // console.log("Props", this.props)
+    console.log("Row props", this.props)
 
     return <View style={[styles.container, this.props.style]}>
       {this.getComponents(this.props.components)}

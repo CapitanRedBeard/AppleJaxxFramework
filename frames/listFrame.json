@@ -11,12 +11,15 @@
           "style": {
             "backgroundColor": "#999999"
           },
-          "dataSourceID": "dataSource1.json",
+          "dataSource": {
+            "url": "https://facebook.github.io/react-native/movies.json"
+          },
+          "rowDataBinding": "movies",
           "rowComponents": [
             {
               "type": "thumbnail",
               "style": {
-                "borderColor": "red",
+                "borderColor": "white",
                 "borderWidth": 2
               },
               "attributes": {
@@ -28,7 +31,7 @@
               "type": "text",
               "style": {
                 "fontSize": 20,
-                "color": "#254E70"
+                "color": "white"
               },
               "text": "name.first"
             }

@@ -32,7 +32,9 @@ class Page extends Component {
     return (
       <Container>
         <View style={{flex: 1}}>
-          <ScrollView containerStyleProps={overridedStyles}>
+          <ScrollView style={overridedStyles} containerStyleProps={{
+          justifyContent: "center",
+          alignItems: "center"}}>
               {this.getComponents()}
           </ScrollView>
           {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
@@ -69,9 +71,10 @@ const mapDispatchToProps = (dispatch) => {
 const styles = {
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "grey"
+    backgroundColor: "#CCCCCC",
+    marginTop: 50,
+    borderColor: "red",
+    borderWidth: 2
   },
   content: {
     flex: 1,
