@@ -12,7 +12,17 @@ const DEFAULT_ATTRIBUTES = [
   "square": false,
   "size": 30
 ];
-
+// {
+//   "type": "thumbnail",
+//   "style": {
+//     "borderColor": "white",
+//     "borderWidth": 2
+//   },
+//   "attributes": {
+//     "source": "picture.thumbnail",
+//     "size": 50
+//   }
+// },
 export default class ThumbnailComponent extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
