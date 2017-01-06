@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+// import createLogger from 'redux-logger';
 
 import reducers from './reducers/navReducers'
 // import AppContainer from './containers/AppContainer'
 import AppNavigator from './AppNavigator'
-
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
+const middleware = [thunk];
+const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore)
 const store = createStoreWithMiddleware(reducers)
 
 export default class App extends Component {

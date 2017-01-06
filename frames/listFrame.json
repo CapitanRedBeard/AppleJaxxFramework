@@ -5,20 +5,29 @@
       "style": {
           "backgroundColor": "#4D5057"
       },
+      "data": [
+        {
+          "type": "url",
+          "url": "https://pokeapi.co/api/v2/pokemon/",
+          "returnPath": "results",
+          "binding": "pokemonz"
+        }
+      ],
       "components": [
         {
           "type": "list",
           "style": {
             "backgroundColor": "#999999"
           },
-          "dataSource": {
-            "url": "https://facebook.github.io/react-native/movies.json"
-          },
-          "rowDataBinding": "movies",
           "rowOnClickEval": {
             "key": "feature_page",
             "type": "push",
-            "param": "movies"
+            "param": {
+              "dataSource": {
+                "type": "param_url",
+                "url": "pokemonz.url"
+              }
+            }
           },
           "rowComponents": [
             {
@@ -27,7 +36,7 @@
                 "fontSize": 20,
                 "color": "white"
               },
-              "binding": "title"
+              "binding": "pokemonz.name"
             },
             {
               "type": "text",
@@ -35,7 +44,7 @@
                 "fontSize": 16,
                 "color": "#CCCCCC"
               },
-              "binding": "releaseYear"
+              "binding": "url"
             }
           ],
           "separator": {},

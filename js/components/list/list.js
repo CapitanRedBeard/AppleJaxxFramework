@@ -33,34 +33,35 @@ export default class ListComponent extends Component {
       let responseJson = await response.json();
       console.log("Success", responseJson[binding]);
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(responseJson.movies),
+        dataSource: this.state.dataSource.cloneWithRows(responseJson[binding]),
         loading: false
       });
     } catch(error) {
-      console.error("ERROR", error);
+      console.warn("Warning, couldn't find dataSource", error);
       this.setState({loading: false})
     }
   }
 
   componentWillMount() {
-    this._constructDataSource(this.props.dataSource.url, this.props.rowDataBinding);
+    // this._constructDataSource(this.props.dataSource.url, this.props.rowDataBinding);
   }
 
-  _renderRow(data, sectionIds, rowIds, rowComponents) {
-    return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} components={rowComponents}/>
+  _renderRow(data, sectionIds, rowIds, rowComponents, rowOnClickEval) {
+    return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} components={rowComponents} rowOnClickEval={rowOnClickEval}/>
   }
 
   render() {
+    console.log("List Rendered")
     return (this.state.loading ?
       <Spinner color="red"/> :
       <ListView
         style={styles.container}
         dataSource={this.state.dataSource}
-        renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowComponents)}
+        renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowComponents, this.props.rowOnClickEval)}
         renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
       />
     );
-    
+
     //   <ListView
     //     style={styles.container}
     //     dataSource={this.state.dataSource}

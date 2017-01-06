@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import BaseComponent from '../baseComponent'
 import getValue from '../../util/getValue'
 import _ from 'underscore'
+import { navigatePush, navigatePop, navigateJumpToKey, navigateReset } from '../../actions/navActions'
 const AVAILABLE_LIST_COMPONENTS = [
   "thumbnail",
   "text"
@@ -26,14 +27,40 @@ export default class Row extends Component {
     return constructedComponents;
   }
 
-  render() {
-    console.log("Props", this.props)
+    onButtonPress(rowOnClickEval) {
+      let {type, param, index, key} = rowOnClickEval;
+      console.log("Need to send param", param)
+      switch(type){
+        case "push":
+          navigatePush(key);
+          break;
+        case "pop":
+          navigatePop();
+          break;
+        case "jump":
+          navigateJumpToKey(key);
+          break;
+        case "reset":
+          navigateReset(index);
+          break;
+      }
+    }
+  _wrapOnClickHandler(children, rowOnClickEval) {
+    return  (<TouchableOpacity onPress={()=> this.onButtonPress(rowOnClickEval)} style={{flex: 1}}>
+              {children}
+            </TouchableOpacity>)
+  }
 
-    return  (<TouchableOpacity style={{flex: 1}}>
+  render() {
+    // console.log("Props", this.props)
+    const {style, components, data, rowOnClickEval} = this.props;
+
+    const rowComponents = (
               <View style={[styles.container, this.props.style]}>
                 {this.getComponents(this.props.components, this.props.data)}
-              </View>
-            </TouchableOpacity>)
+              </View> )
+
+    return rowOnClickEval ? this._wrapOnClickHandler(rowComponents, rowOnClickEval) : rowComonents
   }
 };
 

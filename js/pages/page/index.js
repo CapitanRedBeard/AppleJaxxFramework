@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { connect, store } from 'react-redux'
 
 import React, { Component } from 'react';
 import { Text, ScrollView, View} from 'react-native';
@@ -6,9 +6,12 @@ import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
 import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'
+import { addDataSource } from '../../actions/dataSource'
 import Footer from '../../components/footer/footer'
 // import Drawer from 'react-native-drawer'
 import ControlPanel from 'react-native-drawer'
+import getURL from '../../API/api';
+
 class Page extends Component {
 
   static propTypes = {
@@ -17,9 +20,22 @@ class Page extends Component {
 
   componentWillMount() {
     const navigator = this.props.navigator;
+    this._evaulateDataSection(this.props.data);
   }
 
-  getComponents() {
+  async _evaulateDataSection() {
+    _.each(this.props.data, (data) => {
+      console.log("PageWilLMount", this.props)
+
+      const {url, returnPath, binding} = data;
+      // _getAndAddURLDataSource(this.props.dispatch, url, returnPath, binding)
+      // getURL(url).then(response => console.log("Derp", response))
+      getURL(url).then((res) => { return this.props.dispatchAddDataSource(res, returnPath, binding)});
+      // console.log("Dater", data, returnPath, binding);
+    });
+  }
+
+  _getComponents() {
     let components = [];
     _.each(this.props.components, (component, index) => {
       components.push(<BaseComponent key={component.type + index} {...this.props} {...component}/>)
@@ -35,7 +51,7 @@ class Page extends Component {
           <ScrollView style={overridedStyles} containerStyleProps={{
           justifyContent: "center",
           alignItems: "center"}}>
-              {this.getComponents()}
+              {this._getComponents()}
           </ScrollView>
           {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
         </View>
@@ -45,8 +61,7 @@ class Page extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return {
-	}
+  return {}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -64,7 +79,10 @@ const mapDispatchToProps = (dispatch) => {
   		jump: (key) => {
   			dispatch(navigateJumpToKey(key))
   		}
-  	}
+  	},
+    dispatchAddDataSource: (response, returnPath, binding) => {
+      dispatch(addDataSource(response, returnPath, binding))
+    }
   }
 }
 
