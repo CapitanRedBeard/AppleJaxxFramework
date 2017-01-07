@@ -4,7 +4,7 @@ import { textColor } from '../../themes/base-theme'
 // import defaultStyles from './styles';
 import { Footer, FooterTab, Icon, Button } from 'native-base';
 import onButtonPress from '../button/buttonActions'
-
+import baseTheme from '../../themes/base-theme'
 
 export default class FooterComponent extends Component {
 
@@ -29,11 +29,11 @@ export default class FooterComponent extends Component {
   render() { // eslint-disable-line class-methods-use-this
     // const {style, text} = this.props;
     // const overrideStyles = [styles.text, style];
-    // console.log("tabs", this.props)
+    console.log("tabs", this.props)
     // {this._renderButtons(this.props.footer)}
 
     return (
-      <Footer key="Footer">
+      <Footer theme={baseTheme} key="Footer">
         <FooterTab {...styles.tab}>
           {this._renderButtons(this.props.footer.tabs)}
         </FooterTab>

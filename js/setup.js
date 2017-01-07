@@ -12,7 +12,7 @@ function setup():React.Component {
       super();
       this.state = {
         isLoading: false,
-        store: configureStore(() => this.setState({ isLoading: false })),
+        store: configureStore(() => this.setState({ isLoading: false, emmett: true })),
       };
     }
 

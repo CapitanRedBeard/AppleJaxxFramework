@@ -47,14 +47,14 @@ class Page extends Component {
     let overridedStyles = [styles.container, this.props.style];
     return (
       <Container>
-        <View style={{flex: 1}}>
-          <ScrollView style={overridedStyles} containerStyleProps={{
-          justifyContent: "center",
-          alignItems: "center"}}>
-              {this._getComponents()}
-          </ScrollView>
-          {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
-        </View>
+          <View style={{flex: 1}}>
+            <ScrollView style={overridedStyles} containerStyleProps={{
+            justifyContent: "center",
+            alignItems: "center"}}>
+                {this._getComponents()}
+            </ScrollView>
+            {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
+          </View>
       </Container>
     );
   }
@@ -90,9 +90,7 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: "#CCCCCC",
-    marginTop: 50,
-    borderColor: "red",
-    borderWidth: 2
+    marginTop: 50
   },
   content: {
     flex: 1,
