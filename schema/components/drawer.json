@@ -1,0 +1,89 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+      "content": {
+        "type": "object"
+      },
+      "attributes": {
+        "type": "object",
+        "properties": {
+          "acceptDoubleTap": {
+            "type": "boolean",
+            "default": false
+          },
+          "acceptPan": {
+            "type": "boolean",
+            "default": true
+          },
+          "acceptTap": {
+            "type": "boolean",
+            "default": false
+          },
+          "captureGestures": {
+            "type": "string",
+            "enum": ["true", "false", "open", "closed"],
+            "defualt": "open"
+          },
+          "closedDrawerOffset": {
+            "type": "integer",
+            "default": 0
+          },
+          "disabled": {
+            "type": "boolean",
+            "default": false
+          },
+          "elevation": {
+            "type": "integer",
+            "default": 0
+          },
+          "initializeOpen": {
+            "type": "boolean",
+            "default": false
+          },
+          "negotiatePan": {
+            "type": "boolean",
+            "default": false
+          },
+          "openDrawerOffset": {
+            "type": "integer",
+            "default": 100
+          },
+          "panThreshold": {
+            "type": "number",
+            "default": 0.25
+          },
+          "side": {
+            "type": "string",
+            "enum": ["left", "right"],
+            "defualt": "left"
+          },
+          "styles": {
+            "type": "object",
+            "defualt": {}
+          },
+          "tapToClose": {
+            "type": "boolean",
+            "default": false
+          },
+          "tweenDuration": {
+            "type": "integer",
+            "default": 250
+          },
+          "tweenEasing": {
+            "type": "string",
+            "defualt": "linear"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["overlay", "displace", "static"],
+            "defualt": "displace"
+          }
+        }
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "content"
+    ]
+}

@@ -15,13 +15,14 @@
         },
         "components": {
           "anyOf": [
-            { "$ref": "#/components/text" },
-            { "$ref": "#/components/button" },
-            { "$ref": "#/components/thumbnail" },
-            { "$ref": "#/components/list" },
+            { "$ref": "#/components/text.json" },
+            { "$ref": "#/components/button.json" },
+            { "$ref": "#/components/thumbnail.json" },
+            { "$ref": "#/components/list.json" },
           ]
         }
       },
+      "additionalProperties": false,
       "required": [
         "key",
         "components"

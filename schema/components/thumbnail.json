@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["thumbnail"]
+    },
+    "attributes": {
+      "type": "object",
+      "properties": {
+        "square": {
+          "type": "boolean",
+          "default": false
+        },
+        "source": {
+          "type": "string",
+          "default": ""
+        },
+        "size": {
+          "type": "integer",
+          "default": 30
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "source"
+      ]
+    },
+    "style": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "attributes"
+  ]
+}

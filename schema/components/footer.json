@@ -35,12 +35,12 @@
                 },
                 "type": {
                   "type": "string"
+                },
+                "index": {
+               	  "type": "integer"
                 }
               },
-              "required": [
-                "key",
-                "type"
-              ]
+              "additionalProperties": false
             }
           }
         }

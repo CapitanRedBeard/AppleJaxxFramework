@@ -2,141 +2,9 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
-    "pages": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string"
-          },
-          "layout": {
-            "type": "string"
-          },
-          "style": {
-            "type": "object",
-            "properties": {
-              "backgroundColor": {
-                "type": "string"
-              }
-            }
-          },
-          "components": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string"
-                },
-                "layout": {
-                  "type": "string"
-                },
-                "text": {
-                  "type": "string"
-                },
-                "eval": {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "type": "string"
-                    },
-                    "type": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                "attributes": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "style": {
-                  "type": "object",
-                  "properties": {}
-                }
-              },
-              "required": [
-                "type",
-                "layout",
-                "text",
-                "eval",
-                "attributes",
-                "style"
-              ]
-            }
-          }
-        },
-        "required": [
-          "key",
-          "layout",
-          "style",
-          "components"
-        ]
-      }
-    },
-    "footer": {
-      "type": "object",
-      "properties": {
-        "style": {
-          "type": "object",
-          "properties": {
-            "tabBarTextColor": {
-              "type": "string"
-            },
-            "tabBarActiveTextColor": {
-              "type": "string"
-            },
-            "tabActiveBgColor": {
-              "type": "string"
-            }
-          },
-          "required": []
-        },
-        "tabs": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "text": {
-                "type": "string"
-              },
-              "icon": {
-                "type": "string"
-              },
-              "eval": {
-                "type": "object",
-                "properties": {
-                  "key": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "key",
-                  "type"
-                ]
-              }
-            },
-            "required": [
-              "text",
-              "icon",
-              "eval"
-            ]
-          }
-        }
-      },
-      "required": [
-        "style",
-        "tabs"
-      ]
-    },
+    "drawer": { "$ref": "#/components/drawer.json" },
+    "pages": { "$ref": "#/components/pages.json" },
+    "footer": { "$ref": "#/components/footer.json" },
     "metaData": {
       "type": "object",
       "properties": {
@@ -147,6 +15,7 @@
       "required": []
     }
   },
+  "additionalProperties": false,
   "required": [
     "pages"
   ]
