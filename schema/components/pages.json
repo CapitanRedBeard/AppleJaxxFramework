@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "layout": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object"
+        },
+        "components": {
+          "anyOf": [
+            { "$ref": "#/components/text" },
+            { "$ref": "#/components/button" },
+            { "$ref": "#/components/thumbnail" },
+            { "$ref": "#/components/list" },
+          ]
+        }
+      },
+      "required": [
+        "key",
+        "components"
+      ]
+    }
+}

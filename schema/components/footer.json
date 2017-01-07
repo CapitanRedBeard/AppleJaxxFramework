@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+      "style": {
+        "type": "object",
+        "properties": {
+          "tabBarTextColor": {
+            "type": "string"
+          },
+          "tabBarActiveTextColor": {
+            "type": "string"
+          },
+          "tabActiveBgColor": {
+            "type": "string"
+          }
+        }
+      },
+      "tabs": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "icon": {
+              "type": "string"
+            },
+            "eval": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key",
+                "type"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "required": [
+      "style",
+      "tabs"
+    ]
+}

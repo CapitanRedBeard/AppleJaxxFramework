@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["button"]
+      },
+      "text": {
+        "type": "string"
+      },
+      "eval": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "attributes": {
+        "type": "array",
+        "items": {
+            "type": "string",
+            "enum": ["primary", "success", "info", "warning", "danger", "disabled", "bordered", "rounded", "small", "large", "transparent", "capitalize"]
+        }
+      },
+      "style": {
+        "type": "object",
+        "properties" : {
+          "button" : {
+            "type" : "object"
+          },
+          "buttonText" : {
+            "type" : "object"
+          }
+        },
+        "additionalProperties":false
+      }
+    },
+    "required": [
+      "type"
+    ]
+}

@@ -148,7 +148,6 @@
     }
   },
   "required": [
-    "pages",
-    "metaData"
+    "pages"
   ]
 }
