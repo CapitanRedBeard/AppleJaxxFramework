@@ -10,7 +10,7 @@ import createLogger from 'redux-logger'
 
 const loggerMiddleware = createLogger()
 
-export default function configureStore(onCompletion:()=>void, preloadedState = {}):any {
+export default function configureStore(onCompletion:()=>void):any {
   const enhancer = compose(
     applyMiddleware(thunk, promise),
     devTools({
@@ -18,7 +18,7 @@ export default function configureStore(onCompletion:()=>void, preloadedState = {
     }),
   );
 
-  const store = createStore(reducer, preloadedState, enhancer);
+  const store = createStore(reducer, enhancer);
   persistStore(store, { storage: AsyncStorage }, onCompletion);
 
   return store;

@@ -46,7 +46,7 @@ class Page extends Component {
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.props.style];
     return (
-      <Container>
+      <Container style={styles.container}>
           <View style={{flex: 1}}>
             <ScrollView style={overridedStyles} containerStyleProps={{
             justifyContent: "center",
@@ -90,7 +90,7 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: "#CCCCCC",
-    marginTop: 50
+    marginTop: 30
   },
   content: {
     flex: 1,
@@ -99,7 +99,8 @@ const styles = {
   drawer: {
     shadowColor: '#000000',
     shadowOpacity: 0.8,
-    shadowRadius: 3},
+    shadowRadius: 3
+  },
 }
 
 export default connect(

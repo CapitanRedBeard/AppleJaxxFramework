@@ -2,7 +2,10 @@ import color from 'color';
 
 import { Platform } from 'react-native';
 
-export default {
+import frame from '../frame.json'
+import _ from 'underscore'
+
+const defaultThemes = {
 
     // Badge
   badgeBg: '#ED1727',
@@ -103,8 +106,9 @@ export default {
 
 
   // Footer
+  footerBtnMargin: 0,
   footerHeight: 55,
-  footerDefaultBg: (Platform.OS === 'ios') ? '#F8F8F8' : '#4179F7',
+  footerDefaultBg: (Platform.OS === 'ios') ? '#333333' : '#4179F7',
 
 
   // FooterTab
@@ -224,3 +228,5 @@ export default {
   jumbotronBg: '#C9C9CE',
   jumbotronPadding: 30,
 };
+
+export default _.defaults(frame.theme, defaultThemes)

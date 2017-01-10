@@ -29,7 +29,7 @@ export default class FooterComponent extends Component {
   render() { // eslint-disable-line class-methods-use-this
     // const {style, text} = this.props;
     // const overrideStyles = [styles.text, style];
-    console.log("tabs", this.props)
+    // console.log("tabs", this.props)
     // {this._renderButtons(this.props.footer)}
 
     return (

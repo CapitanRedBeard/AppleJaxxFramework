@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ListView} from 'react-native';
 import { Spinner } from 'native-base'
-import { textColor } from '../../themes/base-theme'
+import baseTheme from '../../themes/base-theme'
 import SectionHeader from './sectionHeader';
 import demoData from '../../../dataSources/demoDataSource';
 import Row from './row';
@@ -53,7 +53,7 @@ export default class ListComponent extends Component {
   render() {
     console.log("List Rendered")
     return (this.state.loading ?
-      <Spinner color="red"/> :
+      <Spinner theme={baseTheme}/> :
       <ListView
         style={styles.container}
         dataSource={this.state.dataSource}

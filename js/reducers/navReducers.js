@@ -1,12 +1,39 @@
 import { combineReducers } from 'redux'
 import * as NavigationStateUtils from 'NavigationStateUtils'
-import demoFrame from '../../frames/demoFrame.json';
-import {getFrameState, checkAndGetExistingRoute} from '../util/frameUtils.js';
+import demoFrame from '../frame.json';
 
 import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from '../actions/navActions'
 import _ from 'underscore';
 
-function navigationState(state = getFrameState(demoFrame), action) {
+let initialState = {
+  key: 'global',
+  index: 0,
+  routes: []
+};
+
+function extractNavigationStateFromFrame(frame) {
+  this.routes = [];
+  initialState.routes = frame.pages ?
+  _.each(frame.pages, (page, index) => {
+    this.routes.push( {index: index, ...page})
+  }) : initialState.routes;
+  if(frame.footer) initialState.footer = frame.footer;
+  if(frame.drawer) initialState.drawer = frame.drawer;
+
+  return initialState;
+}
+
+// Checks if the key in the routes array matches a certain key.
+// if so returns the route, else returns false
+function checkAndGetExistingRoute(routes, key) {
+  let exists = false;
+  _.each(routes, (route) => {
+    if(route.key == key) exists = route;
+  });
+  return exists;
+}
+
+function navigationState(state = extractNavigationStateFromFrame(demoFrame), action) {
   switch (action.type) {
     // case NAV_JUMP_TO_KEY:
     case NAV_PUSH:
@@ -18,7 +45,7 @@ function navigationState(state = getFrameState(demoFrame), action) {
         return state
       }
       else {
-        const route = checkAndGetExistingRoute(getFrameState(demoFrame).routes, action.key);
+        const route = checkAndGetExistingRoute(extractNavigationStateFromFrame(demoFrame).routes, action.key);
 
         return NavigationStateUtils.push(state, route)
       }
@@ -38,7 +65,7 @@ function navigationState(state = getFrameState(demoFrame), action) {
   		return {
   			...state,
   			index: action.index,
-  			routes: getFrameState(demoFrame).routes
+  			routes: extractNavigationStateFromFrame(demoFrame).routes
   		}
 
   	default:
