@@ -1,0 +1,383 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "type": "object",
+  "id": "http://jsonschema.net/theme",
+  "additionalProperties": false,
+  "properties": {
+    "badgeBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/badgeBg",
+      "required": false
+    },
+    "badgeColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/badgeColor",
+      "required": false
+    },
+    "borderRadiusBase": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/borderRadiusBase",
+      "required": false
+    },
+    "borderWidth": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/borderWidth",
+      "required": false
+    },
+    "brandDanger": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/brandDanger",
+      "required": false
+    },
+    "brandInfo": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/brandInfo",
+      "required": false
+    },
+    "brandPrimary": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/brandPrimary",
+      "required": false
+    },
+    "brandSidebar": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/brandSidebar",
+      "required": false
+    },
+    "brandSuccess": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/brandSuccess",
+      "required": false
+    },
+    "brandWarning": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/brandWarning",
+      "required": false
+    },
+    "btnDisabledBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/btnDisabledBg",
+      "required": false
+    },
+    "btnDisabledClr": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/btnDisabledClr",
+      "required": false
+    },
+    "btnFontFamily": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/btnFontFamily",
+      "required": false
+    },
+    "btnLineHeight": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/btnLineHeight",
+      "required": false
+    },
+    "buttonPadding": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/buttonPadding",
+      "required": false
+    },
+    "cardDefaultBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/cardDefaultBg",
+      "required": false
+    },
+    "checkboxBgColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/checkboxBgColor",
+      "required": false
+    },
+    "checkboxSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/checkboxSize",
+      "required": false
+    },
+    "checkboxTickColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/checkboxTickColor",
+      "required": false
+    },
+    "contentPadding": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/contentPadding",
+      "required": false
+    },
+    "defaultProgressColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/defaultProgressColor",
+      "required": false
+    },
+    "defaultSpinnerColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/defaultSpinnerColor",
+      "required": false
+    },
+    "dropdownBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/dropdownBg",
+      "required": false
+    },
+    "dropdownLinkColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/dropdownLinkColor",
+      "required": false
+    },
+    "fontFamily": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/fontFamily",
+      "required": false
+    },
+    "fontSizeBase": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/fontSizeBase",
+      "required": false
+    },
+    "footerBtnMargin": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/footerBtnMargin",
+      "required": false
+    },
+    "footerDefaultBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/footerDefaultBg",
+      "required": false
+    },
+    "footerHeight": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/footerHeight",
+      "required": false
+    },
+    "iconFamily": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/iconFamily",
+      "required": false
+    },
+    "iconFontSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/iconFontSize",
+      "required": false
+    },
+    "iconLineHeight": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/iconLineHeight",
+      "required": false
+    },
+    "iconMargin": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/iconMargin",
+      "required": false
+    },
+    "inputBorderColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/inputBorderColor",
+      "required": false
+    },
+    "inputErrorBorderColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/inputErrorBorderColor",
+      "required": false
+    },
+    "inputFontSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/inputFontSize",
+      "required": false
+    },
+    "inputGroupMarginBottom": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/inputGroupMarginBottom",
+      "required": false
+    },
+    "inputHeightBase": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/inputHeightBase",
+      "required": false
+    },
+    "inputLineHeight": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/inputLineHeight",
+      "required": false
+    },
+    "inputPaddingLeft": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/inputPaddingLeft",
+      "required": false
+    },
+    "inputSuccessBorderColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/inputSuccessBorderColor",
+      "required": false
+    },
+    "inverseProgressColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/inverseProgressColor",
+      "required": false
+    },
+    "inverseSpinnerColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/inverseSpinnerColor",
+      "required": false
+    },
+    "inverseTextColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/inverseTextColor",
+      "required": false
+    },
+    "iosToolbarBtnColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/iosToolbarBtnColor",
+      "required": false
+    },
+    "jumbotronBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/jumbotronBg",
+      "required": false
+    },
+    "jumbotronPadding": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/jumbotronPadding",
+      "required": false
+    },
+    "lineHeightH1": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/lineHeightH1",
+      "required": false
+    },
+    "lineHeightH2": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/lineHeightH2",
+      "required": false
+    },
+    "lineHeightH3": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/lineHeightH3",
+      "required": false
+    },
+    "lineHeight": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/lineHeight",
+      "required": false
+    },
+    "listBorderColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/listBorderColor",
+      "required": false
+    },
+    "listDividerBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/listDividerBg",
+      "required": false
+    },
+    "listItemHeight": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/listItemHeight",
+      "required": false
+    },
+    "listItemPadding": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/listItemPadding",
+      "required": false
+    },
+    "listNoteColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/listNoteColor",
+      "required": false
+    },
+    "listNoteSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/listNoteSize",
+      "required": false
+    },
+    "radioBtnSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/radioBtnSize",
+      "required": false
+    },
+    "radioColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/radioColor",
+      "required": false
+    },
+    "subTitleFontSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/subTitleFontSize",
+      "required": false
+    },
+    "subtitleColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/subtitleColor",
+      "required": false
+    },
+    "tabActiveBgColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/tabActiveBgColor",
+      "required": false
+    },
+    "tabBarActiveTextColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/tabBarActiveTextColor",
+      "required": false
+    },
+    "tabBarTextColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/tabBarTextColor",
+      "required": false
+    },
+    "tabBgColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/tabBgColor",
+      "required": false
+    },
+    "tabFontSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/tabFontSize",
+      "required": false
+    },
+    "tabTextColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/tabTextColor",
+      "required": false
+    },
+    "textColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/textColor",
+      "required": false
+    },
+    "titleFontSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/titleFontSize",
+      "required": false
+    },
+    "toolbarDefaultBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/toolbarDefaultBg",
+      "required": false
+    },
+    "toolbarHeight": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/toolbarHeight",
+      "required": false
+    },
+    "toolbarIconSize": {
+      "type": "integer",
+      "id": "http://jsonschema.net/theme/toolbarIconSize",
+      "required": false
+    },
+    "toolbarInputColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/toolbarInputColor",
+      "required": false
+    },
+    "toolbarInverseBg": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/toolbarInverseBg",
+      "required": false
+    },
+    "toolbarTextColor": {
+      "type": "string",
+      "id": "http://jsonschema.net/theme/toolbarTextColor",
+      "required": false
+    }
+  }
+}

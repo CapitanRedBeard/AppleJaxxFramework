@@ -5,6 +5,7 @@
     "drawer": { "$ref": "#/components/drawer.json" },
     "pages": { "$ref": "#/components/pages.json" },
     "footer": { "$ref": "#/components/footer.json" },
+    "theme": { "$ref": "#/components/theme.json" },
     "metaData": {
       "type": "object",
       "properties": {
