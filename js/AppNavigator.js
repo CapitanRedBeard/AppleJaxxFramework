@@ -38,9 +38,6 @@ class AppNavigator extends React.Component {
   };
 
 	render() {
-    // console.log("props", this.props);
-    console.log("props", this.props)
-
 		return (
 			// Redux is handling the reduction of our state for us. We grab the navigationState
 			// we have in our Redux store and pass it directly to the <NavigationCardStack />.
@@ -130,7 +127,6 @@ class AppNavigator extends React.Component {
 
   getNavigationCardStack() {
     let { navigationState, backAction } = this.props
-    console.log("AN1", this.props)
 
     return <NavigationCardStack
       configureTransition
@@ -155,7 +151,6 @@ class AppNavigator extends React.Component {
 
 	_renderScene({scene}, footer) {
 		const { route } = scene
-    console.log("AN2", {scene})
     return <Page key={route.key} {...route} footer={footer}/>;
 	}
 }

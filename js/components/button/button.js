@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button } from 'native-base';
 import { textColor } from '../../themes/base-theme'
 import onButtonPress from './buttonActions'
+import baseTheme from '../../themes/base-theme'
+
 import {
   View
 } from "react-native";
@@ -47,7 +49,7 @@ export default class ButtonComponent extends Component {
 
     let componentAttributes = _.size(attributes) ? attributes : componentStyles;
 
-    return <Button {...componentAttributes} {...componentStyles} onPress={
+    return <Button theme={baseTheme} {...componentAttributes} {...componentStyles} onPress={
               () => onButtonPress(this.props.eval, this.props.navigation)
             }>
               {text}

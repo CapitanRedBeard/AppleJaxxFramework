@@ -4,7 +4,7 @@ import { textColor } from '../../themes/base-theme'
 // import defaultStyles from './styles';
 import { Footer, FooterTab, Icon, Button } from 'native-base';
 import onButtonPress from '../button/buttonActions'
-
+import baseTheme from '../../themes/base-theme'
 
 export default class FooterComponent extends Component {
 
@@ -33,7 +33,7 @@ export default class FooterComponent extends Component {
     // {this._renderButtons(this.props.footer)}
 
     return (
-      <Footer key="Footer">
+      <Footer theme={baseTheme} key="Footer">
         <FooterTab {...styles.tab}>
           {this._renderButtons(this.props.footer.tabs)}
         </FooterTab>

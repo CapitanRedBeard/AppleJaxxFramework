@@ -46,15 +46,15 @@ class Page extends Component {
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.props.style];
     return (
-      <Container>
-        <View style={{flex: 1}}>
-          <ScrollView style={overridedStyles} containerStyleProps={{
-          justifyContent: "center",
-          alignItems: "center"}}>
-              {this._getComponents()}
-          </ScrollView>
-          {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
-        </View>
+      <Container style={styles.container}>
+          <View style={{flex: 1}}>
+            <ScrollView style={overridedStyles} containerStyleProps={{
+            justifyContent: "center",
+            alignItems: "center"}}>
+                {this._getComponents()}
+            </ScrollView>
+            {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
+          </View>
       </Container>
     );
   }
@@ -90,9 +90,7 @@ const styles = {
   container: {
     flex: 1,
     backgroundColor: "#CCCCCC",
-    marginTop: 50,
-    borderColor: "red",
-    borderWidth: 2
+    marginTop: 30
   },
   content: {
     flex: 1,
@@ -101,7 +99,8 @@ const styles = {
   drawer: {
     shadowColor: '#000000',
     shadowOpacity: 0.8,
-    shadowRadius: 3},
+    shadowRadius: 3
+  },
 }
 
 export default connect(

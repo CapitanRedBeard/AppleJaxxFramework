@@ -4,6 +4,7 @@ import Text from './text/text';
 import Thumbnail from './thumbnail/thumbnail';
 import List from './list/list';
 import { View } from 'react-native';
+import baseTheme from '../themes/base-theme'
 
 const components = {
   "button": Button,
@@ -23,7 +24,7 @@ export default class BaseComponent extends Component {
     let Instance = components[this.props.type];
     return (
           <View style={styles.instanceWrapper}>
-              <Instance {...this.props}/>
+              <Instance theme={baseTheme} {...this.props}/>
           </View>
     );
   }

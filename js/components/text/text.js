@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text } from 'native-base';
 import { textColor } from '../../themes/base-theme'
 // import defaultStyles from './styles';
+import baseTheme from '../../themes/base-theme'
 
 export default class TextComponent extends Component {
 
@@ -14,7 +15,7 @@ export default class TextComponent extends Component {
     const overrideStyles = [styles.text, style];
 
     const textValue = dataVal ? dataVal : text;
-    return <Text style={overrideStyles}>{textValue}</Text>;
+    return <Text theme={baseTheme} style={overrideStyles}>{textValue}</Text>;
   }
 }
 

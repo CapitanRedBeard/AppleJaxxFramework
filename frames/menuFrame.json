@@ -5,8 +5,8 @@
     },
     "attributes": {
       "type": "displace",
-      "openDrawerOffset":100,
-      "closedDrawerOffset":0,
+      "openDrawerOffset": 100,
+      "closedDrawerOffset": 0,
       "panOpenMask": 0.1,
       "panCloseMask": 0.9,
       "relativeDrag": false,

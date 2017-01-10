@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Thumbnail } from 'native-base';
 import { textColor } from '../../themes/base-theme'
+import baseTheme from '../../themes/base-theme'
 
 // import defaultStyles from './styles';
 
@@ -30,7 +31,7 @@ export default class ThumbnailComponent extends Component {
 
     const componentStyles = [styles.thumbanail, style];
     const componentAttributes = Object.assign(DEFAULT_ATTRIBUTES, attributes)
-    return <Thumbnail {...componentAttributes} style={componentStyles}/>;
+    return <Thumbnail theme={baseTheme} {...componentAttributes} style={componentStyles}/>;
   }
 }
 
