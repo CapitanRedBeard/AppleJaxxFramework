@@ -10,7 +10,7 @@ import { addDataSource } from '../../actions/dataSource'
 import Footer from '../../components/footer/footer'
 // import Drawer from 'react-native-drawer'
 import ControlPanel from 'react-native-drawer'
-import getURL from '../../API/api';
+import getURL from '../../util/api';
 
 class Page extends Component {
 
@@ -45,6 +45,7 @@ class Page extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.props.style];
+    console.log("Page")
     return (
       <Container style={styles.container}>
           <View style={{flex: 1}}>
@@ -89,8 +90,7 @@ const mapDispatchToProps = (dispatch) => {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#CCCCCC",
-    marginTop: 30
+    backgroundColor: "#CCCCCC"
   },
   content: {
     flex: 1,

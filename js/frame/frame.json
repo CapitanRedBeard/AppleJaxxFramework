@@ -2,7 +2,15 @@
   "pages": [
     {
       "key": "page1",
+      "title": "Page One",
       "layout": "2:2",
+      "navigatorStyle": {
+        	"navBarTranslucent": true,
+        	"drawUnderNavBar": true,
+        	"navBarTextColor": "white",
+        	"navBarButtonColor": "blue",
+        	"statusBarTextColorScheme": "light"
+      },
       "style": {
         "backgroundColor": "#dddddd"
       },
@@ -63,6 +71,7 @@
     },
     {
       "key": "page2",
+      "title": "Page Two",
       "layout": "2:2",
       "style": {
         "backgroundColor": "#dddddd"
@@ -191,28 +200,19 @@
     },
     "tabs": [
       {
-        "text": "Analytics",
+        "label": "Analytics",
         "icon": "ios-analytics-outline",
-        "eval": {
-          "key": "page1",
-          "type": "jump"
-        }
+        "screen": "page1",
       },
       {
-        "text": "History",
+        "label": "History",
         "icon": "ios-bookmarks-outline",
-        "eval": {
-          "key": "page2",
-          "type": "jump"
-        }
+        "screen": "page2",
       },
       {
-        "text": "Performance",
+        "label": "Performance",
         "icon": "ios-speedometer-outline",
-        "eval": {
-          "key": "page3",
-          "type": "jump"
-        }
+        "screen": "page3"
       }
     ]
   },

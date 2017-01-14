@@ -5,12 +5,13 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { persistStore } from 'redux-persist';
 import reducer from './reducers';
-import promise from './promise';
+import promise from './util/promise';
 import createLogger from 'redux-logger'
 
 const loggerMiddleware = createLogger()
 
-export default function configureStore(onCompletion:()=>void):any {
+export default function configureStore():any {
+  console.log("configureStore");
   const enhancer = compose(
     applyMiddleware(thunk, promise),
     devTools({
@@ -19,25 +20,7 @@ export default function configureStore(onCompletion:()=>void):any {
   );
 
   const store = createStore(reducer, enhancer);
-  persistStore(store, { storage: AsyncStorage }, onCompletion);
+  persistStore(store, { storage: AsyncStorage });
 
   return store;
 }
-//
-// import { createStore, applyMiddleware } from 'redux'
-// import thunkMiddleware from 'redux-thunk'
-// import createLogger from 'redux-logger'
-// import rootReducer from './reducers'
-//
-// const loggerMiddleware = createLogger()
-//
-// export default function configureStore(preloadedState) {
-//   return createStore(
-//     rootReducer,
-//     preloadedState,
-//     applyMiddleware(
-//       thunkMiddleware,
-//       loggerMiddleware
-//     )
-//   )
-// }

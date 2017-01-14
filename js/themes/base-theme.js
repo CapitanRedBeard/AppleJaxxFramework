@@ -2,7 +2,7 @@ import color from 'color';
 
 import { Platform } from 'react-native';
 
-import frame from '../frame.json'
+import frame from '../frame/frame.json'
 import _ from 'underscore'
 
 const defaultThemes = {

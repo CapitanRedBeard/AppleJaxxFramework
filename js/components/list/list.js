@@ -5,7 +5,7 @@ import baseTheme from '../../themes/base-theme'
 import SectionHeader from './sectionHeader';
 import demoData from '../../../dataSources/demoDataSource';
 import Row from './row';
-import API from '../../API/api';
+import API from '../../util/api';
 import {
   View,
   AlertIOS,
