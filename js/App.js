@@ -37,9 +37,14 @@ populateIconsFromTabs(getValue(frame, "footer.tabs")).then((icons) => {
 //            right: {
 //                screen: {SCREEN}
 //            },
-//            animationType: "slide",
+//            animationType: ["slide", "door", "parallax", "slide-and-scale"],
 //            type: "MMDrawer",
-//            style: {},
+//            style: {
+//                 "leftDrawerWidth": 50, //percents
+//                 "rightDrawerWidth": 50, //percents
+//                 "contentOverlayColor": "#BBB", //color
+//                 "drawerShadow": false
+//            },
 //            disableOpenGesture: ?
 //         },
 // subtitle: '',
@@ -64,6 +69,8 @@ function startApp(frame, icons) {
   const keys = _.map(frame.pages, page => page.key);
   const footerTabs = getValue(frame, "footer.tabs")
 
+  const drawer = getValue(frame, "drawer")
+
   if(footerTabs) {
     let tabs = [];
     _.each(footerTabs, (tab) => {
@@ -76,12 +83,12 @@ function startApp(frame, icons) {
       };
       tabs.push(node);
     });
-    Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style")});
+    Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style"), drawer: drawer});
   }else {
     let screen = {
       title: titles[0],
       screen: frame.pages[0].key
     }
-    Navigation.startSingleScreenApp({screen});
+    Navigation.startSingleScreenApp({screen, drawer: drawer});
   }
 }

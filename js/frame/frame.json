@@ -1,4 +1,20 @@
 {
+  "drawer": {
+     "left": {
+         "screen": "page1"
+     },
+     "right": {
+         "screen": "page3"
+     },
+     "animationType": "door",
+     "style": {
+       "leftDrawerWidth": 50,
+       "rightDrawerWidth": 50,
+       "contentOverlayColor": "#BBB",
+       "drawerShadow": true
+     },
+     "disableOpenGesture": "false"
+  },
   "pages": [
     {
       "key": "page1",
