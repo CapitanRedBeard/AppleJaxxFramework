@@ -11,6 +11,7 @@ import Footer from '../../components/footer/footer'
 // import Drawer from 'react-native-drawer'
 import ControlPanel from 'react-native-drawer'
 import getURL from '../../util/api';
+import getValue from '../../util/getValue';
 
 class Page extends Component {
 
@@ -21,6 +22,37 @@ class Page extends Component {
   componentWillMount() {
     const navigator = this.props.navigator;
     this._evaulateDataSection(this.props.data);
+    this._setNavButtons(this.props);
+  }
+
+
+  _setNavButtons(props) {
+    let { navigator, icons, navigatorButtons }  = props
+    console.log("this.props", props)
+
+    if(navigatorButtons && ( navigatorButtons.leftButtons || navigatorButtons.leftButtons)) {
+      const leftButtons = []
+      const rightButtons = []
+
+      const animated = getValue(props, "navigatorButtons.animated")
+
+      function swapOutIcon(button, list) {
+        let newButton = {};
+        if(button.icon) newButton.icon = icons[button.icon];
+        list.push(_.defaults(newButton, button));
+      }
+
+      _.each(navigatorButtons.leftButtons, (button) => swapOutIcon(button, leftButtons));
+      _.each(navigatorButtons.rightButtons, (button) => swapOutIcon(button, rightButtons));
+      console.log("leftButtons", leftButtons)
+      navigator.setButtons({
+        leftButtons: leftButtons,
+        rightButtons: rightButtons,
+        animated: animated
+      });
+    }
+
+
   }
 
   async _evaulateDataSection() {
@@ -62,7 +94,10 @@ class Page extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    frame: state.frameReducers,
+    icons: state.iconsReducers.icons
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

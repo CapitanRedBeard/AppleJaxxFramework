@@ -12,8 +12,7 @@
        "rightDrawerWidth": 50,
        "contentOverlayColor": "#333333",
        "drawerShadow": false
-     },
-     "disableOpenGesture": "false"
+     }
   },
   "pages": [
     {
@@ -25,8 +24,30 @@
         	"navBarTranslucent": true,
         	"drawUnderNavBar": false,
         	"navBarTextColor": "white",
-        	"navBarButtonColor": "blue",
+        	"navBarButtonColor": "white",
         	"statusBarTextColorScheme": "light"
+      },
+      "navigatorButtons": {
+        "rightButtons": [
+          {
+            "title": "Edit",
+            "id": "edit",
+            "disabled": true,
+            "disableIconTint": true,
+            "showAsAction": "ifRoom"
+          },
+          {
+            "icon": "ios-ionic",
+            "id": "add"
+          }
+        ],
+        "leftButtons": [
+          {
+            "icon": "ios-menu",
+            "id": "menu"
+          }
+        ],
+        "animated": true
       },
       "style": {
         "backgroundColor": "#dddddd"
@@ -90,6 +111,7 @@
       "key": "page2",
       "title": "Page Two",
       "layout": "2:2",
+      "disableOpenGesture": "true",
       "style": {
         "backgroundColor": "#dddddd"
       },

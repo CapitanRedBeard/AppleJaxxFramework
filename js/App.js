@@ -2,16 +2,19 @@ import React, {Component} from 'react'
 import { Provider } from 'react-redux'
 
 import { registerScreens } from './util/registerScreens';
-import { populateIconsFromTabs } from './util/frameParsing';
+import { resolveIconsFromFrame } from './util/resolveIconsFromFrame';
 import configureStore from './configureStore';
 import { Navigation } from 'react-native-navigation';
 import frame from './frame/frame.json';
 import getValue from './util/getValue';
-
+import { addIconSources } from './actions/icons'
+import { updateFrame } from './actions/frameActions'
 let store = configureStore();
 registerScreens(store, Provider, frame);
 
-populateIconsFromTabs(getValue(frame, "footer.tabs")).then((icons) => {
+store.dispatch(updateFrame(frame));
+
+resolveIconsFromFrame(frame).then((icons) => {
   startApp(frame, icons);
 }).catch((error) => {
   console.error("Couldn't load all icons", error);
@@ -76,6 +79,8 @@ populateIconsFromTabs(getValue(frame, "footer.tabs")).then((icons) => {
 
 function startApp(frame, icons) {
   //map titles & styles to keys
+  store.dispatch(addIconSources(icons));
+
   let pages = {};
   _.each(frame.pages, (page) => {
     pages[page.key] = page;
@@ -87,7 +92,8 @@ function startApp(frame, icons) {
   let drawer = getValue(frame, "drawer")
   drawer.left.passProps = pages[drawer.left.screen];
   drawer.right.passProps = pages[drawer.right.screen];
-  console.log("#####DRAER", drawer)
+
+  console.log("#####DRAER", drawer, icons)
   if(footerTabs) {
     let tabs = [];
     _.each(footerTabs, (tab) => {

@@ -1,15 +1,20 @@
-// import { combineReducers } from 'redux'
-//
-// import _ from 'underscore';
-// import frame from '../../frames/demoFrame'
-//
-// function frameState(state = frame, action) {
-//   switch (action.type) {
-//   	default:
-//   		return state
-// 	}
-// }
-//
-// export default combineReducers({
-// 	frameState
-// })
+import { combineReducers } from 'redux'
+import { UPDATE_FRAME } from '../actions/frameActions'
+
+import _ from 'underscore';
+
+function frameState(state = {}, action) {
+
+  switch (action.type) {
+    case UPDATE_FRAME:
+      state = action.frame
+      return state
+
+  	default:
+  		return state
+	}
+}
+
+export default combineReducers({
+	frameState
+})
