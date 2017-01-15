@@ -1,17 +1,17 @@
 {
   "drawer": {
      "left": {
-         "screen": "page1"
+         "screen": "drawer"
      },
      "right": {
-         "screen": "page3"
+         "screen": "drawer"
      },
-     "animationType": "door",
+     "animationType": "slide-and-scale",
      "style": {
        "leftDrawerWidth": 50,
        "rightDrawerWidth": 50,
-       "contentOverlayColor": "#BBB",
-       "drawerShadow": true
+       "contentOverlayColor": "#333333",
+       "drawerShadow": false
      },
      "disableOpenGesture": "false"
   },
@@ -19,10 +19,11 @@
     {
       "key": "page1",
       "title": "Page One",
+      "subtitle": "numero uno",
       "layout": "2:2",
       "navigatorStyle": {
         	"navBarTranslucent": true,
-        	"drawUnderNavBar": true,
+        	"drawUnderNavBar": false,
         	"navBarTextColor": "white",
         	"navBarButtonColor": "blue",
         	"statusBarTextColorScheme": "light"
@@ -198,6 +199,39 @@
           "eval": {
             "key": "page1",
             "type": "jump"
+          },
+          "attributes": [
+            "success",
+            "block"
+          ],
+          "style": {}
+        }
+      ]
+    },
+    {
+      "key": "drawer",
+      "layout": "2:2",
+      "style": {
+        "backgroundColor": "#333"
+      },
+      "components": [
+        {
+          "layout": "1:2",
+          "type": "text",
+          "style": {
+            "fontSize": 24,
+            "fontFamily": "Helvetica Neue",
+            "color": "#333333"
+          },
+          "text": "Drawer"
+        },
+        {
+          "type": "button",
+          "layout": "1:2",
+          "text": "Drawer",
+          "eval": {
+            "key": "page1",
+            "type": "push"
           },
           "attributes": [
             "success",

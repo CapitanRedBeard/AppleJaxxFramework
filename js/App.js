@@ -17,6 +17,23 @@ populateIconsFromTabs(getValue(frame, "footer.tabs")).then((icons) => {
   console.error("Couldn't load all icons", error);
 });
 
+//******** DRAWER TYPE ***********
+// drawer: {
+//     type: "MMDrawer",
+//     animationType: 'door',
+//     animationType: 'parallax',  // I like this one
+//     animationType: 'slide',  // Default
+//     animationType: 'slide-and-scale',
+//     type: "TheSideBar",
+//     animationType: 'airbnb',
+//     animationType: 'facebook',
+//     animationType: 'luvocracy',
+//     animationType: 'wunder-list',  // A more subtle parallax
+//     left: {
+//       screen: 'example.SideMenu',
+//     }
+//   }
+
 // ******* SCREEN ****************
 // label: 'Two',
 // screen: 'example.SecondTabScreen',
@@ -59,30 +76,34 @@ populateIconsFromTabs(getValue(frame, "footer.tabs")).then((icons) => {
 
 function startApp(frame, icons) {
   //map titles & styles to keys
-  let titles = {};
-  let navigatorStyles = {};
+  let pages = {};
   _.each(frame.pages, (page) => {
-    navigatorStyles[page.key] = page.navigatorStyle;
-    titles[page.key] = page.title ? page.title : ''
+    pages[page.key] = page;
   });
 
   const keys = _.map(frame.pages, page => page.key);
   const footerTabs = getValue(frame, "footer.tabs")
 
-  const drawer = getValue(frame, "drawer")
-
+  let drawer = getValue(frame, "drawer")
+  drawer.left.passProps = pages[drawer.left.screen];
+  drawer.right.passProps = pages[drawer.right.screen];
+  console.log("#####DRAER", drawer)
   if(footerTabs) {
     let tabs = [];
     _.each(footerTabs, (tab) => {
+      const page = pages[tab.screen];
       let node = {
         label: tab.label,
         screen: tab.screen,
         icon: icons[tab.icon],
-        title: titles[tab.screen],
-        navigatorStyle: navigatorStyles[tab.screen]
+        title: page.title,
+        subtitle: page.subtitle,
+        navigatorStyle: page.navigatorStyle,
+        passProps: page
       };
       tabs.push(node);
     });
+    console.log("#####DRAER", drawer)
     Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style"), drawer: drawer});
   }else {
     let screen = {
