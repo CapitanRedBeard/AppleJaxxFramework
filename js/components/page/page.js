@@ -7,40 +7,21 @@ import _ from 'underscore'
 import {Container, Content} from 'native-base';
 import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'
 import { addDataSource } from '../../actions/dataSource'
-import Footer from '../../components/footer/footer'
-// import Drawer from 'react-native-drawer'
-import ControlPanel from 'react-native-drawer'
+import { handleNavEval } from '../../util/handleScreenEval'
 import getURL from '../../util/api';
 import getValue from '../../util/getValue';
 
 class Page extends Component {
 
   static propTypes = {
-    // navigator: React.PropTypes.shape({}),
-  }
-
-  constructor(props) {
-    super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  //onPress handler for Nav buttons
-  onNavigatorEvent(event) {
-    if (event.type == 'NavBarButtonPress') {
-      if(this.navButtonEvents[event.id]) {
-        let { eventType, params} = this.navButtonEvents[event.id];
-        if(eventType == 'toggleDrawer') {
-          this.props.navigator.toggleDrawer(params);
-        }
-
-      }
-    }
+    navigator: React.PropTypes.shape({}),
   }
 
   componentWillMount() {
     const navigator = this.props.navigator;
     this._evaulateDataSection(this.props.data);
     this._setNavButtons(this.props);
+    this.props.navigator.setOnNavigatorEvent((event) => handleNavEval(event, navigator, this.navButtonEvents));
   }
 
 
@@ -109,7 +90,6 @@ class Page extends Component {
             alignItems: "center"}}>
                 {this._getComponents()}
             </ScrollView>
-            {this.props.footer && <Footer footer={this.props.footer} navigation={this.props.navigation} />}
           </View>
       </Container>
     );
@@ -125,20 +105,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    navigation: {
-  		pop: (key) => {
-    		dispatch(navigatePop())
-      },
-  		push: (key) => {
-  			dispatch(navigatePush(key))
-  		},
-  		reset: (index) => {
-    		dispatch(navigateReset(index))
-      },
-  		jump: (key) => {
-  			dispatch(navigateJumpToKey(key))
-  		}
-  	},
     dispatchAddDataSource: (response, returnPath, binding) => {
       dispatch(addDataSource(response, returnPath, binding))
     }
@@ -153,12 +119,7 @@ const styles = {
   content: {
     flex: 1,
     justifyContent: "flex-end"
-  },
-  drawer: {
-    shadowColor: '#000000',
-    shadowOpacity: 0.8,
-    shadowRadius: 3
-  },
+  }
 }
 
 export default connect(

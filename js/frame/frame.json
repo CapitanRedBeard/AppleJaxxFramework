@@ -81,9 +81,9 @@
           "type": "button",
           "layout": "1:2",
           "text": "push page2",
-          "eval": {
-            "key": "page2",
-            "type": "push"
+          "event": {
+            "params": "page2",
+            "eventType": "push"
           },
           "attributes": [
             "success",

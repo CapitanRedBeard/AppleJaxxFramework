@@ -118,4 +118,8 @@ function startApp(frame, icons) {
     }
     Navigation.startSingleScreenApp({screen, drawer: drawer});
   }
+
+
+
+  console.log("What is even in here? ", store, store.getState());
 }
