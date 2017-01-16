@@ -1,4 +1,4 @@
-import getURL from '../API/api';
+import getURL from '../util/api';
 
 
 // *** Action Types ***

@@ -1,8 +1,68 @@
 {
+  "drawer": {
+     "left": {
+         "screen": "drawer"
+     },
+     "right": {
+         "screen": "drawer"
+     },
+     "animationType": "slide",
+     "style": {
+       "leftDrawerWidth": 50,
+       "rightDrawerWidth": 50,
+       "contentOverlayColor": "#333333",
+       "drawerShadow": false
+     }
+  },
   "pages": [
     {
       "key": "page1",
+      "title": "Page One",
+      "subtitle": "numero uno",
       "layout": "2:2",
+      "navigatorStyle": {
+        	"navBarTranslucent": true,
+        	"drawUnderNavBar": false,
+        	"navBarTextColor": "white",
+        	"navBarButtonColor": "white",
+        	"statusBarTextColorScheme": "light"
+      },
+      "navigatorButtons": {
+        "rightButtons": [
+          {
+            "title": "Edit",
+            "id": "edit",
+            "disabled": true,
+            "disableIconTint": true,
+            "showAsAction": "ifRoom",
+          },
+          {
+            "icon": "ios-ionic",
+            "id": "menu2",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "right",
+                "animated": true,
+              }
+            }
+          }
+        ],
+        "leftButtons": [
+          {
+            "icon": "ios-menu",
+            "id": "menu",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "left",
+                "animated": true,
+              }
+            }
+          }
+        ],
+        "animated": true
+      },
       "style": {
         "backgroundColor": "#dddddd"
       },
@@ -21,9 +81,9 @@
           "type": "button",
           "layout": "1:2",
           "text": "push page2",
-          "eval": {
-            "key": "page2",
-            "type": "push"
+          "event": {
+            "params": "page2",
+            "eventType": "push"
           },
           "attributes": [
             "success",
@@ -63,7 +123,9 @@
     },
     {
       "key": "page2",
+      "title": "Page Two",
       "layout": "2:2",
+      "disableOpenGesture": "true",
       "style": {
         "backgroundColor": "#dddddd"
       },
@@ -181,6 +243,39 @@
           "style": {}
         }
       ]
+    },
+    {
+      "key": "drawer",
+      "layout": "2:2",
+      "style": {
+        "backgroundColor": "#333"
+      },
+      "components": [
+        {
+          "layout": "1:2",
+          "type": "text",
+          "style": {
+            "fontSize": 24,
+            "fontFamily": "Helvetica Neue",
+            "color": "#333333"
+          },
+          "text": "Drawer"
+        },
+        {
+          "type": "button",
+          "layout": "1:2",
+          "text": "Drawer",
+          "eval": {
+            "key": "page1",
+            "type": "push"
+          },
+          "attributes": [
+            "success",
+            "block"
+          ],
+          "style": {}
+        }
+      ]
     }
   ],
   "footer": {
@@ -191,28 +286,19 @@
     },
     "tabs": [
       {
-        "text": "Analytics",
+        "label": "Analytics",
         "icon": "ios-analytics-outline",
-        "eval": {
-          "key": "page1",
-          "type": "jump"
-        }
+        "screen": "page1",
       },
       {
-        "text": "History",
+        "label": "History",
         "icon": "ios-bookmarks-outline",
-        "eval": {
-          "key": "page2",
-          "type": "jump"
-        }
+        "screen": "page2",
       },
       {
-        "text": "Performance",
+        "label": "Performance",
         "icon": "ios-speedometer-outline",
-        "eval": {
-          "key": "page3",
-          "type": "jump"
-        }
+        "screen": "page3"
       }
     ]
   },

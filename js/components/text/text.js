@@ -22,6 +22,7 @@ export default class TextComponent extends Component {
 const styles = {
   text: {
     fontSize: 12,
+    paddingTop: 5,
     fontFamily: "Helvetica Neue",
     // color: textColor
   }

@@ -9,12 +9,10 @@ const initialDataState = {
 
 async function dataSource(state = initialDataState, action) {
   const {data, binding} = action;
-  console.log("State", state, action);
 
   switch (action.type) {
     case DATA_ADD:
       state.feeds[binding] = getValue(data, returnPath);
-      console.log("State", state.fee)
       return state
 
   	default:
