@@ -31,20 +31,21 @@ export default class ButtonComponent extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
-    const {buttonText, button} = this.props.style;
+    // const {buttonText, button} = this.props.style;
     const text = this.props.text;
-    const overrideButtonStyles = [styles.button, button];
-    const overrideButtonTextStyles = [styles.text, buttonText];
-    let componentStyles = {style: overrideButtonStyles, textStyles: overrideButtonTextStyles};
+    // const overrideButtonStyles = [styles.button, button];
+    // const overrideButtonTextStyles = [styles.text, buttonText];
+    // let componentStyles = {style: overrideButtonStyles, textStyles: overrideButtonTextStyles};
     let attributes = {};
 
     _.each(this.props.attributes, (attribute) => {
       if(ATTRIBUTES.indexOf(attribute) > -1) attributes[attribute] = true;
     });
 
-    let componentAttributes = _.size(attributes) ? attributes : componentStyles;
+    // let componentAttributes = _.size(attributes) ? attributes : componentStyles;
     console.log("Button props: ", this.props.navigator)
-    return <Button theme={baseTheme} {...componentAttributes} {...componentStyles}
+    return <Button theme={baseTheme} {...attributes}
+              // {...componentStyles}
               // onPress={
               // () => handleButtonEval(this.props.event, this.props.navigator)
             // }

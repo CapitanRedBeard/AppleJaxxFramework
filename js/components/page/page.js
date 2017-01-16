@@ -19,21 +19,25 @@ class Page extends Component {
 
   componentWillMount() {
     const navigator = this.props.navigator;
-    this._evaulateDataSection(this.props.data);
+    this.page = this._findPage(this.props.pages);
+    // this._evaulateDataSection(this.props.data);
     this._setNavButtons(this.props);
     this.props.navigator.setOnNavigatorEvent((event) => handleNavEval(event, navigator, this.navButtonEvents));
   }
 
+  _findPage(pages) {
+      return _.find(pages, (page) => { return page.key == this.props.testID });
+  }
 
   _setNavButtons(props) {
-    let { navigator, icons, navigatorButtons }  = props
+    const { navigator, icons }  = props
+    const { navigatorButtons } = this.page;
 
-    this.navButtonEvents = {};
 
     if(navigatorButtons && ( navigatorButtons.leftButtons || navigatorButtons.leftButtons)) {
-      const leftButtons = []
-      const rightButtons = []
-
+      const leftButtons = [];
+      const rightButtons = [];
+      this.navButtonEvents = {};
       const animated = getValue(props, "navigatorButtons.animated")
 
       function swapOutIcon(button, list) {
@@ -60,22 +64,22 @@ class Page extends Component {
 
 
   }
-
-  async _evaulateDataSection() {
-    _.each(this.props.data, (data) => {
-
-      const {url, returnPath, binding} = data;
-      // _getAndAddURLDataSource(this.props.dispatch, url, returnPath, binding)
-      // getURL(url).then(response => console.log("Derp", response))
-      getURL(url).then((res) => { return this.props.dispatchAddDataSource(res, returnPath, binding)});
-      // console.log("Dater", data, returnPath, binding);
-    });
-  }
+  //
+  // async _evaulateDataSection() {
+  //   _.each(this.props.data, (data) => {
+  //
+  //     const {url, returnPath, binding} = data;
+  //     // _getAndAddURLDataSource(this.props.dispatch, url, returnPath, binding)
+  //     // getURL(url).then(response => console.log("Derp", response))
+  //     getURL(url).then((res) => { return this.props.dispatchAddDataSource(res, returnPath, binding)});
+  //     // console.log("Dater", data, returnPath, binding);
+  //   });
+  // }
 
   _getComponents() {
     let components = [];
-    _.each(this.props.components, (component, index) => {
-      components.push(<BaseComponent key={component.type + index} {...this.props} {...component}/>)
+    _.each(this.page.components, (component, index) => {
+      components.push(<BaseComponent key={component.type + index} {...component}/>)
     });
     return components;
   }
@@ -98,7 +102,7 @@ class Page extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    frame: state.frameReducers,
+    pages: state.frameReducers.frameState.pages,
     icons: state.iconsReducers.icons
   }
 }

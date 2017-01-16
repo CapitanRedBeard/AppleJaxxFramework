@@ -20,7 +20,7 @@ export default class BaseComponent extends Component {
     onButtonPress: React.PropTypes.func
   }
 
-  render() { // eslint-disable-line class-methods-use-this
+  render() { 
     let Instance = components[this.props.type];
     return (
           <View style={styles.instanceWrapper}>

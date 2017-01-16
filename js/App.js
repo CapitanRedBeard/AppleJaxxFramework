@@ -104,8 +104,7 @@ function startApp(frame, icons) {
         icon: icons[tab.icon],
         title: page.title,
         subtitle: page.subtitle,
-        navigatorStyle: page.navigatorStyle,
-        passProps: page
+        navigatorStyle: page.navigatorStyle
       };
       tabs.push(node);
     });
