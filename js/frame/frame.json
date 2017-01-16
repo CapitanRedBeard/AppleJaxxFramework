@@ -6,7 +6,7 @@
      "right": {
          "screen": "drawer"
      },
-     "animationType": "slide-and-scale",
+     "animationType": "slide",
      "style": {
        "leftDrawerWidth": 50,
        "rightDrawerWidth": 50,
@@ -34,17 +34,31 @@
             "id": "edit",
             "disabled": true,
             "disableIconTint": true,
-            "showAsAction": "ifRoom"
+            "showAsAction": "ifRoom",
           },
           {
             "icon": "ios-ionic",
-            "id": "add"
+            "id": "menu2",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "right",
+                "animated": true,
+              }
+            }
           }
         ],
         "leftButtons": [
           {
             "icon": "ios-menu",
-            "id": "menu"
+            "id": "menu",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "left",
+                "animated": true,
+              }
+            }
           }
         ],
         "animated": true

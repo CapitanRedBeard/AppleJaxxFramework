@@ -1,7 +1,7 @@
 import { connect, store } from 'react-redux'
 
 import React, { Component } from 'react';
-import { Text, ScrollView, View} from 'react-native';
+import { Text, ScrollView, View, AlertIOS} from 'react-native';
 import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
@@ -19,6 +19,24 @@ class Page extends Component {
     // navigator: React.PropTypes.shape({}),
   }
 
+  constructor(props) {
+    super(props);
+    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  //onPress handler for Nav buttons
+  onNavigatorEvent(event) {
+    if (event.type == 'NavBarButtonPress') {
+      if(this.navButtonEvents[event.id]) {
+        let { eventType, params} = this.navButtonEvents[event.id];
+        if(eventType == 'toggleDrawer') {
+          this.props.navigator.toggleDrawer(params);
+        }
+
+      }
+    }
+  }
+
   componentWillMount() {
     const navigator = this.props.navigator;
     this._evaulateDataSection(this.props.data);
@@ -28,7 +46,8 @@ class Page extends Component {
 
   _setNavButtons(props) {
     let { navigator, icons, navigatorButtons }  = props
-    console.log("this.props", props)
+
+    this.navButtonEvents = {};
 
     if(navigatorButtons && ( navigatorButtons.leftButtons || navigatorButtons.leftButtons)) {
       const leftButtons = []
@@ -42,9 +61,15 @@ class Page extends Component {
         list.push(_.defaults(newButton, button));
       }
 
-      _.each(navigatorButtons.leftButtons, (button) => swapOutIcon(button, leftButtons));
-      _.each(navigatorButtons.rightButtons, (button) => swapOutIcon(button, rightButtons));
-      console.log("leftButtons", leftButtons)
+      _.each(navigatorButtons.leftButtons, (button) => {
+        swapOutIcon(button, leftButtons)
+        this.navButtonEvents[button.id] = button.event;
+      });
+      _.each(navigatorButtons.rightButtons, (button) => {
+        swapOutIcon(button, rightButtons)
+        this.navButtonEvents[button.id] = button.event;
+      });
+
       navigator.setButtons({
         leftButtons: leftButtons,
         rightButtons: rightButtons,
@@ -57,7 +82,6 @@ class Page extends Component {
 
   async _evaulateDataSection() {
     _.each(this.props.data, (data) => {
-      console.log("PageWilLMount", this.props)
 
       const {url, returnPath, binding} = data;
       // _getAndAddURLDataSource(this.props.dispatch, url, returnPath, binding)
@@ -77,7 +101,6 @@ class Page extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.props.style];
-    console.log("Page", this.props)
     return (
       <Container style={styles.container}>
           <View style={{flex: 1}}>
