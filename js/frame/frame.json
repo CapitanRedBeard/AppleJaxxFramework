@@ -6,12 +6,12 @@
      "right": {
          "screen": "drawer"
      },
-     "animationType": "slide",
+     "animationType": "door",
      "style": {
-       "leftDrawerWidth": 50,
-       "rightDrawerWidth": 50,
-       "contentOverlayColor": "#333333",
-       "drawerShadow": false
+         "leftDrawerWidth": 50,
+         "rightDrawerWidth": 100,
+         "drawerShadow": false,
+         "contentOverlayColor": "#333333"
      }
   },
   "pages": [
@@ -19,9 +19,8 @@
       "key": "page1",
       "title": "Page One",
       "subtitle": "numero uno",
-      "layout": "2:2",
       "navigatorStyle": {
-        	"navBarTranslucent": true,
+        	"navBarBackgroundColor": "#4e8ef7",
         	"drawUnderNavBar": false,
         	"navBarTextColor": "white",
         	"navBarButtonColor": "white",
@@ -64,183 +63,403 @@
         "animated": true
       },
       "style": {
-        "backgroundColor": "#dddddd"
+        "backgroundColor": "#dddddd",
       },
       "components": [
         {
-          "layout": "1:2",
-          "type": "text",
+          "type": "list",
           "style": {
-            "fontSize": 24,
-            "fontFamily": "Helvetica Neue",
-            "color": "#333333"
+            "backgroundColor": "white"
           },
-          "text": "Page One"
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "push page2",
-          "event": {
-            "params": "page2",
-            "eventType": "push"
+          "rowOnClickEval": {
+            "key": "feature_page",
+            "type": "push",
+            "param": {
+              "dataSource": {
+                "type": "param_url",
+                "url": "pokemonz.url"
+              }
+            }
           },
-          "attributes": [
-            "success",
-            "block"
+          "rowData": [
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Steven B.",
+              "list_description": "I like to cha cha"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Joe S.",
+              "list_description": "In a latin bar"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Jafgin R.",
+              "list_description": "With a Dominican that resembles Taina"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Jo-Jo Q.",
+              "list_description": "I like to cha cha"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Patrick S.",
+              "list_description": "In a latin bar"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "John S.",
+              "list_description": "With a Dominican that resembles Taina"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Steven B.",
+              "list_description": "I like to cha cha"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Joe S.",
+              "list_description": "In a latin bar"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Jafgin R.",
+              "list_description": "With a Dominican that resembles Taina"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Jo-Jo Q.",
+              "list_description": "I like to cha cha"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "Patrick S.",
+              "list_description": "In a latin bar"
+            },
+            {
+              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
+              "list_name": "John S.",
+              "list_description": "With a Dominican that resembles Taina"
+            }
           ],
-          "style": {}
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "pop page1",
-          "eval": {
-            "key": "page2",
-            "type": "pop"
+          "rowTemplate": {
+            "leftSection": [
+              {
+                 "type": "thumbnail",
+                 "source": "@@list_thumbnail_source",
+                 "attributes": {
+                   "square": true,
+                   "size": 50
+                 }
+              }
+            ],
+            "centerSection": [
+              {
+                "type": "text",
+                "style": {
+                  "fontSize": 16,
+                  "color": "#333",
+                  "paddingLeft": 10
+                },
+                "text": "@@list_name"
+              },
+              {
+                "type": "text",
+                "style": {
+                  "fontSize": 12,
+                  "lineHeight": 12,
+                  "color": "#888",
+                  "paddingLeft": 20
+                },
+                "text": "@@list_description"
+              }
+            ],
+            "rightSection": [
+              {
+                "type": "icon",
+                "style": {
+                  "color": "#4e8ef7"
+                },
+                "name": "ios-swap-outline"
+              }
+            ]
           },
-          "attributes": [
-            "disabled",
-            "block"
-          ],
-          "style": {}
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "jump page2",
-          "eval": {
-            "key": "page2",
-            "type": "jump"
-          },
-          "attributes": [
-            "success",
-            "block"
-          ],
-          "style": {}
+          "separator": {
+              "backgroundColor": "#4e8ef7",
+              "marginLeft": 75
+          }
         }
       ]
     },
     {
       "key": "page2",
       "title": "Page Two",
-      "layout": "2:2",
-      "disableOpenGesture": "true",
+      "subtitle": "numero duo",
+      "navigatorStyle": {
+        	"navBarBackgroundColor": "#292949",
+        	"navBarTextColor": "#EDECEE",
+        	"navBarButtonColor": "#EDECEE",
+        	"statusBarTextColorScheme": "light"
+      },
+      "navigatorButtons": {
+        "leftButtons": [
+          {
+            "icon": "ios-menu",
+            "id": "menu",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "left",
+                "animated": true,
+              }
+            }
+          }
+        ],
+        "animated": true
+      },
       "style": {
-        "backgroundColor": "#dddddd"
+        "backgroundColor": "#292949",
       },
       "components": [
         {
-          "layout": "1:2",
-          "type": "text",
+          "type": "list",
           "style": {
-            "fontSize": 24,
-            "fontFamily": "Helvetica Neue",
-            "color": "#333333"
+            "backgroundColor": "#452B6B"
           },
-          "text": "Page Two"
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "push page3",
-          "eval": {
-            "key": "page3",
-            "type": "push"
+          "rowOnClickEval": {
+            "key": "feature_page",
+            "type": "push",
+            "param": {
+              "dataSource": {
+                "type": "param_url",
+                "url": "pokemonz.url"
+              }
+            }
           },
-          "attributes": [
-            "success",
-            "block"
+          "rowData": [
+            {
+              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/broccoli-96.png",
+              "list_name": "VEGETABLE",
+            },
+            {
+              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/berry-96.png",
+              "list_name": "FRUIT",
+            },
+            {
+              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/cheese-96.png",
+              "list_name": "DAIRY",
+            },
+            {
+              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/barley-96.png",
+              "list_name": "GRAIN",
+            },
+            {
+              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/fish_food-96.png",
+              "list_name": "FISH",
+            },
+            {
+              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/steak-96.png",
+              "list_name": "MEAT",
+            }
           ],
-          "style": {}
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "pop page2",
-          "eval": {
-            "key": "page3",
-            "type": "pop"
+          "rowTemplate": {
+            "leftSection": [
+              {
+                 "type": "thumbnail",
+                 "source": "@@list_thumbnail_source",
+                 "attributes": {
+                   "size": 50
+                 }
+              }
+            ],
+            "centerSection": [
+              {
+                "type": "text",
+                "style": {
+                  "fontSize": 14,
+                  "fontFamily": "Avenir-BlackOblique",
+                  "color": "white",
+                  "paddingLeft": 10
+                },
+                "text": "@@list_name"
+              }
+            ],
+            "rightSection": [
+              {
+                "type": "icon",
+                "style": {
+                  "color": "white",
+                  "fontSize": 20
+                },
+                "name": "ios-add"
+              }
+            ]
           },
-          "attributes": [
-            "success",
-            "block"
-          ],
-          "style": {}
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "jump page3",
-          "eval": {
-            "key": "page3",
-            "type": "jump"
-          },
-          "attributes": [
-            "success",
-            "block"
-          ],
-          "style": {}
+          "separator": {
+              "backgroundColor": "#292949",
+              "height": 2
+          }
         }
       ]
     },
     {
       "key": "page3",
-      "layout": "2:2",
+      "title": "Page Three",
+      "subtitle": "numero trés",
+      "navigatorStyle": {
+        	"navBarBackgroundColor": "#3DA35D",
+        	"drawUnderNavBar": false,
+        	"navBarTextColor": "white",
+        	"navBarButtonColor": "white",
+        	"statusBarTextColorScheme": "light"
+      },
+      "navigatorButtons": {
+        "rightButtons": [
+          {
+            "title": "Edit",
+            "id": "edit",
+            "disabled": true,
+            "disableIconTint": true,
+            "showAsAction": "ifRoom",
+          },
+          {
+            "icon": "ios-ionic",
+            "id": "menu2",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "right",
+                "animated": true,
+              }
+            }
+          }
+        ],
+        "leftButtons": [
+          {
+            "icon": "ios-menu",
+            "id": "menu",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "left",
+                "animated": true,
+              }
+            }
+          }
+        ],
+        "animated": true
+      },
       "style": {
-        "backgroundColor": "#dddddd"
+        "backgroundColor": "#3DA35D",
       },
       "components": [
         {
-          "layout": "1:2",
-          "type": "text",
+          "type": "list",
           "style": {
-            "fontSize": 24,
-            "fontFamily": "Helvetica Neue",
-            "color": "#333333"
+            "backgroundColor": "#B3D89C"
           },
-          "text": "Page Three"
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "push page1",
-          "eval": {
-            "key": "page1",
-            "type": "push"
-          },
-          "attributes": [
-            "disabled",
-            "block"
+          "rowData": [
+            {
+              "folder_badge_count": 14,
+              "folder_name": "Health"
+            },
+            {
+              "folder_badge_count": 400,
+              "folder_name": "Handwriting"
+            },
+            {
+              "folder_badge_count": 2,
+              "folder_name": "Art"
+            },
+            {
+              "folder_badge_count": 1,
+              "folder_name": "Music"
+            },
+            {
+              "folder_badge_count": 3,
+              "folder_name": "Dance"
+            },
+            {
+              "folder_badge_count": 0,
+              "folder_name": "Speech"
+            },
+            {
+              "folder_badge_count": 4,
+              "folder_name": "Spanish"
+            },
+            {
+              "folder_badge_count": 9,
+              "folder_name": "French"
+            },
+            {
+              "folder_badge_count": 14,
+              "folder_name": "Health"
+            },
+            {
+              "folder_badge_count": 400,
+              "folder_name": "Handwriting"
+            },
+            {
+              "folder_badge_count": 2,
+              "folder_name": "Art"
+            },
+            {
+              "folder_badge_count": 1,
+              "folder_name": "Music"
+            },
+            {
+              "folder_badge_count": 3,
+              "folder_name": "Dance"
+            },
+            {
+              "folder_badge_count": 0,
+              "folder_name": "Speech"
+            },
+            {
+              "folder_badge_count": 4,
+              "folder_name": "Spanish"
+            },
+            {
+              "folder_badge_count": 9,
+              "folder_name": "French"
+            }
           ],
-          "style": {}
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "pop page3",
-          "eval": {
-            "key": "page1",
-            "type": "pop"
-          },
-          "attributes": [
-            "success",
-            "block"
-          ]
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "jump page1",
-          "eval": {
-            "key": "page1",
-            "type": "jump"
-          },
-          "attributes": [
-            "success",
-            "block"
-          ],
-          "style": {}
+          "rowTemplate": {
+            "leftSection": [
+              {
+                 "type": "icon",
+                 "name": "ios-folder-open-outline",
+                 "style": {
+                   "color": "#28302D",
+                   "fontSize": 24
+                 }
+              }
+            ],
+            "centerSection": [
+              {
+                "type": "text",
+                "style": {
+                  "fontSize": 16,
+                  "color": "#60736D",
+                  "paddingLeft": 10
+                },
+                "text": "@@folder_name"
+              }
+            ],
+            "rightSection": [
+              {
+                "type": "badge",
+                "style": {
+                  "backgroundColor": "#D63226",
+                },
+                "textColor": {
+                  "color": "#B3D89C",
+                },
+                "count": "@@folder_badge_count"
+              }
+            ]
+          }
         }
       ]
     },
@@ -286,18 +505,18 @@
     },
     "tabs": [
       {
-        "label": "Analytics",
-        "icon": "ios-analytics-outline",
+        "label": "Friends",
+        "icon": "ios-person-add-outline",
         "screen": "page1",
       },
       {
-        "label": "History",
-        "icon": "ios-bookmarks-outline",
+        "label": "Taste",
+        "icon": "ios-list-box-outline",
         "screen": "page2",
       },
       {
-        "label": "Performance",
-        "icon": "ios-speedometer-outline",
+        "label": "Folders",
+        "icon": "ios-folder-open-outline",
         "screen": "page3"
       }
     ]

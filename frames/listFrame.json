@@ -29,14 +29,25 @@
               }
             }
           },
-          "rowComponents": [
+          "rowTemplate": [
+            {
+               "type": "thumbnail",
+               "style": {
+                 "borderColor": "white",
+                 "borderWidth": 1
+               },
+               "attributes": {
+                 "source": "picture.thumbnail",
+                 "size": 50
+               }
+            },
             {
               "type": "text",
               "style": {
                 "fontSize": 20,
                 "color": "white"
               },
-              "binding": "pokemonz.name"
+              "binding": "name"
             },
             {
               "type": "text",
@@ -44,7 +55,7 @@
                 "fontSize": 16,
                 "color": "#CCCCCC"
               },
-              "binding": "url"
+              "binding": "description"
             }
           ],
           "separator": {},

@@ -43,7 +43,6 @@ export default class ButtonComponent extends Component {
     });
 
     // let componentAttributes = _.size(attributes) ? attributes : componentStyles;
-    console.log("Button props: ", this.props.navigator)
     return <Button theme={baseTheme} {...attributes}
               // {...componentStyles}
               // onPress={

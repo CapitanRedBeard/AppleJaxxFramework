@@ -7,9 +7,13 @@ import configureStore from './configureStore';
 import { Navigation } from 'react-native-navigation';
 import frame from './frame/frame.json';
 import getValue from './util/getValue';
+import resolveBindings from './util/resolveBindings';
 import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
 let store = configureStore();
+
+// frame = resolveBindings(frame);
+
 registerScreens(store, Provider, frame);
 
 store.dispatch(updateFrame(frame));
