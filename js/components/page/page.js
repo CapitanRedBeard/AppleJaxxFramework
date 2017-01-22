@@ -1,11 +1,10 @@
 import { connect, store } from 'react-redux'
 
 import React, { Component } from 'react';
-import { Text, ScrollView, View, AlertIOS} from 'react-native';
+import { Text, ScrollView, View, AlertIOS, StyleSheet} from 'react-native';
 import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
-import { navigateJumpToKey, navigatePop, navigatePush, navigateReset } from '../../actions/navActions'
 import { addDataSource } from '../../actions/dataSource'
 import { handleNavEval } from '../../util/handleScreenEval'
 import getURL from '../../util/api';
@@ -85,9 +84,9 @@ class Page extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
-    let overridedStyles = [styles.container, this.props.style];
+    let overridedStyles = [styles.container, this.page.style];
     return (
-      <Container style={styles.container}>
+      <Container style={overridedStyles}>
           <View style={{flex: 1}}>
             <ScrollView style={overridedStyles} containerStyleProps={{
             justifyContent: "center",
@@ -117,8 +116,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const styles = {
   container: {
-    flex: 1,
-    backgroundColor: "#CCCCCC"
+    flex: 1
   },
   content: {
     flex: 1,

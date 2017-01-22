@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import { Thumbnail } from 'native-base';
 import { textColor } from '../../themes/base-theme'
 import baseTheme from '../../themes/base-theme'
-
-// import defaultStyles from './styles';
-
-
-const emptyThumbnailSource = ""
+import { getImage } from '../../util/api'
+import {Image} from 'react-native';
+const emptyThumbnailSource = "";
 
 const DEFAULT_ATTRIBUTES = [
   "source": emptyThumbnailSource,
   "square": false,
   "size": 30
 ];
+
 // {
 //   "type": "thumbnail",
 //   "style": {
@@ -26,12 +25,29 @@ const DEFAULT_ATTRIBUTES = [
 // },
 export default class ThumbnailComponent extends Component {
 
-  render() { // eslint-disable-line class-methods-use-this
-    const {style, attributes} = this.props;
+  constructor(props) {
+    super(props)
+    this.state = {
+      imageSource: null
+    }
+  }
 
-    const componentStyles = [styles.thumbanail, style];
-    const componentAttributes = Object.assign(DEFAULT_ATTRIBUTES, attributes)
-    return <Thumbnail theme={baseTheme} {...componentAttributes} style={componentStyles}/>;
+  componentWillMount() {
+    getImage(this.props.source).then((val) => {
+      this.setState({"imageSource": val});
+    });
+  }
+
+  prepareRootProps() {
+    const {style, attributes} = this.props;
+    const componentStyle = [styles.thumbanail, style];
+    const componentAttributes = _.merge(attributes, {source: {uri: this.state.imageSource}});
+
+    return {...componentAttributes, style: componentStyle, theme: baseTheme}
+  }
+
+  render() { // eslint-disable-line class-methods-use-this
+    return this.state.imageSource ? <Thumbnail {...this.prepareRootProps()}/> : null;
   }
 }
 
