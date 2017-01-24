@@ -34,7 +34,6 @@ export default class BaseComponent extends Component {
   render() {
     let Instance = components[this.props.type];
 
-    console.log("BaseCOmponent: ", this.props.type)
     return (
       <View style={styles.instanceWrapper}>
         <Instance theme={baseTheme} {...this.prepareRootProps()}/>

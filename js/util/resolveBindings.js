@@ -4,21 +4,35 @@ import _ from 'underscore';
 import getValue from './getValue';
 
 const KEYS = ["text", "source", "count"];
-const RESOLVER = "@@";
+const STARTING_DELIMITER = "{{";
+const ENDING_DELIMITER = "}}";
+
+function checkForBinding(val) {
+  return val.match(/{{(.*?)}}/g);
+}
 
 export default function resolveBindings(props) {
-  const { bindingData } = props
-  let newProps = {}
+  const { bindingData } = props; //TODO remove
+  let newProps = {};
   if(props && bindingData) {
     _.each(KEYS, (key) => {
-      let potentialBinding = getValue(props, key);
-
-      if(potentialBinding && potentialBinding.substring(0,2) === RESOLVER && bindingData[potentialBinding.substring(2)] !== undefined){
-        newProps[key] = bindingData[potentialBinding.substring(2)];
+      let value = getValue(props, key);
+      if(value && checkForBinding(value)){
+        newProps[key] = replaceBindingsWithVariableValue(value, bindingData);
       }
     });
   }
 
-  console.log("_.defaults(newProps, props)", _.defaults(newProps, props))
   return _.defaults(newProps, props);
+}
+
+function replaceBindingsWithVariableValue(value = "", variables = {}) {
+	var bindings = checkForBinding(value);
+	let newValue = _.clone(value);
+	_.each(bindings, (binding) => {
+		let replacementValue = variables[binding.replace(/{{|}}/g, "")];
+
+		newValue = newValue.replace(binding, replacementValue);
+	})
+	return newValue;
 }
