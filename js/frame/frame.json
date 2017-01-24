@@ -147,7 +147,7 @@
             "leftSection": [
               {
                  "type": "thumbnail",
-                 "source": "@@list_thumbnail_source",
+                 "source": "{{list_thumbnail_source}}",
                  "attributes": {
                    "square": true,
                    "size": 50
@@ -162,7 +162,7 @@
                   "color": "#333",
                   "paddingLeft": 10
                 },
-                "text": "@@list_name"
+                "text": "{{list_name}}"
               },
               {
                 "type": "text",
@@ -172,7 +172,7 @@
                   "color": "#888",
                   "paddingLeft": 20
                 },
-                "text": "@@list_description"
+                "text": "{{list_description}}"
               }
             ],
             "rightSection": [
@@ -267,7 +267,7 @@
             "leftSection": [
               {
                  "type": "thumbnail",
-                 "source": "@@list_thumbnail_source",
+                 "source": "{{list_thumbnail_source}}",
                  "attributes": {
                    "size": 50
                  }
@@ -282,7 +282,7 @@
                   "color": "white",
                   "paddingLeft": 10
                 },
-                "text": "@@list_name"
+                "text": "{{list_name}}"
               }
             ],
             "rightSection": [
@@ -444,7 +444,7 @@
                   "color": "#60736D",
                   "paddingLeft": 10
                 },
-                "text": "@@folder_name"
+                "text": "{{folder_name}}"
               }
             ],
             "rightSection": [
@@ -456,7 +456,7 @@
                 "textColor": {
                   "color": "#B3D89C",
                 },
-                "count": "@@folder_badge_count"
+                "count": "{{folder_badge_count}}"
               }
             ]
           }

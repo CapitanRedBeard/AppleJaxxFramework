@@ -10,14 +10,26 @@ import getValue from './util/getValue';
 import resolveBindings from './util/resolveBindings';
 import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
+import { updateGeolocation } from './actions/geolocationActions'
 let store = configureStore();
 
 // frame = resolveBindings(frame);
 
 registerScreens(store, Provider, frame);
 
+//Initial Frame
 store.dispatch(updateFrame(frame));
-
+//Initial geolocation
+navigator.geolocation.getCurrentPosition(
+   (position) => {
+      var initialPosition = JSON.stringify(position);
+      console.log("1")
+      store.dispatch(updateGeolocation(position));
+   },
+   (error) => alert(error.message),
+   {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+);
+//Initial Icons resolved into image form
 resolveIconsFromFrame(frame).then((icons) => {
   startApp(frame, icons);
 }).catch((error) => {

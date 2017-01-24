@@ -73,7 +73,6 @@ export default class Row extends Component {
     sections.push(this._getSection("left", rowTemplate));
     sections.push(this._getSection("center", rowTemplate));
     sections.push(this._getSection("right", rowTemplate));
-    console.log("Sections: ", sections);
     const rowComponents = (
               <View style={[styles.container, this.props.style]}>
                 {sections}
