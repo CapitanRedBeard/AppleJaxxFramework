@@ -3,6 +3,7 @@ import color from 'color';
 import { Platform } from 'react-native';
 
 import frame from '../frame/frame.json'
+import getValue from '../util/getValue'
 import _ from 'underscore'
 
 const defaultThemes = {
@@ -229,4 +230,4 @@ const defaultThemes = {
   jumbotronPadding: 30,
 };
 
-export default _.defaults(frame.theme, defaultThemes)
+export default _.defaults(getValue(frame, "theme", {}), defaultThemes)
