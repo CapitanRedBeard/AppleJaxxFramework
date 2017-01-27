@@ -33,7 +33,7 @@ navigator.geolocation.getCurrentPosition(
 resolveIconsFromFrame(frame).then((icons) => {
   startApp(frame, icons);
 }).catch((error) => {
-  console.error("Couldn't load all icons", error);
+  console.error(error);
 });
 
 //******** DRAWER TYPE ***********
@@ -106,8 +106,10 @@ function startApp(frame, icons) {
   const footerTabs = getValue(frame, "footer.tabs")
 
   let drawer = getValue(frame, "drawer")
-  drawer.left.passProps = pages[drawer.left.screen];
-  drawer.right.passProps = pages[drawer.right.screen];
+  if(drawer) {
+    drawer.left.passProps = pages[getValue(drawer, "left.screen")];
+    drawer.right.passProps = pages[getValue(drawer, "right.screen")];
+  }
 
   console.log("#####DRAER", drawer, icons)
   if(footerTabs) {
@@ -128,7 +130,7 @@ function startApp(frame, icons) {
     Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style"), drawer: drawer});
   }else {
     let screen = {
-      title: titles[0],
+      title: frame.pages[0].title,
       screen: frame.pages[0].key
     }
     Navigation.startSingleScreenApp({screen, drawer: drawer});
