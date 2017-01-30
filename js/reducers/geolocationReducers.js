@@ -7,7 +7,6 @@ function geolocation(state = {}, action) {
 
   switch (action.type) {
     case UPDATE_GEOLOCATION:
-      console.log("3", action)
       state = action.position
       return state
 

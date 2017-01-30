@@ -5,8 +5,9 @@ import { View, TextInput, Platform } from 'react-native';
 import Icon from './../icon/icon';
 import mergeDeep from '../../util/mergeDeep';
 import getValue from '../../util/getValue';
-
-export default class Input extends Component {
+import { connect } from 'react-redux'
+import { updateBinding } from '../../actions/bindingActions'
+class Input extends Component {
 
   propTypes: {
     //External
@@ -132,7 +133,6 @@ export default class Input extends Component {
     }
 
     var iconProps = getValue(this.props, "iconProps", {});
-    console.log("mergeDeep", mergeDeep(iconProps, defaultProps));
     return mergeDeep(iconProps, defaultProps);
   }
 
@@ -144,7 +144,9 @@ export default class Input extends Component {
     </View> : null;
 
     let input = <View key="textInput" style={{ flex: 1}}>
-        <TextInput {...this.getTextInputProps()} />
+        <TextInput
+          {...this.getTextInputProps()}
+          onChangeText={(text) => this._onChangeText(text)}/>
     </View>
     if(this.props.iconLeft) {
       children.push(icon);
@@ -157,6 +159,11 @@ export default class Input extends Component {
     return children;
   }
 
+
+  _onChangeText(text) {
+    this.props.updateBinding(this.props.binding, text);
+  }
+
   render() {
     return (
       <View ref={c => this._root = c} {...this.prepareRootProps()} >
@@ -165,3 +172,22 @@ export default class Input extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    bindingValues: state.bindingReducers.bindingState,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateBinding: (binding, value) => {
+      dispatch(updateBinding(binding, value))
+    }
+  }
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Input)

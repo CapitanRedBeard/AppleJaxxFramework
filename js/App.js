@@ -10,6 +10,7 @@ import getValue from './util/getValue';
 import resolveBindings from './util/resolveBindings';
 import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
+import { setInitialBindings } from './actions/bindingActions'
 import { updateGeolocation } from './actions/geolocationActions'
 let store = configureStore();
 
@@ -19,11 +20,12 @@ registerScreens(store, Provider, frame);
 
 //Initial Frame
 store.dispatch(updateFrame(frame));
+store.dispatch(setInitialBindings(frame.bindings));
+
 //Initial geolocation
 navigator.geolocation.getCurrentPosition(
    (position) => {
       var initialPosition = JSON.stringify(position);
-      console.log("1")
       store.dispatch(updateGeolocation(position));
    },
    (error) => alert(error.message),
@@ -111,10 +113,10 @@ function startApp(frame, icons) {
     drawer.right.passProps = pages[getValue(drawer, "right.screen")];
   }
 
-  console.log("#####DRAER", drawer, icons)
   if(footerTabs) {
     let tabs = [];
     _.each(footerTabs, (tab) => {
+      console.log("navigatorStyle: ", page.navigatorStyle)
       const page = pages[tab.screen];
       let node = {
         label: tab.label,
@@ -126,7 +128,6 @@ function startApp(frame, icons) {
       };
       tabs.push(node);
     });
-    console.log("#####DRAER", drawer)
     Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style"), drawer: drawer});
   }else {
     let screen = {
@@ -135,8 +136,4 @@ function startApp(frame, icons) {
     }
     Navigation.startSingleScreenApp({screen, drawer: drawer});
   }
-
-
-
-  console.log("What is even in here? ", store, store.getState());
 }
