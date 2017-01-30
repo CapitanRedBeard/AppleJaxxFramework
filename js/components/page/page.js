@@ -1,4 +1,4 @@
-import { connect, store } from 'react-redux'
+import { connect } from 'react-redux'
 
 import React, { Component } from 'react';
 import { Text, ScrollView, View, AlertIOS, StyleSheet} from 'react-native';
@@ -78,7 +78,7 @@ class Page extends Component {
   _getComponents() {
     let components = [];
     _.each(this.page.components, (component, index) => {
-      components.push(<BaseComponent key={component.type + index} {...component}/>)
+      components.push(<BaseComponent key={component.type + index} bindings={this.props.bindings} {...component}/>)
     });
     return components;
   }
@@ -102,7 +102,8 @@ class Page extends Component {
 const mapStateToProps = (state) => {
   return {
     pages: state.frameReducers.frameState.pages,
-    icons: state.iconsReducers.icons
+    icons: state.iconsReducers.icons,
+    bindings: state.bindingReducers.bindingState
   }
 }
 

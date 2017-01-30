@@ -27,28 +27,29 @@ const ATTRIBUTES = [
 export default class ButtonComponent extends Component {
 
   static propTypes = {
-    navigator: React.PropTypes.object
+    navigator: React.PropTypes.object,
+    style: React.PropTypes.object,
+    textColor: React.PropTypes.object,
+    event: React.PropTypes.object,
+    theme: React.PropTypes.object
   }
 
-  render() { // eslint-disable-line class-methods-use-this
-    // const {buttonText, button} = this.props.style;
-    const text = this.props.text;
-    // const overrideButtonStyles = [styles.button, button];
-    // const overrideButtonTextStyles = [styles.text, buttonText];
-    // let componentStyles = {style: overrideButtonStyles, textStyles: overrideButtonTextStyles};
+  prepareRootProps() {
+    const {buttonText, button} = this.props.style;
+    const overrideButtonStyles = [styles.button, button];
+    const overrideButtonTextStyles = [styles.text, buttonText];
     let attributes = {};
 
     _.each(this.props.attributes, (attribute) => {
       if(ATTRIBUTES.indexOf(attribute) > -1) attributes[attribute] = true;
     });
+    return {...attributes, style: overrideButtonStyles, textStyles: overrideButtonTextStyles}
+  }
 
-    // let componentAttributes = _.size(attributes) ? attributes : componentStyles;
-    return <Button theme={baseTheme} {...attributes}
-              // {...componentStyles}
-              // onPress={
-              // () => handleButtonEval(this.props.event, this.props.navigator)
-            // }
-            >
+  render() { // eslint-disable-line class-methods-use-this
+    const text = this.props.text;
+    return <Button {...this.prepareRootProps()}
+              onPress={ () => handleButtonEval(this.props.event, this.props.navigator, this.props.bindings) }>
               {text}
           </Button>;
   }

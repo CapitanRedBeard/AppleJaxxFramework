@@ -1,6 +1,5 @@
 import RNFetchBlob from 'react-native-fetch-blob'
 import { Platform } from 'react-native';
-
 export default async function getURL(url){
   try {
     let response = await fetch(url);
@@ -27,4 +26,30 @@ export async function getImage(url){
     console.warn("Derp Unable to resolve image ", error);
     return {}
   }
+}
+
+
+export async function urlPost(params){
+  let {url, body} = params;
+  try {
+    let response = await fetch(url, {
+    	method: 'post',
+    	body: getJSONString(body)
+    })
+    console.log("Post successful:  ", response, body);
+
+    return response;
+  } catch(error) {
+    console.warn("Unable to POST ", error);
+    return {}
+  }
+}
+
+function getJSONString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return JSON.stringify(str);
+    }
+    return str;
 }
