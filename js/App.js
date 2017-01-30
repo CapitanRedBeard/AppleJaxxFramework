@@ -116,7 +116,6 @@ function startApp(frame, icons) {
   if(footerTabs) {
     let tabs = [];
     _.each(footerTabs, (tab) => {
-      console.log("navigatorStyle: ", page.navigatorStyle)
       const page = pages[tab.screen];
       let node = {
         label: tab.label,

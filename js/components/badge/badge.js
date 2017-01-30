@@ -5,15 +5,15 @@ import baseTheme from '../../themes/base-theme'
 const DEFAULT_ATTRIBUTES = [
   {
     style: {},
-    textColor: {},
+    textStyle: {},
     count: 0
   }
 ];
 
 export default class BadgeComponent extends Component {
   prepareRootProps() {
-    const {style, textColor} = this.props;
-    return {textColor: textColor, style: style, theme: baseTheme}
+    const {style, textStyle} = this.props;
+    return {textStyle: textStyle, style: style, theme: baseTheme}
   }
 
   render() {
