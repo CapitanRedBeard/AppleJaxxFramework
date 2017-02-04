@@ -11,7 +11,6 @@ function resolveIconsFromFrame(frame) {
 
   return new Promise(function (resolve, reject) {
     RSVP.hash(tabIconPromises).then(function(results) {
-      console.log(results.users)
       resolve(results);
     });
   });
