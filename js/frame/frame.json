@@ -111,7 +111,7 @@
                   "color": "#888",
                   "paddingLeft": 20
                 },
-                "text": "{{email}}"
+                "text": "Near {{address.city}}..."
               }
             ],
             "rightSection": [
