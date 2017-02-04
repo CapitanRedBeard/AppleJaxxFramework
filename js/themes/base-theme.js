@@ -193,7 +193,7 @@ const defaultThemes = {
 
 
   // Spinner
-  defaultSpinnerColor: '#45D56E',
+  defaultSpinnerColor: '#A8A8A8',
   inverseSpinnerColor: '#1A191B',
 
 

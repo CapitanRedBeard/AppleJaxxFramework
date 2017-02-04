@@ -88,11 +88,11 @@ class Page extends Component {
     return (
       <Container style={overridedStyles}>
           <View style={{flex: 1}}>
-            <ScrollView style={overridedStyles} containerStyleProps={{
+            <View style={overridedStyles} containerStyleProps={{
             justifyContent: "center",
             alignItems: "center"}}>
                 {this._getComponents()}
-            </ScrollView>
+            </View>
           </View>
       </Container>
     );

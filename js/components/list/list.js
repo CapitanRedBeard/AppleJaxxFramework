@@ -1,31 +1,41 @@
 
 import React, { Component } from 'react';
-import { View, ListView } from 'react-native';
+import { View, ListView, RefreshControl } from 'react-native';
 import mergeDeep from '../../util/mergeDeep';
 import _ from 'lodash';
 import { Spinner } from 'native-base'
 import baseTheme from '../../themes/base-theme'
 import Row from './row';
-
+import getURL from "../../util/api"
   // "type": "list",
   // "style": {
   //   "backgroundColor": "white"
   // },
-  // "rowOnClickEval": {},
-  // "rowData": [],
+  // "rowData": {
+  //   "type": ["url", "raw"]
+  //   "params": {
+  //     "data": [] // only for raw
+  //     "url": "" //only for url
+  //   }
+  // },
   // "rowTemplate": {},
   // "separator": {},
   // "header": {},
   // "footer": {},
   // "sectionHeader": {}
+  // "refreshable": {
+  //     "tintColor": "#4e8ef7",
+  //     "title": "Loading...",
+  //     "titleColor": "#4e8ef7"
+  // },
 
-  
+
 export default class ListComponent extends Component {
     constructor(props) {
       super(props);
-
       this.state = {
-         loading: true,
+         rowData: null,
+         refreshing: false,
          dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
       };
     }
@@ -33,15 +43,21 @@ export default class ListComponent extends Component {
     propTypes: {
         style : React.PropTypes.object,
         dataArray : React.PropTypes.array,
-        rowTemplate : React.PropTypes.func.isRequired
+        rowTemplate : React.PropTypes.func.isRequired,
+        rowData : {
+          type: React.PropTypes.string,
+          params: React.PropTypes.object
+        },
+        refreshable: {
+          tintColor: React.PropTypes.string,
+          title: React.PropTypes.string,
+          titleColor: React.PropTypes.string
+        }
     }
 
     getInitialStyle() {
         return {
             list: {
-                // borderWidth: 1,
-                // borderColor: "red",
-                // padding: 15,
                 borderBottomWidth: 0
             },
             insetList: {
@@ -65,18 +81,10 @@ export default class ListComponent extends Component {
         return mergeDeep(this.props, defaultProps);
     }
 
-    renderChildren() {
-        var childrenArray = React.Children.toArray(this.props.children);
-        var keyIndex = 0;
-
-        childrenArray = childrenArray.map((child) => {
-            keyIndex++;
-            return React.cloneElement(child, {...child.props, key: keyIndex});
-        });
-
-        var lastElement = _.last(childrenArray)
-
-        return _.concat(_.slice(childrenArray, 0, childrenArray.length - 1), lastElement);
+    componentWillMount() {
+      this._getRowData(this.props.rowData).then((calculatedRowData) => {
+        this.setState({rowData: calculatedRowData})
+      });
     }
 
     _renderRow(data, sectionIds, rowIds, rowTemplate, rowOnClickEval, rowData) {
@@ -88,126 +96,71 @@ export default class ListComponent extends Component {
         return <View key={rowId} style={[styles.separator, separator]} />
     }
 
-    render() {
-        if(this.props.rowData && this.props.rowTemplate) {
-            const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-            var dataSource = ds.cloneWithRows(this.props.rowData);
-            // return (
-            //     <ListView
-            //         enableEmptySections={true}
-            //         dataSource={dataSource}
-            //         refreshing={this.props.refreshing}
-            //         onRefresh={this.props.onRefresh}
-            //         renderRow={this.props.renderRow} />
-            // );
-            // console.log("List Rendered")
-            return (
-              // this.state.loading ?
-              // <Spinner theme={baseTheme}/> :
-              <ListView
-                {...this.prepareRootProps()}
-                enableEmptySections={true}
-                dataSource={dataSource}
-                renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowTemplate, this.props.rowOnClickEval)}
-                renderSeparator={(sID, rID) => this._renderSeparator(sID, rID, this.props.separator)}
-              />
-            );
+    async _getRowData(rowData) {
+      const rowDataTypes = ["raw", "url"];
+      const {type, params} = rowData;
+      let calculatedRowData = [];
 
-            //   <ListView
-            //     style={styles.container}
-            //     dataSource={this.state.dataSource}
-            //     renderRow={(data) => <Row {...data} />}
-            //     renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-            //     renderHeader={() => <Header />}
-            //     renderFooter={() => <Footer />}
-            //     renderSectionHeader={(sectionData) => <SectionHeader {...sectionData} />}
-            //   />
-        }
-        else {
-            return (
-                <View ref={c => this._root = c} {...this.prepareRootProps()} >
-                {this.renderChildren()}
-                </View>
-            );
-        }
+      switch(type) {
+        case rowDataTypes[0]:
+          calculatedRowData = params.data
+          break;
+        case rowDataTypes[1]:
+          calculatedRowData = await getURL(params.url);
+          break;
+      }
+      return calculatedRowData;
+
+    }
+
+    _getRefresh(refreshProps) {
+      let defaultRefreshProps = {
+        tintColor: "#ff0000",
+        title: "Loading...",
+        titleColor: "#00ff00",
+        colors: ['#ff0000', '#00ff00', '#0000ff'],
+        progressBackgroundColor: "#ffff00",
+      }
+
+      return refreshProps ? <RefreshControl
+        refreshing={this.state.refreshing}
+        onRefresh={this._onRefresh.bind(this)}
+        {...mergeDeep(refreshProps, defaultRefreshProps)}
+      /> : null
+    }
+
+    _onRefresh() {
+      this.setState({refreshing: true});
+      this._getRowData(this.props.rowData).then((calculatedRowData) => {
+        this.setState({refreshing: false, rowData: calculatedRowData});
+      });
+    }
+
+    render() {
+      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      if(!this.state.rowData) {
+        return <Spinner theme={baseTheme}/>;
+      } else {
+        var dataSource = ds.cloneWithRows(this.state.rowData);
+        return <ListView
+          {...this.prepareRootProps()}
+          enableEmptySections={true}
+          dataSource={dataSource}
+          renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowTemplate, this.props.rowOnClickEval)}
+          renderSeparator={(sID, rID) => this._renderSeparator(sID, rID, this.props.separator)}
+          refreshControl={this._getRefresh(this.props.refreshable)}
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={this.state.refreshing}
+          //     onRefresh={this._onRefresh.bind(this)}/>
+          // }
+          //     renderHeader={() => <Header />}
+          //     renderFooter={() => <Footer />}
+          //     renderSectionHeader={(sectionData) => <SectionHeader {...sectionData} />}
+        />
+      }
     }
 }
-
-// import React, { Component } from 'react';
-// import { ListView} from 'react-native';
-// import { Spinner } from 'native-base'
-// import baseTheme from '../../themes/base-theme'
-// import SectionHeader from './sectionHeader';
-// import demoData from '../../../dataSources/demoDataSource';
-// import Row from './row';
-// import API from '../../util/api';
-// import {
-//   View,
-//   AlertIOS,
-//   StyleSheet
-// } from "react-native";
-// // import defaultStyles from './styles';
-//
-// export default class ListComponent extends Component {
-//   constructor(props) {
-//     super(props);
-//     console.log("props", props);
-//
-//     this.state = {
-//       dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-//       loading: true
-//     };
-//
-//   }
-//
-//   async _constructDataSource(url, binding) {
-//     console.log("Fetching ", url);
-//
-//     try {
-//       let response = await fetch(url);
-//       let responseJson = await response.json();
-//       console.log("Success", responseJson[binding]);
-//       this.setState({
-//         dataSource: this.state.dataSource.cloneWithRows(responseJson[binding]),
-//         loading: false
-//       });
-//     } catch(error) {
-//       console.warn("Warning, couldn't find dataSource", error);
-//       this.setState({loading: false})
-//     }
-//   }
-//
-//   componentWillMount() {
-//     // this._constructDataSource(this.props.dataSource.url, this.props.rowDataBinding);
-//   }
-//
-//   _renderRow(data, sectionIds, rowIds, rowTemplate, rowOnClickEval) {
-//     return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} components={rowTemplate} rowOnClickEval={rowOnClickEval}/>
-//   }
-//
-//   render() {
-//     console.log("List Rendered")
-//     return (this.state.loading ?
-//       <Spinner theme={baseTheme}/> :
-//       <ListView
-//         style={styles.container}
-//         dataSource={this.state.dataSource}
-//         renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowTemplate, this.props.rowOnClickEval)}
-//         renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-//       />
-//     );
-//
-//     //   <ListView
-//     //     style={styles.container}
-//     //     dataSource={this.state.dataSource}
-//     //     renderRow={(data) => <Row {...data} />}
-//     //     renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-//     //     renderHeader={() => <Header />}
-//     //     renderFooter={() => <Footer />}
-//     //     renderSectionHeader={(sectionData) => <SectionHeader {...sectionData} />}
-//     //   />
-//   }
-// }
 
 const styles = {
   separator: {

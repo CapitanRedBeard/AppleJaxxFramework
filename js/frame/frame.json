@@ -71,83 +71,22 @@
           "style": {
             "backgroundColor": "white"
           },
-          "rowOnClickEval": {
-            "key": "feature_page",
-            "type": "push",
-            "param": {
-              "dataSource": {
-                "type": "param_url",
-                "url": "pokemonz.url"
-              }
+          "refreshable": {
+              "tintColor": "#4e8ef7",
+              "title": "Loading...",
+              "titleColor": "#4e8ef7"
+          },
+          "rowData": {
+            "type": "url",
+            "params": {
+              "url": "https://jsonplaceholder.typicode.com/users/",
             }
           },
-          "rowData": [
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Steven B.",
-              "list_description": "I like to cha cha"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Joe S.",
-              "list_description": "In a latin bar"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Jafgin R.",
-              "list_description": "With a Dominican that resembles Taina"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Jo-Jo Q.",
-              "list_description": "I like to cha cha"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Patrick S.",
-              "list_description": "In a latin bar"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "John S.",
-              "list_description": "With a Dominican that resembles Taina"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Steven B.",
-              "list_description": "I like to cha cha"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Joe S.",
-              "list_description": "In a latin bar"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Jafgin R.",
-              "list_description": "With a Dominican that resembles Taina"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Jo-Jo Q.",
-              "list_description": "I like to cha cha"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "Patrick S.",
-              "list_description": "In a latin bar"
-            },
-            {
-              "list_thumbnail_source": "https://unsplash.it/200/300/?random",
-              "list_name": "John S.",
-              "list_description": "With a Dominican that resembles Taina"
-            }
-          ],
           "rowTemplate": {
             "leftSection": [
               {
                  "type": "thumbnail",
-                 "source": "{{list_thumbnail_source}}",
+                 "source": "https://unsplash.it/200/300/?random",
                  "attributes": {
                    "square": true,
                    "size": 50
@@ -162,7 +101,7 @@
                   "color": "#333",
                   "paddingLeft": 10
                 },
-                "text": "{{list_name}}"
+                "text": "{{name}}"
               },
               {
                 "type": "text",
@@ -172,7 +111,7 @@
                   "color": "#888",
                   "paddingLeft": 20
                 },
-                "text": "{{list_description}}"
+                "text": "Near {{address.city}}..."
               }
             ],
             "rightSection": [
@@ -237,32 +176,37 @@
               }
             }
           },
-          "rowData": [
-            {
-              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/broccoli-96.png",
-              "list_name": "VEGETABLE",
-            },
-            {
-              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/berry-96.png",
-              "list_name": "FRUIT",
-            },
-            {
-              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/cheese-96.png",
-              "list_name": "DAIRY",
-            },
-            {
-              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/barley-96.png",
-              "list_name": "GRAIN",
-            },
-            {
-              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/fish_food-96.png",
-              "list_name": "FISH",
-            },
-            {
-              "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/steak-96.png",
-              "list_name": "MEAT",
+          "rowData": {
+            "type": "raw",
+            "params": {
+              "data": [
+                {
+                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/broccoli-96.png",
+                  "list_name": "VEGETABLE",
+                },
+                {
+                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/berry-96.png",
+                  "list_name": "FRUIT",
+                },
+                {
+                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/cheese-96.png",
+                  "list_name": "DAIRY",
+                },
+                {
+                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/barley-96.png",
+                  "list_name": "GRAIN",
+                },
+                {
+                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/fish_food-96.png",
+                  "list_name": "FISH",
+                },
+                {
+                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/steak-96.png",
+                  "list_name": "MEAT",
+                }
+              ]
             }
-          ],
+          },
           "rowTemplate": {
             "leftSection": [
               {
@@ -359,72 +303,78 @@
           "style": {
             "backgroundColor": "#B3D89C"
           },
-          "rowData": [
-            {
-              "folder_badge_count": 14,
-              "folder_name": "Health"
-            },
-            {
-              "folder_badge_count": 400,
-              "folder_name": "Handwriting"
-            },
-            {
-              "folder_badge_count": 2,
-              "folder_name": "Art"
-            },
-            {
-              "folder_badge_count": 1,
-              "folder_name": "Music"
-            },
-            {
-              "folder_badge_count": 3,
-              "folder_name": "Dance"
-            },
-            {
-              "folder_badge_count": 0,
-              "folder_name": "Speech"
-            },
-            {
-              "folder_badge_count": 4,
-              "folder_name": "Spanish"
-            },
-            {
-              "folder_badge_count": 9,
-              "folder_name": "French"
-            },
-            {
-              "folder_badge_count": 14,
-              "folder_name": "Health"
-            },
-            {
-              "folder_badge_count": 400,
-              "folder_name": "Handwriting"
-            },
-            {
-              "folder_badge_count": 2,
-              "folder_name": "Art"
-            },
-            {
-              "folder_badge_count": 1,
-              "folder_name": "Music"
-            },
-            {
-              "folder_badge_count": 3,
-              "folder_name": "Dance"
-            },
-            {
-              "folder_badge_count": 0,
-              "folder_name": "Speech"
-            },
-            {
-              "folder_badge_count": 4,
-              "folder_name": "Spanish"
-            },
-            {
-              "folder_badge_count": 9,
-              "folder_name": "French"
+          "rowData": {
+            "type": "raw",
+            "params": {
+
+              "data": [
+                {
+                  "folder_badge_count": 14,
+                  "folder_name": "Health"
+                },
+                {
+                  "folder_badge_count": 400,
+                  "folder_name": "Handwriting"
+                },
+                {
+                  "folder_badge_count": 2,
+                  "folder_name": "Art"
+                },
+                {
+                  "folder_badge_count": 1,
+                  "folder_name": "Music"
+                },
+                {
+                  "folder_badge_count": 3,
+                  "folder_name": "Dance"
+                },
+                {
+                  "folder_badge_count": 0,
+                  "folder_name": "Speech"
+                },
+                {
+                  "folder_badge_count": 4,
+                  "folder_name": "Spanish"
+                },
+                {
+                  "folder_badge_count": 9,
+                  "folder_name": "French"
+                },
+                {
+                  "folder_badge_count": 14,
+                  "folder_name": "Health"
+                },
+                {
+                  "folder_badge_count": 400,
+                  "folder_name": "Handwriting"
+                },
+                {
+                  "folder_badge_count": 2,
+                  "folder_name": "Art"
+                },
+                {
+                  "folder_badge_count": 1,
+                  "folder_name": "Music"
+                },
+                {
+                  "folder_badge_count": 3,
+                  "folder_name": "Dance"
+                },
+                {
+                  "folder_badge_count": 0,
+                  "folder_name": "Speech"
+                },
+                {
+                  "folder_badge_count": 4,
+                  "folder_name": "Spanish"
+                },
+                {
+                  "folder_badge_count": 9,
+                  "folder_name": "French"
+                }
+              ]
             }
-          ],
+          },
           "rowTemplate": {
             "leftSection": [
               {
@@ -525,80 +475,6 @@
     "frameID": "listFrame"
   },
 	"theme": {
-		"badgeBg": "#ED1727",
-		"badgeColor": "#fff",
-		"btnFontFamily": "HelveticaNeue",
-		"btnDisabledBg": "red",
-		"btnDisabledClr": "#f1f1f1",
-		"buttonPadding": 6,
-		"cardDefaultBg": "#fff",
-		"checkboxBgColor": "#039BE5",
-		"checkboxSize": 23,
-		"checkboxTickColor": "#fff",
-		"brandPrimary": "#5067FF",
-		"brandInfo": "#5bc0de",
-		"brandSuccess": "#5cb85c",
-		"brandDanger": "#d9534f",
-		"brandWarning": "#f0ad4e",
-		"brandSidebar": "#252932",
-		"fontFamily": "HelveticaNeue",
-		"fontSizeBase": 15,
-		"footerBtnMargin": 0,
-		"footerHeight": 55,
-		"footerDefaultBg": "#333333",
-		"tabBarTextColor": "red",
-		"tabBarActiveTextColor": "#00FF00",
-		"tabActiveBgColor": "#FF0000",
-		"iosToolbarBtnColor": "#007aff",
-		"toolbarDefaultBg": "#F8F8F8",
-		"toolbarHeight": 64,
-		"toolbarIconSize": 20,
-		"toolbarInputColor": "#CECDD2",
-		"toolbarInverseBg": "#222",
-		"toolbarTextColor": "#000",
-		"iconFamily": "Ionicons",
-		"iconFontSize": 30,
-		"iconMargin": 7,
-		"inputFontSize": 15,
-		"inputBorderColor": "#D9D5DC",
-		"inputSuccessBorderColor": "#2b8339",
-		"inputErrorBorderColor": "#ed2f2f",
-		"inputGroupMarginBottom": 10,
-		"inputHeightBase": 40,
-		"inputPaddingLeft": 5,
-		"btnLineHeight": 19,
-		"lineHeightH1": 32,
-		"lineHeightH2": 27,
-		"lineHeightH3": 22,
-		"iconLineHeight": 37,
-		"lineHeight": 20,
-		"listBorderColor": "#ACAAAB",
-		"listDividerBg": "#ddd",
-		"listItemHeight": 45,
-		"listItemPadding": 9,
-		"listNoteColor": "#808080",
-		"listNoteSize": 13,
-		"defaultProgressColor": "#E4202D",
-		"inverseProgressColor": "#1A191B",
-		"radioBtnSize": 25,
-		"radioColor": "#7e7e7e",
-		"defaultSpinnerColor": "#45D56E",
-		"inverseSpinnerColor": "#1A191B",
-		"tabBgColor": "#F8F8F8",
-		"tabFontSize": 15,
-		"tabTextColor": "#fff",
-		"textColor": "#000",
-		"inverseTextColor": "#fff",
-		"titleFontSize": 17,
-		"subTitleFontSize": 12,
-		"subtitleColor": "#8e8e93",
-		"borderRadiusBase": 5,
-		"borderWidth": 1,
-		"contentPadding": 10,
-		"dropdownBg": "#000",
-		"dropdownLinkColor": "#414142",
-		"inputLineHeight": 24,
-		"jumbotronBg": "#C9C9CE",
-		"jumbotronPadding": 30
+		"defaultSpinnerColor": "#4e8ef7",
 	}
 }

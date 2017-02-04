@@ -1,5 +1,6 @@
 import RNFetchBlob from 'react-native-fetch-blob'
 import { Platform } from 'react-native';
+
 export default async function getURL(url){
   try {
     let response = await fetch(url);

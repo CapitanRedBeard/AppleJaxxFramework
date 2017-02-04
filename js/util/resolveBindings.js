@@ -10,6 +10,9 @@ const ENDING_DELIMITER = "}}";
 function checkForBinding(val) {
   return val.match(/{{(.*?)}}/g);
 }
+function removeDelimiter(binding) {
+  return binding.replace(/{{|}}/g, "");
+}
 
 export default function resolveBindings(props) {
   const { bindingData } = props; //TODO remove
@@ -30,7 +33,7 @@ function replaceBindingsWithBindingValue(value = "", variables = {}) {
 	var bindings = checkForBinding(value);
 	let newValue = _.clone(value);
 	_.each(bindings, (binding) => {
-		let replacementValue = variables[binding.replace(/{{|}}/g, "")];
+		let replacementValue = getValue(variables, removeDelimiter(binding));
 		newValue = newValue.replace(binding, replacementValue);
 	})
 	return newValue;
@@ -42,7 +45,6 @@ export function resolveBody(body, bindings) {
     _.each(newBody, (value, key) => {
       if(value && checkForBinding(value)){
         newBody[key] = replaceBindingsWithBindingValue(value, bindings);
-        console.log("resolveBody: ", newBody[key], bindings);
       }
     });
     return newBody;
