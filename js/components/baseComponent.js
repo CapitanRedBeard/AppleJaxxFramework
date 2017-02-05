@@ -6,6 +6,7 @@ import List from './list/list';
 import Icon from './icon/icon';
 import Badge from './badge/badge';
 import Input from './input/input';
+import Cards from './cards/cards';
 
 
 import { View } from 'react-native';
@@ -19,9 +20,9 @@ const components = {
   "list": List,
   "icon": Icon,
   "badge": Badge,
-  "input": Input
+  "input": Input,
+  "cards": Cards
 };
-
 
 export default class BaseComponent extends Component {
   propTypes: {

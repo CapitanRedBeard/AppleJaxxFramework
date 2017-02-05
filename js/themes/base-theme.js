@@ -169,7 +169,7 @@ const defaultThemes = {
 
 
   // List
-  listBorderColor: '#ACAAAB',
+  listBorderColor: 'transparent',
   // listBorderColor: '#ddd',
   listDividerBg: '#ddd',
   listItemHeight: 45,
