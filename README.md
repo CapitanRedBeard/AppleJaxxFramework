@@ -1,3 +1,4 @@
+![Card List](/Screenshots/480cards.gif?raw=true "Card List")
 ![Friends List](/Screenshots/friendsList.png?raw=true "Friends List")
 ![Fruits List](/Screenshots/fruitsList.png?raw=true "Fruits List")
 ![Folder List](/Screenshots/folderList.png?raw=true "Folders List")
