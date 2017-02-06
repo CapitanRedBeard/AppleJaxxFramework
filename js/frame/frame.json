@@ -16,12 +16,178 @@
   },
   "pages": [
     {
+      "key": "cardPage",
+      "title": "Card Page",
+      "subtitle": "el cardo",
+      "navigatorStyle": {
+          "navBarBackgroundColor": "transparent",
+        	"drawUnderNavBar": true,
+        	"navBarTextColor": "white",
+        	"navBarButtonColor": "white",
+        	"statusBarTextColorScheme": "light",
+          "navBarTranslucent": true,
+          "navBarBlur": true
+      },
+      "navigatorButtons": {
+        "rightButtons": [
+          {
+            "title": "Edit",
+            "id": "edit",
+            "disabled": true,
+            "disableIconTint": true,
+            "showAsAction": "ifRoom",
+          },
+          {
+            "icon": "ios-ionic",
+            "id": "menu2",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "right",
+                "animated": true,
+              }
+            }
+          }
+        ],
+        "leftButtons": [
+          {
+            "icon": "ios-menu",
+            "id": "menu",
+            "event": {
+              "eventType": "toggleDrawer",
+              "params": {
+                "side": "left",
+                "animated": true,
+              }
+            }
+          }
+        ],
+        "animated": true
+      },
+      "style": {
+        "backgroundColor": "rgba(0,0,0,0.5)",
+        "paddingTop": 50
+      },
+      "backgroundImage": "https://unsplash.it/900/600/?random",
+      "components": [
+        {
+          "type": "cards",
+          "transparent": false,
+          "style": {
+            "padding": 20
+          },
+          "refreshable": {
+              "tintColor": "white",
+              "title": "Finding More...",
+              "titleColor": "white"
+          },
+          "rowData": {
+            "type": "url",
+            "params": {
+              "url": "https://jsonplaceholder.typicode.com/users/",
+            }
+          },
+          "rowTemplate": {
+            "cardStyle": {
+              "borderColor": "red",
+              "borderWidth": 0,
+              "borderBottomWidth": 2
+            },
+            "rowSections": [
+              {
+                 "style": {
+                   "padding": 10,
+                   "justifyContent": "flex-start",
+                   "alignItems": "center"
+                 },
+                 "components": [
+                   {
+                     "type": "thumbnail",
+                     "source": "https://unsplash.it/200/300/?random",
+                     "attributes": {
+                       "size": 30
+                     }
+                   },
+                   {
+                     "type": "text",
+                     "style": {
+                       "fontSize": 16,
+                       "color": "#333",
+                       "paddingLeft": 10
+                     },
+                     "text": "{{name}}"
+                   }
+                 ]
+              },
+              {
+                 "style": {
+                   "height": 150
+                 },
+                 "components": [
+                   {
+                     "type": "image",
+                     "source": "https://unsplash.it/600/?random",
+                     "style": {
+                     },
+                     "resizeMode": "cover",
+                     "indicator": {
+                       "type": "bar",
+                       "params": {}
+                     }
+                   }
+                 ]
+              },
+              {
+                 "style": {
+                     "padding": 10,
+                 },
+                 "components": [
+                   {
+                     "type": "text",
+                     "style": {
+                       "fontSize": 12,
+                       "lineHeight": 12,
+                       "color": "#888"
+                     },
+                     "text": "{{company.catchPhrase}} {{company.catchPhrase}} {{company.catchPhrase}} {{company.catchPhrase}}"
+                   }
+                 ]
+              },
+              {
+                 "style": {
+                     "paddingRight": 10,
+                     "paddingBottom": 10,
+                     "justifyContent": "flex-end",
+                     "alignItems": "center"
+
+                 },
+                 "components": [
+                   {
+                     "type": "badge",
+                     "style": {
+                       "backgroundColor": "#333",
+                     },
+                     "textStyle": {
+                       "fontSize": 12,
+                       "color": "red",
+                     },
+                     "count": "{{id}}"
+                   }
+                 ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
       "key": "page1",
       "title": "Page One",
       "subtitle": "numero uno",
       "navigatorStyle": {
-        	"navBarBackgroundColor": "#4e8ef7",
-        	"drawUnderNavBar": false,
+          "navBarTranslucent": "navBarTranslucent",
+        	"navBarBackgroundColor": "#F93751",
+        	"drawUnderNavBar": true,
         	"navBarTextColor": "white",
         	"navBarButtonColor": "white",
         	"statusBarTextColorScheme": "light"
@@ -72,9 +238,9 @@
             "backgroundColor": "white"
           },
           "refreshable": {
-              "tintColor": "#4e8ef7",
-              "title": "Loading...",
-              "titleColor": "#4e8ef7"
+              "tintColor": "#F93751",
+              "title": "Refreshing!",
+              "titleColor": "#F93751"
           },
           "rowData": {
             "type": "url",
@@ -165,16 +331,6 @@
           "type": "list",
           "style": {
             "backgroundColor": "#452B6B"
-          },
-          "rowOnClickEval": {
-            "key": "feature_page",
-            "type": "push",
-            "param": {
-              "dataSource": {
-                "type": "param_url",
-                "url": "pokemonz.url"
-              }
-            }
           },
           "rowData": {
             "type": "raw",
@@ -455,17 +611,22 @@
     },
     "tabs": [
       {
-        "label": "Friends",
-        "icon": "ios-person-add-outline",
+        "label": "Card List",
+        "icon": "ios-beer-outline",
+        "screen": "cardPage",
+      },
+      {
+        "label": "Url List",
+        "icon": "ios-person-outline",
         "screen": "page1",
       },
       {
-        "label": "Taste",
-        "icon": "ios-list-box-outline",
+        "label": "Raw List",
+        "icon": "ios-menu-outline",
         "screen": "page2",
       },
       {
-        "label": "Folders",
+        "label": "Raw List 2",
         "icon": "ios-folder-open-outline",
         "screen": "page3"
       }
@@ -475,6 +636,7 @@
     "frameID": "listFrame"
   },
 	"theme": {
-		"defaultSpinnerColor": "#4e8ef7",
+		"defaultSpinnerColor": "white",
+    "fontFamily": "Futura"
 	}
 }

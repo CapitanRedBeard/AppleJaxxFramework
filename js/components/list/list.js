@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { Spinner } from 'native-base'
 import baseTheme from '../../themes/base-theme'
 import Row from './row';
+import hocListWrapper from '../hocList/hocList';
 import getURL from "../../util/api"
   // "type": "list",
   // "style": {
@@ -30,15 +31,7 @@ import getURL from "../../util/api"
   // },
 
 
-export default class ListComponent extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-         rowData: null,
-         refreshing: false,
-         dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-      };
-    }
+class ListComponent extends Component {
 
     propTypes: {
         style : React.PropTypes.object,
@@ -74,21 +67,19 @@ export default class ListComponent extends Component {
     }
 
     prepareRootProps() {
+      let {inset, enableEmptySections, dataSource, refreshControl} = this.props;
         var defaultProps = {
-          style: this.props.inset ? this.getInitialStyle().insetList : this.getInitialStyle().list
+          style: inset ? this.getInitialStyle().insetList : this.getInitialStyle().list,
+          enableEmptySections: true,
+          dataSource: dataSource,
+          refreshControl: refreshControl
         };
 
         return mergeDeep(this.props, defaultProps);
     }
 
-    componentWillMount() {
-      this._getRowData(this.props.rowData).then((calculatedRowData) => {
-        this.setState({rowData: calculatedRowData})
-      });
-    }
-
-    _renderRow(data, sectionIds, rowIds, rowTemplate, rowOnClickEval, rowData) {
-      return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} rowTemplate={rowTemplate} rowOnClickEval={rowOnClickEval}/>
+    _renderRow(data, sectionIds, rowIds, rowTemplate) {
+      return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} rowTemplate={rowTemplate} />
     }
 
     _renderSeparator(sectionId, rowId, separator) {
@@ -96,69 +87,12 @@ export default class ListComponent extends Component {
         return <View key={rowId} style={[styles.separator, separator]} />
     }
 
-    async _getRowData(rowData) {
-      const rowDataTypes = ["raw", "url"];
-      const {type, params} = rowData;
-      let calculatedRowData = [];
-
-      switch(type) {
-        case rowDataTypes[0]:
-          calculatedRowData = params.data
-          break;
-        case rowDataTypes[1]:
-          calculatedRowData = await getURL(params.url);
-          break;
-      }
-      return calculatedRowData;
-
-    }
-
-    _getRefresh(refreshProps) {
-      let defaultRefreshProps = {
-        tintColor: "#ff0000",
-        title: "Loading...",
-        titleColor: "#00ff00",
-        colors: ['#ff0000', '#00ff00', '#0000ff'],
-        progressBackgroundColor: "#ffff00",
-      }
-
-      return refreshProps ? <RefreshControl
-        refreshing={this.state.refreshing}
-        onRefresh={this._onRefresh.bind(this)}
-        {...mergeDeep(refreshProps, defaultRefreshProps)}
-      /> : null
-    }
-
-    _onRefresh() {
-      this.setState({refreshing: true});
-      this._getRowData(this.props.rowData).then((calculatedRowData) => {
-        this.setState({refreshing: false, rowData: calculatedRowData});
-      });
-    }
-
     render() {
-      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-      if(!this.state.rowData) {
-        return <Spinner theme={baseTheme}/>;
-      } else {
-        var dataSource = ds.cloneWithRows(this.state.rowData);
-        return <ListView
-          {...this.prepareRootProps()}
-          enableEmptySections={true}
-          dataSource={dataSource}
-          renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowTemplate, this.props.rowOnClickEval)}
-          renderSeparator={(sID, rID) => this._renderSeparator(sID, rID, this.props.separator)}
-          refreshControl={this._getRefresh(this.props.refreshable)}
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={this.state.refreshing}
-          //     onRefresh={this._onRefresh.bind(this)}/>
-          // }
-          //     renderHeader={() => <Header />}
-          //     renderFooter={() => <Footer />}
-          //     renderSectionHeader={(sectionData) => <SectionHeader {...sectionData} />}
-        />
-      }
+      return <ListView
+        {...this.prepareRootProps()}
+        renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowTemplate)}
+        renderSeparator={(sID, rID) => this._renderSeparator(sID, rID, this.props.separator)}
+      />
     }
 }
 
@@ -168,3 +102,5 @@ const styles = {
     backgroundColor: '#DDD',
   }
 }
+
+export default hocListWrapper(ListComponent);
