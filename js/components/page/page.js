@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import React, { Component } from 'react';
-import { Text, ScrollView, View, AlertIOS, StyleSheet} from 'react-native';
+import { Text, ScrollView, View, AlertIOS, StyleSheet, Image} from 'react-native';
 import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
@@ -85,15 +85,16 @@ class Page extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.page.style];
+    const backgroundImageProp = this.page.backgroundImage ? {source: {uri: this.page.backgroundImage}} : null;
+    console.log("BackgroundImage: ", backgroundImageProp, this.page)
+
     return (
-      <Container style={overridedStyles}>
-          <View style={{flex: 1}}>
-            <View style={overridedStyles} containerStyleProps={{
-            justifyContent: "center",
-            alignItems: "center"}}>
+      <Container style={styles.container}>
+          <Image {...backgroundImageProp} style={styles.backgroundImage}>
+            <View style={overridedStyles}>
                 {this._getComponents()}
             </View>
-          </View>
+          </Image>
       </Container>
     );
   }
@@ -122,6 +123,11 @@ const styles = {
   content: {
     flex: 1,
     justifyContent: "flex-end"
+  },
+  backgroundImage: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: null,
   }
 }
 

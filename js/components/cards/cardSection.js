@@ -11,7 +11,8 @@ const AVAILABLE_LIST_COMPONENTS = [
   "thumbnail",
   "text",
   "icon",
-  "badge"
+  "badge",
+  "image"
 ]
 
 export default class CardSection extends Component {
@@ -37,11 +38,9 @@ export default class CardSection extends Component {
     return {
       section: {
         flex: 1,
-        marginBottom: 10,
-        flexDirection: "row",
+        flexDirection: "row"
       },
       card: {
-        padding: 20,
         marginVertical: 5,
         flex: 1,
         borderWidth: theme.borderWidth,
@@ -82,7 +81,6 @@ export default class CardSection extends Component {
 
   render() {
     const rows = getValue(this.props.rowTemplate, "rowSections");
-    console.log("wer", this._getSections(rows))
     return <View {...this.prepareRootProps()}>
               {this._getSections(rows)}
             </View>

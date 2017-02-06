@@ -20,6 +20,6 @@ export default class IconComponent extends Component {
 }
 
 const styles = {
-  icon: {
+  image: {
   }
 }

@@ -20,11 +20,13 @@
       "title": "Card Page",
       "subtitle": "el cardo",
       "navigatorStyle": {
-        	"navBarBackgroundColor": "#4e8ef7",
-        	"drawUnderNavBar": false,
+          "navBarBackgroundColor": "transparent",
+        	"drawUnderNavBar": true,
         	"navBarTextColor": "white",
         	"navBarButtonColor": "white",
-        	"statusBarTextColorScheme": "light"
+        	"statusBarTextColorScheme": "light",
+          "navBarTranslucent": true,
+          "navBarBlur": true
       },
       "navigatorButtons": {
         "rightButtons": [
@@ -63,17 +65,21 @@
         "animated": true
       },
       "style": {
-        "backgroundColor": "#dddddd",
+        "backgroundColor": "rgba(0,0,0,0.5)",
+        "paddingTop": 50
       },
+      "backgroundImage": "https://unsplash.it/900/600/?random",
       "components": [
         {
           "type": "cards",
+          "transparent": false,
           "style": {
+            "padding": 20
           },
           "refreshable": {
-              "tintColor": "red",
-              "title": "Loading...",
-              "titleColor": "red"
+              "tintColor": "white",
+              "title": "Finding More...",
+              "titleColor": "white"
           },
           "rowData": {
             "type": "url",
@@ -82,10 +88,15 @@
             }
           },
           "rowTemplate": {
-            "cardStyle": {},
+            "cardStyle": {
+              "borderColor": "red",
+              "borderWidth": 0,
+              "borderBottomWidth": 2
+            },
             "rowSections": [
               {
                  "style": {
+                   "padding": 10,
                    "justifyContent": "flex-start",
                    "alignItems": "center"
                  },
@@ -110,33 +121,33 @@
               },
               {
                  "style": {
-                   "justifyContent": "center",
-                   "alignItems": "center",
-                   "maxHeight": 100,
-                   "overflow": "hidden",
-
+                   "height": 150
                  },
                  "components": [
                    {
-                     "type": "thumbnail",
-                     "source": "https://unsplash.it/200/300/?random",
-                     "attributes": {
-                       "square": true,
-                       "size": 200
+                     "type": "image",
+                     "source": "https://unsplash.it/600/?random",
+                     "style": {
+                     },
+                     "resizeMode": "cover",
+                     "indicator": {
+                       "type": "bar",
+                       "params": {}
                      }
                    }
                  ]
               },
               {
-                 "style": {},
+                 "style": {
+                     "padding": 10,
+                 },
                  "components": [
                    {
                      "type": "text",
                      "style": {
                        "fontSize": 12,
                        "lineHeight": 12,
-                       "color": "#888",
-                       "paddingLeft": 20
+                       "color": "#888"
                      },
                      "text": "{{company.catchPhrase}} {{company.catchPhrase}} {{company.catchPhrase}} {{company.catchPhrase}}"
                    }
@@ -144,6 +155,8 @@
               },
               {
                  "style": {
+                     "paddingRight": 10,
+                     "paddingBottom": 10,
                      "justifyContent": "flex-end",
                      "alignItems": "center"
 
@@ -152,10 +165,11 @@
                    {
                      "type": "badge",
                      "style": {
-                       "backgroundColor": "#D63226",
+                       "backgroundColor": "#333",
                      },
                      "textStyle": {
-                       "color": "#B3D89C",
+                       "fontSize": 12,
+                       "color": "red",
                      },
                      "count": "{{id}}"
                    }
@@ -171,8 +185,9 @@
       "title": "Page One",
       "subtitle": "numero uno",
       "navigatorStyle": {
-        	"navBarBackgroundColor": "#4e8ef7",
-        	"drawUnderNavBar": false,
+          "navBarTranslucent": "navBarTranslucent",
+        	"navBarBackgroundColor": "#F93751",
+        	"drawUnderNavBar": true,
         	"navBarTextColor": "white",
         	"navBarButtonColor": "white",
         	"statusBarTextColorScheme": "light"
@@ -223,9 +238,9 @@
             "backgroundColor": "white"
           },
           "refreshable": {
-              "tintColor": "red",
-              "title": "Loading...",
-              "titleColor": "red"
+              "tintColor": "#F93751",
+              "title": "Refreshing!",
+              "titleColor": "#F93751"
           },
           "rowData": {
             "type": "url",
@@ -621,6 +636,7 @@
     "frameID": "listFrame"
   },
 	"theme": {
-		"defaultSpinnerColor": "#4e8ef7",
+		"defaultSpinnerColor": "white",
+    "fontFamily": "Futura"
 	}
 }

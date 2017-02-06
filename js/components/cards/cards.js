@@ -57,7 +57,6 @@ class CardsComponent extends Component {
       let theme = this.props.theme;
       return {
         cardList: {
-          padding: 20
         }
       }
     }
