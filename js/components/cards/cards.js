@@ -41,6 +41,7 @@ class CardsComponent extends Component {
     propTypes: {
         style : React.PropTypes.object,
         dataArray : React.PropTypes.array,
+        transparent: React.PropTypes.boolean,
         rowTemplate : React.PropTypes.func.isRequired,
         rowData : {
           type: React.PropTypes.string,

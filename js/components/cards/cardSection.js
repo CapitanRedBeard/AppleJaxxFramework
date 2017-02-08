@@ -12,7 +12,8 @@ const AVAILABLE_LIST_COMPONENTS = [
   "text",
   "icon",
   "badge",
-  "image"
+  "image",
+  "button"
 ]
 
 export default class CardSection extends Component {

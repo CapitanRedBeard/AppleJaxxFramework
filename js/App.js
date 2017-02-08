@@ -131,7 +131,10 @@ function startApp(frame, icons) {
   }else {
     let screen = {
       title: frame.pages[0].title,
-      screen: frame.pages[0].key
+      screen: frame.pages[0].key,
+      icon: icons[frame.pages[0].icon],
+      subtitle: frame.pages[0].subtitle,
+      navigatorStyle: frame.pages[0].navigatorStyle
     }
     Navigation.startSingleScreenApp({screen, drawer: drawer});
   }
