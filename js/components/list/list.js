@@ -78,8 +78,9 @@ class ListComponent extends Component {
         return mergeDeep(this.props, defaultProps);
     }
 
-    _renderRow(data, sectionIds, rowIds, rowTemplate) {
-      return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} rowTemplate={rowTemplate} />
+    _renderRow(data, sectionIds, rowIds, rowProps) {
+      const {rowTemplate, events, navigator, pages} = rowProps
+      return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} rowTemplate={rowTemplate} events={events} navigator={navigator} pages={pages}/>
     }
 
     _renderSeparator(sectionId, rowId, separator) {
@@ -90,7 +91,7 @@ class ListComponent extends Component {
     render() {
       return <ListView
         {...this.prepareRootProps()}
-        renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props.rowTemplate)}
+        renderRow={(data, sectionIds, rowIds) => this._renderRow(data, sectionIds, rowIds, this.props)}
         renderSeparator={(sID, rID) => this._renderSeparator(sID, rID, this.props.separator)}
       />
     }

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { fireEvent, handleOnPress } from '../../util/events'
+
 import BaseComponent from '../baseComponent'
 import getValue from '../../util/getValue'
 import _ from 'underscore'
@@ -31,10 +33,6 @@ export default class Row extends Component {
     return constructedComponents;
   }
 
-  onButtonPress(rowOnClickEval) {
-    console.log("row pressed", rowOnClickEval)
-  }
-
   _getSection(key, rowTemplate) {
     let section, sectionStyle
     switch(key) {
@@ -60,14 +58,16 @@ export default class Row extends Component {
     }
   }
 
-  _wrapOnClickHandler(children, rowOnClickEval) {
-    return  (<TouchableOpacity onPress={()=> this.onButtonPress(rowOnClickEval)} style={{flex: 1}}>
+  _wrapOnClickHandler(children, events) {
+    const {navigator, pages, bindings} = this.props
+
+    return  (<TouchableOpacity onPress={handleOnPress(events, navigator, pages, bindings)} style={{flex: 1}}>
               {children}
             </TouchableOpacity>)
   }
 
   render() {
-    const {style, rowTemplate, data, rowOnClickEval} = this.props;
+    const {style, rowTemplate, data, events} = this.props;
     const sections = [];
 
     sections.push(this._getSection("left", rowTemplate));
@@ -78,16 +78,7 @@ export default class Row extends Component {
                 {sections}
               </View> )
 
-    return rowOnClickEval ? this._wrapOnClickHandler(rowComponents, rowOnClickEval) : rowComponents
-    // return (
-    //   <ListItem iconLeft>
-    //       <Thumbnail source={require('../../../images/multiple-users-silhouette.png')} />
-    //       <Icon name="ios-plane" style={{ color: '#0A69FE' }} />
-    //       <Text>Airplane Mode</Text>
-    //       <Text note>Off</Text>
-    //       <Badge>23</Badge>
-    //   </ListItem>
-    // )
+    return events ? this._wrapOnClickHandler(rowComponents, events) : rowComponents
   }
 };
 

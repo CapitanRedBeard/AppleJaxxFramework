@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { Spinner } from 'native-base'
 import baseTheme from '../../themes/base-theme'
 import getURL from "../../util/api"
+import getValue from "../../util/getValue"
 
 //========= LIST =========
 // "type": "list",
@@ -102,6 +103,10 @@ export default function hocListWrapper(WrappedComponent) {
             break;
           case rowDataTypes[1]:
             calculatedRowData = await getURL(params.url);
+            if(!(calculatedRowData instanceof Array)) {
+              calculatedRowData = getValue(calculatedRowData, "data.children")
+            }
+
             break;
         }
         return calculatedRowData;

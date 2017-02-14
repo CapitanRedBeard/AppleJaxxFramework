@@ -108,10 +108,12 @@ function startApp(frame, icons) {
   const footerTabs = getValue(frame, "footer.tabs")
 
   let drawer = getValue(frame, "drawer")
-  if(drawer) {
+  if(drawer.left)
     drawer.left.passProps = pages[getValue(drawer, "left.screen")];
+
+  if(drawer.right)
     drawer.right.passProps = pages[getValue(drawer, "right.screen")];
-  }
+
 
   if(footerTabs) {
     let tabs = [];
@@ -132,7 +134,6 @@ function startApp(frame, icons) {
     let screen = {
       title: frame.pages[0].title,
       screen: frame.pages[0].key,
-      icon: icons[frame.pages[0].icon],
       subtitle: frame.pages[0].subtitle,
       navigatorStyle: frame.pages[0].navigatorStyle
     }

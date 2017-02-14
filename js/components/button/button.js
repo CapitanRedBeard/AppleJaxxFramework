@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button } from 'native-base';
+import { connect } from 'react-redux'
+
 import { textColor } from '../../themes/base-theme'
-import { handleButtonEval } from '../../util/handleScreenEval'
+import { fireEvent, handleOnPress } from '../../util/events'
 import baseTheme from '../../themes/base-theme'
 
 import {
@@ -33,23 +35,42 @@ export default class ButtonComponent extends Component {
     event: React.PropTypes.object,
     theme: React.PropTypes.object
   }
+  constructor(props) {
+    super(props);
+    this.handleButtonEval = this.handleButtonEval.bind(this);
+  }
+
+  handleButtonEval(events, navigator, pages, bindings) {
+    if(events) {
+      let { eventType, params} = events
+
+      fireEvent(eventType, params, navigator, pages, bindings);
+    }
+  }
 
   prepareRootProps() {
+    const {events, navigator, pages, bindings} = this.props
     const {buttonText, button} = this.props.style;
     const overrideButtonStyles = [styles.button, button];
     const overrideButtonTextStyles = [styles.text, buttonText];
     let attributes = {};
-
+    let onPressCallback = {};
     _.each(this.props.attributes, (attribute) => {
       if(ATTRIBUTES.indexOf(attribute) > -1) attributes[attribute] = true;
     });
-    return {...attributes, style: overrideButtonStyles, textStyles: overrideButtonTextStyles}
+
+    return {
+      ...attributes,
+      style: overrideButtonStyles,
+      textStyles: overrideButtonTextStyles,
+      onPress: handleOnPress(events, navigator, pages, bindings)
+    }
   }
 
   render() { // eslint-disable-line class-methods-use-this
     const text = this.props.text;
     return <Button {...this.prepareRootProps()}
-              onPress={ () => handleButtonEval(this.props.event, this.props.navigator, this.props.bindings) }>
+              >
               {text}
           </Button>;
   }
