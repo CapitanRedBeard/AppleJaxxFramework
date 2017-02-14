@@ -6,7 +6,7 @@ import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
 import { addDataSource } from '../../actions/dataSource'
-import { handleNavEval } from '../../util/handleScreenEval'
+import { fireEvent } from '../../util/events'
 import getURL from '../../util/api';
 import getValue from '../../util/getValue';
 
@@ -16,16 +16,24 @@ class Page extends Component {
     navigator: React.PropTypes.shape({}),
   }
 
+  handleNavEval(event, navigator, allEvents){
+    if (event.type == 'NavBarButtonPress') {
+      if(allEvents[event.id]) {
+        let { eventType, params} = this.navButtonEvents[event.id];
+        fireEvent(eventType, params, this.props.navigator);
+      }
+    }
+  }
+
   componentWillMount() {
-    const navigator = this.props.navigator;
     this.page = this._findPage(this.props.pages);
     // this._evaulateDataSection(this.props.data);
     this._setNavButtons(this.props);
-    this.props.navigator.setOnNavigatorEvent((event) => handleNavEval(event, navigator, this.navButtonEvents));
+    this.props.navigator.setOnNavigatorEvent((event) => this.handleNavEval(event));
   }
 
   _findPage(pages) {
-      return _.find(pages, (page) => { return page.key == this.props.testID });
+    return _.find(pages, (page) => { return page.key == this.props.testID });
   }
 
   _setNavButtons(props) {
@@ -78,7 +86,12 @@ class Page extends Component {
   _getComponents() {
     let components = [];
     _.each(this.page.components, (component, index) => {
-      components.push(<BaseComponent key={component.type + index} bindings={this.props.bindings} {...component}/>)
+      components.push(<BaseComponent
+                          key={component.type + index}
+                          bindings={this.props.bindings}
+                          {...component}
+                          pages={this.props.pages}
+                          navigator={this.props.navigator}/>)
     });
     return components;
   }
@@ -86,7 +99,6 @@ class Page extends Component {
   render() { // eslint-disable-line class-methods-use-this
     let overridedStyles = [styles.container, this.page.style];
     const backgroundImageProp = this.page.backgroundImage ? {source: {uri: this.page.backgroundImage}} : null;
-    console.log("BackgroundImage: ", backgroundImageProp, this.page)
 
     return (
       <Container style={styles.container}>

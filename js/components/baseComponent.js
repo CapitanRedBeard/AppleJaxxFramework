@@ -6,8 +6,6 @@ import List from './list/list';
 import Icon from './icon/icon';
 import Badge from './badge/badge';
 import Input from './input/input';
-import Cards from './cards/cards';
-import Image from './image/image';
 
 
 import { View } from 'react-native';
@@ -21,10 +19,9 @@ const components = {
   "list": List,
   "icon": Icon,
   "badge": Badge,
-  "input": Input,
-  "cards": Cards,
-  "image": Image
+  "input": Input
 };
+
 
 export default class BaseComponent extends Component {
   propTypes: {
@@ -38,8 +35,11 @@ export default class BaseComponent extends Component {
 
   render() {
     let Instance = components[this.props.type];
+
     return (
+      // <View style={styles.instanceWrapper}>
         <Instance theme={baseTheme} {...this.prepareRootProps()}/>
+      // </View>
     );
   }
 }

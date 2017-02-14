@@ -3,24 +3,19 @@
      "left": {
          "screen": "drawer"
      },
-     "right": {
-         "screen": "drawer"
-     },
-     "animationType": "door",
+     "animationType": "slide-and-scale",
      "style": {
-         "leftDrawerWidth": 50,
-         "rightDrawerWidth": 100,
+         "leftDrawerWidth": 75,
          "drawerShadow": false,
          "contentOverlayColor": "#333333"
      }
   },
   "pages": [
     {
-      "key": "page1",
-      "title": "Page One",
+      "key": "stories",
+      "title": "Stories",
       "subtitle": "numero uno",
       "navigatorStyle": {
-          "navBarTranslucent": "navBarTranslucent",
         	"navBarBackgroundColor": "#F93751",
         	"drawUnderNavBar": true,
         	"navBarTextColor": "white",
@@ -77,17 +72,25 @@
               "title": "Refreshing!",
               "titleColor": "#F93751"
           },
+          "events": {
+            "onPress": {
+              "params": "article",
+              "eventType": "push"
+            }
+          },
           "rowData": {
             "type": "url",
             "params": {
-              "url": "https://jsonplaceholder.typicode.com/users/",
+              "url": "https://www.reddit.com/r/all/hot.json",
+              "dataPath": "data.children"
             }
           },
           "rowTemplate": {
             "leftSection": [
               {
                  "type": "thumbnail",
-                 "source": "https://unsplash.it/200/300/?random",
+                 "source": "{{data.thumbnail}}",
+                 "square": true,
                  "attributes": {
                    "square": true,
                    "size": 50
@@ -102,7 +105,7 @@
                   "color": "#333",
                   "paddingLeft": 10
                 },
-                "text": "{{name}}"
+                "text": "{{data.title}}"
               },
               {
                 "type": "text",
@@ -112,16 +115,19 @@
                   "color": "#888",
                   "paddingLeft": 20
                 },
-                "text": "Near {{address.city}}..."
+                "text": "{{data.author}}"
               }
             ],
             "rightSection": [
               {
-                "type": "icon",
+                "type": "text",
                 "style": {
-                  "color": "#4e8ef7"
+                  "fontSize": 12,
+                  "lineHeight": 12,
+                  "color": "#888",
+                  "paddingLeft": 20
                 },
-                "name": "ios-swap-outline"
+                "text": "{{data.score}}"
               }
             ]
           },
@@ -129,278 +135,58 @@
               "backgroundColor": "#4e8ef7",
               "marginLeft": 75
           }
+        },
+        {
+          "type": "button",
+          "text": "Open Drawer",
+          "attributes": ["bordered"],
+          "style": {
+            "button": {
+              "margin": 5,
+              "borderColor": "#F93751",
+              "borderWidth": 2,
+              "alignSelf": "stretch"
+            },
+            "buttonText": {
+              "color": "#F93751"
+            }
+          },
+          "events": {
+            "onPress": {
+              "params": "article",
+              "eventType": "push"
+            }
+          }
+
         }
       ]
     },
     {
-      "key": "page2",
-      "title": "Page Two",
+      "key": "article",
+      "title": "Article",
       "subtitle": "numero duo",
       "navigatorStyle": {
         	"navBarBackgroundColor": "#292949",
         	"navBarTextColor": "#EDECEE",
+
+        	"drawUnderNavBar": true,
         	"navBarButtonColor": "#EDECEE",
         	"statusBarTextColorScheme": "light"
-      },
-      "navigatorButtons": {
-        "leftButtons": [
-          {
-            "icon": "ios-menu",
-            "id": "menu",
-            "event": {
-              "eventType": "toggleDrawer",
-              "params": {
-                "side": "left",
-                "animated": true,
-              }
-            }
-          }
-        ],
-        "animated": true
       },
       "style": {
         "backgroundColor": "#292949",
       },
       "components": [
         {
-          "type": "list",
+          "layout": "1:2",
+          "type": "text",
           "style": {
-            "backgroundColor": "#452B6B"
+            "textAlign": "center",
+            "fontSize": 24,
+            "fontFamily": "Helvetica Neue",
+            "color": "white"
           },
-          "rowData": {
-            "type": "raw",
-            "params": {
-              "data": [
-                {
-                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/broccoli-96.png",
-                  "list_name": "VEGETABLE",
-                },
-                {
-                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/berry-96.png",
-                  "list_name": "FRUIT",
-                },
-                {
-                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/cheese-96.png",
-                  "list_name": "DAIRY",
-                },
-                {
-                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Plants/barley-96.png",
-                  "list_name": "GRAIN",
-                },
-                {
-                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/fish_food-96.png",
-                  "list_name": "FISH",
-                },
-                {
-                  "list_thumbnail_source": "https://maxcdn.icons8.com/Color/PNG/96/Food/steak-96.png",
-                  "list_name": "MEAT",
-                }
-              ]
-            }
-          },
-          "rowTemplate": {
-            "leftSection": [
-              {
-                 "type": "thumbnail",
-                 "source": "{{list_thumbnail_source}}",
-                 "attributes": {
-                   "size": 50
-                 }
-              }
-            ],
-            "centerSection": [
-              {
-                "type": "text",
-                "style": {
-                  "fontSize": 14,
-                  "fontFamily": "Avenir-BlackOblique",
-                  "color": "white",
-                  "paddingLeft": 10
-                },
-                "text": "{{list_name}}"
-              }
-            ],
-            "rightSection": [
-              {
-                "type": "icon",
-                "style": {
-                  "color": "white",
-                  "fontSize": 20
-                },
-                "name": "ios-add"
-              }
-            ]
-          },
-          "separator": {
-              "backgroundColor": "#292949",
-              "height": 2
-          }
-        }
-      ]
-    },
-    {
-      "key": "page3",
-      "title": "Page Three",
-      "subtitle": "numero trés",
-      "navigatorStyle": {
-        	"navBarBackgroundColor": "#3DA35D",
-        	"drawUnderNavBar": false,
-        	"navBarTextColor": "white",
-        	"navBarButtonColor": "white",
-        	"statusBarTextColorScheme": "light"
-      },
-      "navigatorButtons": {
-        "rightButtons": [
-          {
-            "title": "Edit",
-            "id": "edit",
-            "disabled": true,
-            "disableIconTint": true,
-            "showAsAction": "ifRoom",
-          },
-          {
-            "icon": "ios-ionic",
-            "id": "menu2",
-            "event": {
-              "eventType": "toggleDrawer",
-              "params": {
-                "side": "right",
-                "animated": true,
-              }
-            }
-          }
-        ],
-        "leftButtons": [
-          {
-            "icon": "ios-menu",
-            "id": "menu",
-            "event": {
-              "eventType": "toggleDrawer",
-              "params": {
-                "side": "left",
-                "animated": true,
-              }
-            }
-          }
-        ],
-        "animated": true
-      },
-      "style": {
-        "backgroundColor": "#3DA35D",
-      },
-      "components": [
-        {
-          "type": "list",
-          "style": {
-            "backgroundColor": "#B3D89C"
-          },
-          "rowData": {
-            "type": "raw",
-            "params": {
-
-              "data": [
-                {
-                  "folder_badge_count": 14,
-                  "folder_name": "Health"
-                },
-                {
-                  "folder_badge_count": 400,
-                  "folder_name": "Handwriting"
-                },
-                {
-                  "folder_badge_count": 2,
-                  "folder_name": "Art"
-                },
-                {
-                  "folder_badge_count": 1,
-                  "folder_name": "Music"
-                },
-                {
-                  "folder_badge_count": 3,
-                  "folder_name": "Dance"
-                },
-                {
-                  "folder_badge_count": 0,
-                  "folder_name": "Speech"
-                },
-                {
-                  "folder_badge_count": 4,
-                  "folder_name": "Spanish"
-                },
-                {
-                  "folder_badge_count": 9,
-                  "folder_name": "French"
-                },
-                {
-                  "folder_badge_count": 14,
-                  "folder_name": "Health"
-                },
-                {
-                  "folder_badge_count": 400,
-                  "folder_name": "Handwriting"
-                },
-                {
-                  "folder_badge_count": 2,
-                  "folder_name": "Art"
-                },
-                {
-                  "folder_badge_count": 1,
-                  "folder_name": "Music"
-                },
-                {
-                  "folder_badge_count": 3,
-                  "folder_name": "Dance"
-                },
-                {
-                  "folder_badge_count": 0,
-                  "folder_name": "Speech"
-                },
-                {
-                  "folder_badge_count": 4,
-                  "folder_name": "Spanish"
-                },
-                {
-                  "folder_badge_count": 9,
-                  "folder_name": "French"
-                }
-              ]
-            }
-          },
-          "rowTemplate": {
-            "leftSection": [
-              {
-                 "type": "icon",
-                 "name": "ios-folder-open-outline",
-                 "style": {
-                   "color": "#28302D",
-                   "fontSize": 24
-                 }
-              }
-            ],
-            "centerSection": [
-              {
-                "type": "text",
-                "style": {
-                  "fontSize": 16,
-                  "color": "#60736D",
-                  "paddingLeft": 10
-                },
-                "text": "{{folder_name}}"
-              }
-            ],
-            "rightSection": [
-              {
-                "type": "badge",
-                "style": {
-                  "backgroundColor": "#D63226",
-                },
-                "textStyle": {
-                  "color": "#B3D89C",
-                },
-                "count": "{{folder_badge_count}}"
-              }
-            ]
-          }
+          "text": "{{data.title}}"
         }
       ]
     },
@@ -438,35 +224,11 @@
       ]
     }
   ],
-  "footer": {
-    "style": {
-      "tabBarTextColor": "#9E9CBC",
-      "tabBarActiveTextColor": "#6457A6",
-      "tabActiveBgColor": "#7D7ABC"
-    },
-    "tabs": [
-      {
-        "label": "Url List",
-        "icon": "ios-person-outline",
-        "screen": "page1",
-      },
-      {
-        "label": "Raw List",
-        "icon": "ios-menu-outline",
-        "screen": "page2",
-      },
-      {
-        "label": "Raw List 2",
-        "icon": "ios-folder-open-outline",
-        "screen": "page3"
-      }
-    ]
-  },
   "metaData": {
     "frameID": "listFrame"
   },
 	"theme": {
-		"defaultSpinnerColor": "white",
+		"defaultSpinnerColor": "#F93751",
     "fontFamily": "Futura"
 	}
 }
