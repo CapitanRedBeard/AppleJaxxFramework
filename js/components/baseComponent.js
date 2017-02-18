@@ -7,6 +7,7 @@ import Icon from './icon/icon';
 import Badge from './badge/badge';
 import Input from './input/input';
 import Image from './image/image';
+import Cards from './cards/cards';
 
 
 import { View } from 'react-native';
@@ -21,7 +22,8 @@ const components = {
   "icon": Icon,
   "badge": Badge,
   "input": Input,
-  "image": Image
+  "image": Image,
+  "cards": Cards
 };
 
 

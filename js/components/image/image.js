@@ -22,7 +22,7 @@ export default class ImageComponent extends Component {
   getInitialStyle() {
       return {
           image: {
-            // flex: 1,
+            flex: 1,
             alignSelf: 'stretch',
             width: null,
           }
