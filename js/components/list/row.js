@@ -59,9 +59,8 @@ export default class Row extends Component {
   }
 
   _wrapOnClickHandler(children, events) {
-    const {navigator, pages, bindings} = this.props
-
-    return  (<TouchableOpacity onPress={handleOnPress(events, navigator, pages, bindings)} style={{flex: 1}}>
+    const {navigator, pages, data} = this.props
+    return  (<TouchableOpacity onPress={handleOnPress(events, navigator, pages, data)} style={{flex: 1}}>
               {children}
             </TouchableOpacity>)
   }

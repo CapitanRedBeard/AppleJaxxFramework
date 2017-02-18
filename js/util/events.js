@@ -26,7 +26,7 @@ function fireEvent(eventType, params, navigator, pages, bindings) {
       navigator.resetTo(Navigation.getRegisteredScreen(params));
       break;
     case EVENT_TYPES.PUSH:
-      navigator.push(getSpecificScreen(pages, params));
+      navigator.push(getSpecificScreen(pages, params, bindings));
       break;
     case EVENT_TYPES.POP:
       navigator.pop(Navigation.getRegisteredScreen(params));

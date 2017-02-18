@@ -88,7 +88,7 @@ class Page extends Component {
     _.each(this.page.components, (component, index) => {
       components.push(<BaseComponent
                           key={component.type + index}
-                          bindings={this.props.bindings}
+                          bindingData={this.props.bindingData}
                           {...component}
                           pages={this.props.pages}
                           navigator={this.props.navigator}/>)
@@ -102,11 +102,14 @@ class Page extends Component {
 
     return (
       <Container style={styles.container}>
+
+
           <Image {...backgroundImageProp} style={styles.backgroundImage}>
-            <View style={overridedStyles}>
-                {this._getComponents()}
-            </View>
+              <View style={overridedStyles}>
+                  {this._getComponents()}
+              </View>
           </Image>
+
       </Container>
     );
   }

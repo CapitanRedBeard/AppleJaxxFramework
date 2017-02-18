@@ -3,24 +3,30 @@
      "left": {
          "screen": "drawer"
      },
-     "animationType": "slide-and-scale",
+     "right": {
+         "screen": "drawer"
+     },
+     "animationType": "door",
      "style": {
-         "leftDrawerWidth": 75,
+         "leftDrawerWidth": 50,
+         "rightDrawerWidth": 100,
          "drawerShadow": false,
          "contentOverlayColor": "#333333"
      }
   },
   "pages": [
     {
-      "key": "stories",
-      "title": "Stories",
-      "subtitle": "numero uno",
+      "key": "cardPage",
+      "title": "Card Page",
+      "subtitle": "el cardo",
       "navigatorStyle": {
-        	"navBarBackgroundColor": "#F93751",
+          "navBarBackgroundColor": "transparent",
         	"drawUnderNavBar": true,
         	"navBarTextColor": "white",
         	"navBarButtonColor": "white",
-        	"statusBarTextColorScheme": "light"
+        	"statusBarTextColorScheme": "light",
+          "navBarTranslucent": true,
+          "navBarBlur": true
       },
       "navigatorButtons": {
         "rightButtons": [
@@ -59,134 +65,118 @@
         "animated": true
       },
       "style": {
-        "backgroundColor": "#dddddd",
+        "backgroundColor": "rgba(0,0,0,0.5)",
+        "paddingTop": 50
       },
+      "backgroundImage": "https://unsplash.it/900/600/?random",
       "components": [
         {
-          "type": "list",
+          "type": "cards",
+          "transparent": false,
           "style": {
-            "backgroundColor": "white"
+            "padding": 20
           },
           "refreshable": {
-              "tintColor": "#F93751",
-              "title": "Refreshing!",
-              "titleColor": "#F93751"
-          },
-          "events": {
-            "onPress": {
-              "params": "article",
-              "eventType": "push"
-            }
+              "tintColor": "white",
+              "title": "Finding More...",
+              "titleColor": "white"
           },
           "rowData": {
             "type": "url",
             "params": {
-              "url": "https://www.reddit.com/r/all/hot.json",
-              "dataPath": "data.children"
+              "url": "https://jsonplaceholder.typicode.com/users/",
             }
           },
           "rowTemplate": {
-            "leftSection": [
+            "cardStyle": {
+              "borderColor": "red",
+              "borderWidth": 0,
+              "borderBottomWidth": 2
+            },
+            "rowSections": [
               {
-                 "type": "thumbnail",
-                 "source": "{{data.thumbnail}}",
-                 "square": true,
-                 "attributes": {
-                   "square": true,
-                   "size": 50
-                 }
-              }
-            ],
-            "centerSection": [
-              {
-                "type": "text",
-                "style": {
-                  "fontSize": 16,
-                  "color": "#333",
-                  "paddingLeft": 10
-                },
-                "text": "{{data.title}}"
+                 "style": {
+                   "padding": 10,
+                   "justifyContent": "flex-start",
+                   "alignItems": "center"
+                 },
+                 "components": [
+                   {
+                     "type": "thumbnail",
+                     "source": "https://unsplash.it/200/300/?random",
+                     "attributes": {
+                       "size": 30
+                     }
+                   },
+                   {
+                     "type": "text",
+                     "style": {
+                       "fontSize": 16,
+                       "color": "#333",
+                       "paddingLeft": 10
+                     },
+                     "text": "{{name}}"
+                   }
+                 ]
               },
               {
-                "type": "text",
-                "style": {
-                  "fontSize": 12,
-                  "lineHeight": 12,
-                  "color": "#888",
-                  "paddingLeft": 20
-                },
-                "text": "{{data.author}}"
-              }
-            ],
-            "rightSection": [
+                 "style": {
+                   "height": 150
+                 },
+                 "components": [
+                   {
+                     "type": "image",
+                     "source": "https://unsplash.it/600/?random",
+                     "style": {
+                     },
+                     "resizeMode": "cover",
+                     "indicator": {
+                       "type": "bar",
+                       "params": {}
+                     }
+                   }
+                 ]
+              },
               {
-                "type": "text",
-                "style": {
-                  "fontSize": 12,
-                  "lineHeight": 12,
-                  "color": "#888",
-                  "paddingLeft": 20
-                },
-                "text": "{{data.score}}"
+                 "style": {
+                     "padding": 10,
+                 },
+                 "components": [
+                   {
+                     "type": "text",
+                     "style": {
+                       "fontSize": 12,
+                       "lineHeight": 12,
+                       "color": "#888"
+                     },
+                     "text": "{{company.catchPhrase}} {{company.catchPhrase}} {{company.catchPhrase}} {{company.catchPhrase}}"
+                   }
+                 ]
+              },
+              {
+                 "style": {
+                     "paddingRight": 10,
+                     "paddingBottom": 10,
+                     "justifyContent": "flex-end",
+                     "alignItems": "center"
+
+                 },
+                 "components": [
+                   {
+                     "type": "badge",
+                     "style": {
+                       "backgroundColor": "#333",
+                     },
+                     "textStyle": {
+                       "fontSize": 12,
+                       "color": "red",
+                     },
+                     "count": "{{id}}"
+                   }
+                 ]
               }
             ]
-          },
-          "separator": {
-              "backgroundColor": "#4e8ef7",
-              "marginLeft": 75
           }
-        },
-        {
-          "type": "button",
-          "text": "Open Drawer",
-          "attributes": ["bordered"],
-          "style": {
-            "button": {
-              "margin": 5,
-              "borderColor": "#F93751",
-              "borderWidth": 2,
-              "alignSelf": "stretch"
-            },
-            "buttonText": {
-              "color": "#F93751"
-            }
-          },
-          "events": {
-            "onPress": {
-              "params": "article",
-              "eventType": "push"
-            }
-          }
-
-        }
-      ]
-    },
-    {
-      "key": "article",
-      "title": "Article",
-      "subtitle": "numero duo",
-      "navigatorStyle": {
-        	"navBarBackgroundColor": "#292949",
-        	"navBarTextColor": "#EDECEE",
-
-        	"drawUnderNavBar": true,
-        	"navBarButtonColor": "#EDECEE",
-        	"statusBarTextColorScheme": "light"
-      },
-      "style": {
-        "backgroundColor": "#292949",
-      },
-      "components": [
-        {
-          "layout": "1:2",
-          "type": "text",
-          "style": {
-            "textAlign": "center",
-            "fontSize": 24,
-            "fontFamily": "Helvetica Neue",
-            "color": "white"
-          },
-          "text": "{{data.title}}"
         }
       ]
     },
@@ -228,7 +218,7 @@
     "frameID": "listFrame"
   },
 	"theme": {
-		"defaultSpinnerColor": "#F93751",
+		"defaultSpinnerColor": "white",
     "fontFamily": "Futura"
 	}
 }
