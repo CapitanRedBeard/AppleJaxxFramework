@@ -4,6 +4,60 @@
 ![Folder List](/Screenshots/folderList.png?raw=true "Folders List")
 ## [Wiki](https://github.com/CapitanRedBeard/AppleJaxx/wiki)
 
+## Get Started
+
+###1. System Requirements
+
+* Globally installed [node](https://nodejs.org/en/) >= 4.0
+
+* Globally installed [npm](https://www.npmjs.org/) >= 3.0
+
+* Globally installed [rnpm](https://github.com/rnpm/rnpm) *(only if React Native version < 0.29)*
+
+* Globally installed [react-native CLI](https://facebook.github.io/react-native/docs/getting-started.html)
+
+###2. Installation
+
+On the command prompt run the following commands
+
+```sh
+$ git clone https://github.com/CapitanRedBeard/AppleJaxx.git
+
+$ cd AppleJaxx
+
+$ npm install
+
+$ rnpm link
+
+```
+###3. Simulate for iOS
+
+**Method One**
+
+*	Open the project in XCode from **ios/NativeStarterKit.xcodeproj**
+
+*	Hit the play button.
+
+
+**Method Two**
+
+*	Run the following command in your terminal
+
+```sh
+$ react-native run-ios
+```
+
+###4. Simulate for Android
+
+*	Make sure you have an **Android emulator** installed and running.
+
+*	Run the following command in your terminal
+
+```sh
+$ react-native run-android
+```
+
+
 ## Strategy
 
 Basically just mapw components to a schema so we can futz with it on an editor
@@ -25,45 +79,6 @@ Basically just mapw components to a schema so we can futz with it on an editor
 - Google Services (Calendar, mail)
 - Outlook
 - Custom: local data souce
-
-#### NativeBase Components: 
-- Badge 
-- Button
-- Card 
-- CardItem
-- CardSwiper
-- Checkbox
-- Container
-- Content
-- DeckSwiper
-- Fab
-- Footer
-- FooterTab
-- Gravatar
-- H1
-- H2
-- H3
-- Header 
-- Icon
-- Input
-- InputGroup
-- List
-- ListItem
-- Picker.ios
-- Picker 
-- ProgressBar.android
-- ProgressBar.ios
-- Radio
-- Spinner
-- Subtitle
-- Switch
-- Tab
-- Tabs
-- Text
-- Textarea
-- Thumbnail
-- Title
-- View 
 
 ## Technologies
 
