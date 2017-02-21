@@ -49,6 +49,7 @@ export default class ImageComponent extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
-    return <Image {...this.prepareRootProps()}/>
+    const rootProps = this.prepareRootProps();
+    return rootProps.source ? <Image {...rootProps}/> : null
   }
 }

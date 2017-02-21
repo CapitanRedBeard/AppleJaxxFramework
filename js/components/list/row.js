@@ -58,10 +58,14 @@ export default class Row extends Component {
     }
   }
 
-  _wrapOnClickHandler(children, events) {
-    const {navigator, pages, bindings} = this.props
 
-    return  (<TouchableOpacity onPress={handleOnPress(events, navigator, pages, bindings)} style={{flex: 1}}>
+  _wrapOnClickHandler(children, events) {
+    const {navigator, pages, data, updateBinding} = this.props
+
+    return  (<TouchableOpacity onPress={() => {
+                  handleOnPress(events, navigator, pages, data, updateBinding)()
+                }
+              } style={{flex: 1}}>
               {children}
             </TouchableOpacity>)
   }
@@ -69,7 +73,6 @@ export default class Row extends Component {
   render() {
     const {style, rowTemplate, data, events} = this.props;
     const sections = [];
-
     sections.push(this._getSection("left", rowTemplate));
     sections.push(this._getSection("center", rowTemplate));
     sections.push(this._getSection("right", rowTemplate));

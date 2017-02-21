@@ -3,55 +3,37 @@
      "left": {
          "screen": "drawer"
      },
-     "animationType": "slide-and-scale",
+     "animationType": "slide",
      "style": {
-         "leftDrawerWidth": 75,
-         "drawerShadow": false,
-         "contentOverlayColor": "#333333"
+         "leftDrawerWidth": 50,
+         "drawerShadow": true,
      }
+  },
+  "bindings": {
+    "subreddit": "all"
   },
   "pages": [
     {
       "key": "stories",
-      "title": "Stories",
-      "subtitle": "numero uno",
+      "title": "{{subreddit}}",
       "navigatorStyle": {
-        	"navBarBackgroundColor": "#F93751",
-        	"drawUnderNavBar": true,
+        	"navBarBackgroundColor": "#1A2B51",
         	"navBarTextColor": "white",
         	"navBarButtonColor": "white",
         	"statusBarTextColorScheme": "light"
       },
       "navigatorButtons": {
-        "rightButtons": [
-          {
-            "title": "Edit",
-            "id": "edit",
-            "disabled": true,
-            "disableIconTint": true,
-            "showAsAction": "ifRoom",
-          },
-          {
-            "icon": "ios-ionic",
-            "id": "menu2",
-            "event": {
-              "eventType": "toggleDrawer",
-              "params": {
-                "side": "right",
-                "animated": true,
-              }
-            }
-          }
-        ],
         "leftButtons": [
           {
             "icon": "ios-menu",
             "id": "menu",
-            "event": {
-              "eventType": "toggleDrawer",
-              "params": {
-                "side": "left",
-                "animated": true,
+            "events": {
+              "onPress": {
+                "eventType": "toggleDrawer",
+                "params": {
+                  "side": "left",
+                  "animated": true,
+                }
               }
             }
           }
@@ -59,29 +41,29 @@
         "animated": true
       },
       "style": {
-        "backgroundColor": "#dddddd",
+        "backgroundColor": "#4E6189",
       },
       "components": [
         {
           "type": "list",
           "style": {
-            "backgroundColor": "white"
+            "backgroundColor": "#4E6189"
           },
           "refreshable": {
-              "tintColor": "#F93751",
+              "tintColor": "white",
               "title": "Refreshing!",
-              "titleColor": "#F93751"
+              "titleColor": "white"
           },
           "events": {
             "onPress": {
-              "params": "article",
-              "eventType": "push"
+              "eventType": "push",
+              "params": "article"
             }
           },
           "rowData": {
             "type": "url",
             "params": {
-              "url": "https://www.reddit.com/r/all/hot.json",
+              "url": "https://www.reddit.com/r/{{subreddit}}/hot.json",
               "dataPath": "data.children"
             }
           },
@@ -102,7 +84,7 @@
                 "type": "text",
                 "style": {
                   "fontSize": 16,
-                  "color": "#333",
+                  "color": "#bbb",
                   "paddingLeft": 10
                 },
                 "text": "{{data.title}}"
@@ -112,7 +94,7 @@
                 "style": {
                   "fontSize": 12,
                   "lineHeight": 12,
-                  "color": "#888",
+                  "color": "#ddd",
                   "paddingLeft": 20
                 },
                 "text": "{{data.author}}"
@@ -124,7 +106,7 @@
                 "style": {
                   "fontSize": 12,
                   "lineHeight": 12,
-                  "color": "#888",
+                  "color": "orange",
                   "paddingLeft": 20
                 },
                 "text": "{{data.score}}"
@@ -135,91 +117,166 @@
               "backgroundColor": "#4e8ef7",
               "marginLeft": 75
           }
-        },
-        {
-          "type": "button",
-          "text": "Open Drawer",
-          "attributes": ["bordered"],
-          "style": {
-            "button": {
-              "margin": 5,
-              "borderColor": "#F93751",
-              "borderWidth": 2,
-              "alignSelf": "stretch"
-            },
-            "buttonText": {
-              "color": "#F93751"
-            }
-          },
-          "events": {
-            "onPress": {
-              "params": "article",
-              "eventType": "push"
-            }
-          }
-
         }
       ]
     },
     {
       "key": "article",
       "title": "Article",
-      "subtitle": "numero duo",
       "navigatorStyle": {
-        	"navBarBackgroundColor": "#292949",
-        	"navBarTextColor": "#EDECEE",
-
-        	"drawUnderNavBar": true,
-        	"navBarButtonColor": "#EDECEE",
+        	"navBarBackgroundColor": "#1A2B51",
+        	"navBarTextColor": "white",
+        	"navBarButtonColor": "white",
         	"statusBarTextColorScheme": "light"
       },
       "style": {
-        "backgroundColor": "#292949",
+        "backgroundColor": "#4E6189",
       },
       "components": [
         {
-          "layout": "1:2",
+           "type": "image",
+           "source": "{{data.url}}",
+           "style": {
+             "height": 200
+           },
+           "indicator": {
+             "type": "bar",
+             "params": {}
+           }
+         },
+        {
           "type": "text",
           "style": {
             "textAlign": "center",
-            "fontSize": 24,
+            "fontSize": 14,
+            "padding": 4,
             "fontFamily": "Helvetica Neue",
-            "color": "white"
+            "color": "grey"
+          },
+          "text": "{{data.selftext}}"
+        },
+        {
+          "type": "text",
+          "style": {
+            "textAlign": "center",
+            "fontSize": 18,
+            "padding": 10,
+            "fontFamily": "Helvetica Neue",
+            "color": "#1A2B51"
           },
           "text": "{{data.title}}"
-        }
+        },
+       {
+         "type": "text",
+         "style": {
+           "textAlign": "center",
+           "fontSize": 14,
+           "padding": 4,
+           "fontFamily": "Helvetica Neue",
+           "color": "orange"
+         },
+         "text": "{{data.score}}"
+       },
+      {
+        "type": "text",
+        "style": {
+          "textAlign": "center",
+          "fontSize": 14,
+          "padding": 4,
+          "fontFamily": "Helvetica Neue",
+          "color": "grey"
+        },
+        "text": "{{data.author}}"
+      },
+     {
+       "type": "text",
+       "style": {
+         "textAlign": "center",
+         "fontSize": 14,
+         "padding": 4,
+         "fontFamily": "Helvetica Neue",
+         "color": "grey"
+       },
+       "text": "/r/{{data.subreddit}}"
+     }
       ]
     },
     {
       "key": "drawer",
-      "layout": "2:2",
       "style": {
-        "backgroundColor": "#333"
+        "backgroundColor": "rgba(26,43,81,0.8)",
+        "paddingTop": 20,
+        "justifyContent": "center",
+        "flex": 1
       },
+      "backgroundImage": "https://unsplash.it/900/600/?random",
       "components": [
         {
-          "layout": "1:2",
-          "type": "text",
+          "type": "list",
           "style": {
-            "fontSize": 24,
-            "fontFamily": "Helvetica Neue",
-            "color": "#333333"
+            "backgroundColor": "transparent"
           },
-          "text": "Drawer"
-        },
-        {
-          "type": "button",
-          "layout": "1:2",
-          "text": "Drawer",
-          "eval": {
-            "key": "page1",
-            "type": "push"
+          "events": {
+            "onPress": {
+                "eventType": "setBinding",
+                "params": {
+                  "binding": "subreddit",
+                  "bindingValue": "menu_subreddit",
+                }
+            }
           },
-          "attributes": [
-            "success",
-            "block"
-          ],
-          "style": {}
+          "rowData": {
+            "type": "raw",
+            "params": {
+              "data": [
+                {
+                  "menu_subreddit": "all",
+                },
+                {
+                  "menu_subreddit": "worldnews",
+                },
+                {
+                  "menu_subreddit": "pics",
+                },
+                {
+                  "menu_subreddit": "AskReddit",
+                },
+                {
+                  "menu_subreddit": "Overwatch",
+                },
+                {
+                  "menu_subreddit": "Jokes",
+                },
+                {
+                  "menu_subreddit": "funny",
+                },
+                {
+                  "menu_subreddit": "todayilearned",
+                },
+                {
+                  "menu_subreddit": "memeeconomy",
+                }
+
+              ]
+            }
+          },
+          "rowTemplate": {
+            "leftSection": [
+              {
+                 "type": "text",
+                 "text": "{{menu_subreddit}}",
+                 "style": {
+                   "fontSize": 14,
+                   "lineHeight": 14,
+                   "color": "white",
+                   "paddingLeft": 5
+                 }
+              }
+            ]
+          },
+          "separator": {
+              "backgroundColor": "#888"
+          }
         }
       ]
     }
@@ -228,7 +285,7 @@
     "frameID": "listFrame"
   },
 	"theme": {
-		"defaultSpinnerColor": "#F93751",
+		"defaultSpinnerColor": "white",
     "fontFamily": "Futura"
 	}
 }

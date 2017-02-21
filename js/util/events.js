@@ -8,11 +8,11 @@ const EVENT_TYPES = {
   URL_POST: "urlPost",
   RESET_TO: "resetTo",
   PUSH: "push",
-  POP: "pop"
+  POP: "pop",
+  SETBINDING: "setBinding"
 }
 
-function fireEvent(eventType, params, navigator, pages, bindings) {
-  console.log(`params`, getSpecificScreen(pages, params));
+function fireEvent(eventType, params, navigator, pages, bindings, updateBinding) {
   switch(eventType) {
     case EVENT_TYPES.TOGGLE:
       navigator.toggleDrawer(params);
@@ -26,10 +26,14 @@ function fireEvent(eventType, params, navigator, pages, bindings) {
       navigator.resetTo(Navigation.getRegisteredScreen(params));
       break;
     case EVENT_TYPES.PUSH:
-      navigator.push(getSpecificScreen(pages, params));
+      navigator.push(getSpecificScreen(pages, params, bindings));
       break;
     case EVENT_TYPES.POP:
       navigator.pop(Navigation.getRegisteredScreen(params));
+      break;
+    case EVENT_TYPES.SETBINDING:
+      const {binding, bindingValue} = params
+      updateBinding(binding, bindings[bindingValue]);
       break;
     default:
       console.warn("EventType, " + eventType + " doesn't exist");
@@ -37,11 +41,13 @@ function fireEvent(eventType, params, navigator, pages, bindings) {
   }
 }
 
-function handleOnPress(events, navigator, pages, bindings) {
+function handleOnPress(events, navigator, pages, bindings, updateBinding) {
   const onPress = getValue(events, "onPress");
+  // console.log(`handleOnPress`, arguments);
+
   if(onPress) {
     const { eventType, params} = onPress
-    return onPressCallback = () => fireEvent(eventType, params, navigator, pages, bindings);
+    return () => fireEvent(eventType, params, navigator, pages, bindings, updateBinding);
   }
   return null;
 }

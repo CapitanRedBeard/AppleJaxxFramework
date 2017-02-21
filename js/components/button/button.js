@@ -43,7 +43,6 @@ export default class ButtonComponent extends Component {
   handleButtonEval(events, navigator, pages, bindings) {
     if(events) {
       let { eventType, params} = events
-
       fireEvent(eventType, params, navigator, pages, bindings);
     }
   }

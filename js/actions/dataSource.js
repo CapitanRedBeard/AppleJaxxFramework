@@ -6,7 +6,6 @@ export const DATA_ADD = 'DATA_ADD'
 
 // *** Action Creators ***
 function addDataSource(data, returnPath, binding) {
-	console.log("UHhh")
 	return {
 		type: DATA_ADD,
 		data,

@@ -34,7 +34,9 @@ export default class ThumbnailComponent extends Component {
 
   componentWillMount() {
     getImage(this.props.source).then((val) => {
-      this.setState({"imageSource": val});
+      if(val) {
+        this.setState({"imageSource": val});
+      }
     });
   }
 

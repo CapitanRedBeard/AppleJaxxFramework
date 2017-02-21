@@ -13,7 +13,6 @@ export default class TextComponent extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
     const {style, text, dataVal} = this.props;
-
     const textValue = dataVal ? dataVal : text;
     return <Text theme={baseTheme} style={style}>{textValue}</Text>;
   }

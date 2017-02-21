@@ -92,19 +92,33 @@ export default function hocListWrapper(WrappedComponent) {
         });
       }
 
+      componentWillReceiveProps(nextProps) {
+        const nextPropsUrl = getValue(nextProps, "rowData.params.url");
+        const thisPropsUrl = getValue(this.props, "rowData.params.url");
+
+        if(nextPropsUrl && nextPropsUrl != thisPropsUrl) {
+          this.setState({rowData: null}, () => {
+            this._getRowData(this.props.rowData).then((calculatedRowData) => {
+              this.setState({rowData: calculatedRowData})
+            });
+          })
+        }
+      }
+
       async _getRowData(rowData) {
         const rowDataTypes = ["raw", "url"];
         const {type, params} = rowData;
         let calculatedRowData = [];
-
         switch(type) {
           case rowDataTypes[0]:
             calculatedRowData = params.data
             break;
           case rowDataTypes[1]:
-            calculatedRowData = await getURL(params.url);
+            const { url, dataPath } = params
+            console.debug("url", url)
+            calculatedRowData = await getURL(url);
             if(!(calculatedRowData instanceof Array)) {
-              calculatedRowData = getValue(calculatedRowData, "data.children")
+              calculatedRowData = getValue(calculatedRowData, dataPath)
             }
 
             break;

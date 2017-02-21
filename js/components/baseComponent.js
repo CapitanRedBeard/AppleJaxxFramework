@@ -6,11 +6,13 @@ import List from './list/list';
 import Icon from './icon/icon';
 import Badge from './badge/badge';
 import Input from './input/input';
+import Image from './image/image';
+import Cards from './cards/cards';
 
 
 import { View } from 'react-native';
 import baseTheme from '../themes/base-theme'
-import resolveBindings from '../util/resolveBindings'
+import { resolveBindings }  from '../util/resolveBindings'
 
 const components = {
   "button": Button,
@@ -19,7 +21,9 @@ const components = {
   "list": List,
   "icon": Icon,
   "badge": Badge,
-  "input": Input
+  "input": Input,
+  "image": Image,
+  "cards": Cards
 };
 
 

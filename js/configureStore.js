@@ -11,7 +11,6 @@ import createLogger from 'redux-logger'
 const loggerMiddleware = createLogger()
 
 export default function configureStore():any {
-  console.log("configureStore");
   const enhancer = compose(
     applyMiddleware(thunk, promise),
     devTools({
