@@ -12,7 +12,7 @@ import Cards from './cards/cards';
 
 import { View } from 'react-native';
 import baseTheme from '../themes/base-theme'
-import resolveBindings from '../util/resolveBindings'
+import { resolveBindings }  from '../util/resolveBindings'
 
 const components = {
   "button": Button,

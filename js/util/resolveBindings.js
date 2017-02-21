@@ -14,7 +14,7 @@ function removeDelimiter(binding) {
   return binding.replace(/{{|}}/g, "");
 }
 
-export default function resolveBindings(props) {
+export function resolveBindings(props) {
   const { bindingData } = props; //TODO remove
   let newProps = {};
   if(props && bindingData) {
@@ -29,12 +29,25 @@ export default function resolveBindings(props) {
   return _.defaults(newProps, props);
 }
 
+
+export function resolvePage(page, bindings) {
+  let pageString = JSON.stringify(page);
+  let matches = checkForBinding(pageString)
+  pageString = pageString.replace(/{{(.*?)}}/g, (matched) => {
+      return replaceBindingsWithBindingValue(matched, bindings)
+    }
+  )
+  return JSON.parse(pageString)
+}
+
 function replaceBindingsWithBindingValue(value = "", variables = {}) {
 	var bindings = checkForBinding(value);
 	let newValue = _.clone(value);
 	_.each(bindings, (binding) => {
 		let replacementValue = getValue(variables, removeDelimiter(binding));
-		newValue = newValue.replace(binding, replacementValue);
+    if(replacementValue) {
+      newValue = newValue.replace(binding, replacementValue);
+    }
 	})
 	return newValue;
 }

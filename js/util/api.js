@@ -4,8 +4,9 @@ import { Platform } from 'react-native';
 export default async function getURL(url){
   try {
     let response = await fetch(url);
-    let responseJson = await response.json();
-    return responseJson;
+    let responseJson = await response.json()
+    return responseJson
+
     // return fetch(url).then((res) => res.json());
   } catch(error) {
     console.warn("Warning, couldn't find dataSource", error);
@@ -22,10 +23,13 @@ export async function getImage(url){
       // Beware that when using a file path as Image source on Android,
       // you must prepend "file://"" before the file path
       return (Platform.OS === 'android' ? 'file://' + res.path()  : '' + res.path());
-    })
+    }).catch( (err) => {
+        console.debug("Unable to find image ", err);
+        return null;
+      });
   } catch(error) {
-    console.warn("Derp Unable to resolve image ", error);
-    return {}
+    console.debug(" Unable to blob ", error);
+    return null
   }
 }
 
@@ -37,7 +41,7 @@ export async function urlPost(params){
     	method: 'post',
     	body: getJSONString(body)
     })
-    console.log("Post successful:  ", response, body);
+    console.debug("Post successful:  ", response, body);
 
     return response;
   } catch(error) {

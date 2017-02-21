@@ -7,7 +7,6 @@ import configureStore from './configureStore';
 import { Navigation } from 'react-native-navigation';
 import frame from './frame/frame.json';
 import getValue from './util/getValue';
-import resolveBindings from './util/resolveBindings';
 import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
 import { setInitialBindings } from './actions/bindingActions'
@@ -123,18 +122,15 @@ function startApp(frame, icons) {
         label: tab.label,
         screen: tab.screen,
         icon: icons[tab.icon],
-        title: page.title,
-        subtitle: page.subtitle,
         navigatorStyle: page.navigatorStyle
       };
       tabs.push(node);
     });
+    //Introduce animation type for navigation with animationType: 'slide-down'
     Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style"), drawer: drawer});
   }else {
     let screen = {
-      title: frame.pages[0].title,
       screen: frame.pages[0].key,
-      subtitle: frame.pages[0].subtitle,
       navigatorStyle: frame.pages[0].navigatorStyle
     }
     Navigation.startSingleScreenApp({screen, drawer: drawer});

@@ -8,6 +8,9 @@ import _ from 'underscore'
 
 const defaultThemes = {
 
+  //General
+  backgroundColor: 'red',
+
     // Badge
   badgeBg: '#ED1727',
   badgeColor: '#fff',
