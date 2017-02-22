@@ -19,6 +19,11 @@ import { resolvePage } from '../../util/resolveBindings';
 
 class Page extends Component {
 
+
+  static navigationOptions = {
+      title: ({ state }) => state.params && state.params.total ? state.params.totalCharge : '',
+  }
+
   static propTypes = {
     navigator: React.PropTypes.shape({}),
   }
@@ -64,9 +69,10 @@ class Page extends Component {
   //   this._setNavButtons(this.props, page);
   //   navigator.setOnNavigatorEvent(this.handleNavEval);
   // }
-
-  _findPage(pages) {
-    return _.find(pages, (page) => { return page.key == this.props.testID });
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.page.title) {
+          this.props.navigation.setParams({ page.title });
+      }
   }
 
   _setNavButtons(props, page) {
@@ -131,9 +137,8 @@ class Page extends Component {
   }
 
   render() { // eslint-disable-line class-methods-use-this
-    const {pages, bindings, navigator} = this.props
+    const {pages, bindings, navigator, page} = this.props
 
-    let page = resolvePage(this._findPage(pages), bindings);
     let overridedStyles = [this.getInitialStyle().container, page.style];
     const backgroundImageProp = page.backgroundImage ? {source: {uri: page.backgroundImage}} : null;
 
@@ -154,8 +159,14 @@ class Page extends Component {
   }
 }
 
+
+const _findPage = (pages) => {
+  return _.find(pages, (page) => { return page.key == this.props.testID });
+}
+
 const mapStateToProps = (state) => {
   return {
+    page: resolvePage(_findPage(state.frameReducers.frameState.pages), state.bindingReducers.bindingState);
     pages: state.frameReducers.frameState.pages,
     icons: state.iconsReducers.icons,
     bindings: state.bindingReducers.bindingState

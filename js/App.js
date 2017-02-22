@@ -4,18 +4,19 @@ import { Provider } from 'react-redux'
 import { registerScreens } from './util/registerScreens';
 import { resolveIconsFromFrame } from './util/resolveIconsFromFrame';
 import configureStore from './configureStore';
-import { Navigation } from 'react-native-navigation';
+// import { Navigation } from 'react-native-navigation';
 import frame from './frame/frame.json';
 import getValue from './util/getValue';
 import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
 import { setInitialBindings } from './actions/bindingActions'
 import { updateGeolocation } from './actions/geolocationActions'
+import Page from './components/page/page';
 let store = configureStore();
 
 // frame = resolveBindings(frame);
 
-registerScreens(store, Provider, frame);
+// registerScreens(store, Provider, frame);
 
 //Initial Frame
 store.dispatch(updateFrame(frame));
@@ -113,6 +114,10 @@ function startApp(frame, icons) {
   if(drawer.right)
     drawer.right.passProps = pages[getValue(drawer, "right.screen")];
 
+  const navigationPages = {};
+  _.each(keys, (key) => {
+    navigationPages[key] = {screen: Page}
+  })
 
   if(footerTabs) {
     let tabs = [];
@@ -127,12 +132,18 @@ function startApp(frame, icons) {
       tabs.push(node);
     });
     //Introduce animation type for navigation with animationType: 'slide-down'
-    Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style"), drawer: drawer});
+    // Navigation.startTabBasedApp({tabs: tabs, tabStyles: getValue(frame, "footer.style"), drawer: drawer});
   }else {
     let screen = {
       screen: frame.pages[0].key,
       navigatorStyle: frame.pages[0].navigatorStyle
     }
-    Navigation.startSingleScreenApp({screen, drawer: drawer});
+    // Navigation.startSingleScreenApp({screen, drawer: drawer});
+    return StackNavigator(
+      navigationPages,
+    {
+      initialRouteName: pages[keys[0]].title,
+      initialRouteParams: { page: pages[keys[0]] }
+    });
   }
 }
