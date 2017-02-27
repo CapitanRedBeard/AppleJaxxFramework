@@ -11,17 +11,8 @@ const getSpecificScreen = (pages, pageKey, bindings) => {
   const navigatorButtons = getValue(page, "navigatorButtons");
   const passProps = bindings ? {bindingData: bindings} : {};
 
-  return {
-    screen: pageKey,
-    // title,
-    titleImage,
-    passProps,
-    animated,
-    backButtonTitle,
-    backButtonHidden,
-    navigatorStyle,
-    navigatorButtons
-  }
+  return page
+
 };
 
 

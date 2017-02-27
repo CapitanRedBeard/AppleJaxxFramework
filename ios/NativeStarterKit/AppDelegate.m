@@ -8,11 +8,9 @@
  */
 
 #import "AppDelegate.h"
-#import "CodePush.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-//#import "RCCManager.h"
 
 @implementation AppDelegate
 
@@ -20,17 +18,8 @@
 {
   NSURL *jsCodeLocation;
 
-  
-#ifdef DEBUG
-    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-#else
-    jsCodeLocation = [CodePush bundleURL];
-#endif
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
-  self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  self.window.backgroundColor = [UIColor whiteColor];
-//  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation];
-  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"NativeStarterKit"
                                                initialProperties:nil
@@ -42,7 +31,6 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  
   return YES;
 }
 

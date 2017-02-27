@@ -1,6 +1,6 @@
 import { urlPost } from "./api"
 import { resolveBody } from './resolveBindings'
-import { Navigation } from 'react-native-navigation'
+// import { Navigation } from 'react-native-navigation'
 import { getSpecificScreen } from './navigation'
 
 const EVENT_TYPES = {
@@ -12,10 +12,10 @@ const EVENT_TYPES = {
   SETBINDING: "setBinding"
 }
 
-function fireEvent(eventType, params, navigator, pages, bindings, updateBinding) {
+function fireEvent(eventType, params, navigation, pages, bindings, updateBinding) {
   switch(eventType) {
     case EVENT_TYPES.TOGGLE:
-      navigator.toggleDrawer(params);
+      navigation.toggleDrawer(params);
       break;
     case EVENT_TYPES.URL_POST:
       let resolvedParams = _.clone(params);
@@ -23,13 +23,13 @@ function fireEvent(eventType, params, navigator, pages, bindings, updateBinding)
       urlPost(resolvedParams);
       break;
     case EVENT_TYPES.RESET_TO:
-      navigator.resetTo(Navigation.getRegisteredScreen(params));
+      // navigation.resetTo(Navigation.getRegisteredScreen(params));
       break;
     case EVENT_TYPES.PUSH:
-      navigator.push(getSpecificScreen(pages, params, bindings));
+      navigation.navigate(params, getSpecificScreen(pages, params, bindings));
       break;
     case EVENT_TYPES.POP:
-      navigator.pop(Navigation.getRegisteredScreen(params));
+      // navigation.pop(Navigation.getRegisteredScreen(params));
       break;
     case EVENT_TYPES.SETBINDING:
       const {binding, bindingValue} = params
@@ -41,13 +41,13 @@ function fireEvent(eventType, params, navigator, pages, bindings, updateBinding)
   }
 }
 
-function handleOnPress(events, navigator, pages, bindings, updateBinding) {
+function handleOnPress(events, navigation, pages, bindings, updateBinding) {
   const onPress = getValue(events, "onPress");
   // console.log(`handleOnPress`, arguments);
 
   if(onPress) {
     const { eventType, params} = onPress
-    return () => fireEvent(eventType, params, navigator, pages, bindings, updateBinding);
+    return () => fireEvent(eventType, params, navigation, pages, bindings, updateBinding);
   }
   return null;
 }

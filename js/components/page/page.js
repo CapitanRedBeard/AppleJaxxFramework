@@ -19,17 +19,29 @@ import { resolvePage } from '../../util/resolveBindings';
 
 class Page extends Component {
 
-
   static navigationOptions = {
-      title: ({ state }) => state.params && state.params.total ? state.params.totalCharge : '',
+      // title: ({ state }) => {
+      //   console.log("navigationOptions: ", state)
+      //   return state.params && state.params.total ? state.params.totalCharge : ''
+      // },
+      title: ({state}) => {
+        console.log("navigationOptions: ", getValue(state, "params.title", ""))
+        return getValue(state, "params.title", "");
+      },
+      // header: ({ state, setParams}) => {
+      //   right: null,  //React element
+      //   left: null
+      // }
   }
 
+
   static propTypes = {
-    navigator: React.PropTypes.shape({}),
+    navigation: React.PropTypes.shape({}),
   }
 
   constructor(props) {
     super(props);
+    console.log("This.props", this.props)
     this.handleNavEval = this.handleNavEval.bind(this);
   }
 
@@ -70,9 +82,12 @@ class Page extends Component {
   //   navigator.setOnNavigatorEvent(this.handleNavEval);
   // }
   componentWillReceiveProps(nextProps) {
-      if (nextProps.page.title) {
-          this.props.navigation.setParams({ page.title });
-      }
+    // let params = getValue(nextProps, "navigation.state.params")
+    // if (!getValue(nextProps, "navigation.state.params")) {
+    //   let title = getValue(this.props, "screenProps.title")
+    //   console.log("Setting props ", { title: title})
+    //   this.props.navigation.setParams({ title: title});
+    // }
   }
 
   _setNavButtons(props, page) {
@@ -107,9 +122,8 @@ class Page extends Component {
         animated: animated
       });
     }
-
-
   }
+
   //
   // async _evaulateDataSection() {
   //   _.each(this.props.data, (data) => {
@@ -130,22 +144,29 @@ class Page extends Component {
                           bindingData={this.props.bindingData}
                           {...component}
                           pages={this.props.pages}
-                          navigator={this.props.navigator}
+                          navigation={this.props.navigation}
                           updateBinding={this.props.updateBinding}/>)
     });
     return components;
   }
 
+  // _findPage(pages) {
+  //   const id = getValue(this.props, "navigation.state.routeName");
+  //   return _.find(pages, (page) => { return page.key === id });
+  // }
+
   render() { // eslint-disable-line class-methods-use-this
-    const {pages, bindings, navigator, page} = this.props
+    const {pages, bindings, navigation, screenProps} = this.props
+    const page = resolvePage(getValue(navigation, "state.params", screenProps), bindings);
+    console.log("Page props", this.props, page)
 
     let overridedStyles = [this.getInitialStyle().container, page.style];
     const backgroundImageProp = page.backgroundImage ? {source: {uri: page.backgroundImage}} : null;
 
     // this._evaulateDataSection(data);
-    this._setNavButtons(this.props, page);
-    navigator.setOnNavigatorEvent(this.handleNavEval);
-    navigator.setTitle(page);
+    // this._setNavButtons(this.props, page);
+    // navigator.setOnNavigatorEvent(this.handleNavEval);
+    // navigator.setTitle(page);
 
     return (
       <Container style={this.getInitialStyle().container}>
@@ -159,14 +180,8 @@ class Page extends Component {
   }
 }
 
-
-const _findPage = (pages) => {
-  return _.find(pages, (page) => { return page.key == this.props.testID });
-}
-
 const mapStateToProps = (state) => {
   return {
-    page: resolvePage(_findPage(state.frameReducers.frameState.pages), state.bindingReducers.bindingState);
     pages: state.frameReducers.frameState.pages,
     icons: state.iconsReducers.icons,
     bindings: state.bindingReducers.bindingState

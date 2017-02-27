@@ -68,17 +68,6 @@
             }
           },
           "rowTemplate": {
-            "leftSection": [
-              {
-                 "type": "thumbnail",
-                 "source": "{{data.thumbnail}}",
-                 "square": true,
-                 "attributes": {
-                   "square": true,
-                   "size": 50
-                 }
-              }
-            ],
             "centerSection": [
               {
                 "type": "text",
