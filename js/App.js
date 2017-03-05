@@ -60,30 +60,30 @@ class AppNavigator extends Component {
       });
 
       const keys = _.map(frame.pages, page => page.key);
-      const footerTabs = getValue(frame, "footer.tabs")
+      const navigation = getValue(frame, "navigation", {})
+      const { roots, drawer, headerMode } = navigation;
 
-      let drawer = getValue(frame, "drawer")
-      if(drawer) {
-        if(drawer.left)
-          drawer.left.passProps = pages[getValue(drawer, "left.screen")];
-
-        if(drawer.right)
-          drawer.right.passProps = pages[getValue(drawer, "right.screen")];
-      }
+      // if(drawer) {
+      //   if(drawer.left)
+      //     drawer.left.passProps = pages[getValue(drawer, "left.screen")];
+      //
+      //   if(drawer.right)
+      //     drawer.right.passProps = pages[getValue(drawer, "right.screen")];
+      // }
 
       const navigationPages = {};
       _.each(keys, (key) => {
-        navigationPages[key] = {screen: Page,
-        params: {test: "emmett"}}
+        navigationPages[key] = {screen: Page}
       })
 
       const AppNav = StackNavigator(
         navigationPages,
       {
         initialRouteName: pages[keys[0]].key,
-        initialRouteParams: pages[keys[0]]
+        initialRouteParams: pages[keys[0]],
+        headerMode
       });
-      console.log("GOI, ", AppNav);
+
       // AppNav.setParams()
       //
       // const AppNav = StackNavigator({
@@ -92,7 +92,6 @@ class AppNavigator extends Component {
       //     Profile: { screen: Page }
       //   });
       return <AppNav
-                ref={nav => { this.navigator = nav; }}
                 screenProps={pages[keys[0]]}/>
       //
       // if(footerTabs) {

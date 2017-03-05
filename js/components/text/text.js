@@ -6,6 +6,9 @@ import baseTheme from '../../themes/base-theme'
 
 export default class TextComponent extends Component {
 
+  static TYPE = "text"
+
+
   static propTypes = {
     style: React.PropTypes.object,
     text: React.PropTypes.string

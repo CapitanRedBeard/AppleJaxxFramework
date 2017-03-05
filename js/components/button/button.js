@@ -28,6 +28,8 @@ const ATTRIBUTES = [
 
 export default class ButtonComponent extends Component {
 
+  static TYPE = "button"
+
   static propTypes = {
     navigation: React.PropTypes.object,
     style: React.PropTypes.object,

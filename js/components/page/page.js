@@ -14,25 +14,49 @@ import getValue from '../../util/getValue';
 import baseTheme from '../../themes/base-theme'
 import { resolvePage } from '../../util/resolveBindings';
 
+import Button from "../button/button"
+
 // Important to note that we resolve all bindings on this.page
 // then pass down immutable objects
+function getCurrentParams (state) {
+    if (state.routes) {
+        return getCurrentParams(state.routes[state.index]);
+    }
+    return state.params || {};
+}
+
+
+getHeaderButtons = (buttons) => {
+  const buttonComponents = _.map(buttons, (button, index) => {
+      if(button.type == Button.TYPE) {
+        return <Button key={button.type + index} {...button} />
+      }
+  });
+  return buttons ? <View>{buttonComponents}</View> : null;
+}
 
 class Page extends Component {
 
   static navigationOptions = {
-      // title: ({ state }) => {
-      //   console.log("navigationOptions: ", state)
-      //   return state.params && state.params.total ? state.params.totalCharge : ''
-      // },
-      title: ({state}) => {
-        console.log("navigationOptions: ", getValue(state, "params.title", ""))
-        return getValue(state, "params.title", "");
-      },
-      // header: ({ state, setParams}) => {
-      //   right: null,  //React element
-      //   left: null
-      // }
-  }
+      header: ({ state, setParams}) => {
+        const header = getValue(state, "params.header");
+        if(header) {
+            const { title, style, titleStyle, tintColor, right, visible } = header;
+
+            return {
+              title: title, //String or React Element used by the header. Defaults to scene title
+              // visible: visible, //Boolean toggle of header visibility. Only works when headerMode is screen.
+              // backTitle: backTitle, //Title string used by the back button on iOS or null to disable label. Defaults to scene title
+              right: getHeaderButtons(right), //React Element to display on the right side of the header
+              // left: null, //React Element to display on the left side of the header
+              style: style, //Style object for the header
+              titleStyle: titleStyle, //Style object for the title component
+              tintColor: tintColor, //Tint color for the header
+            }
+          }
+        }
+      }
+
 
 
   static propTypes = {
@@ -41,7 +65,6 @@ class Page extends Component {
 
   constructor(props) {
     super(props);
-    console.log("This.props", this.props)
     this.handleNavEval = this.handleNavEval.bind(this);
   }
 
@@ -71,24 +94,9 @@ class Page extends Component {
     }
   }
 
-  // componentWillMount() {
-  //   const {pages, bindings, navigator} = this.props
-  //
-  //   this.page = resolvePage(this._findPage(pages), bindings);
-  //   console.log("Page", this.page)
-  //
-  //   // this._evaulateDataSection(data);
-  //   this._setNavButtons(this.props, page);
-  //   navigator.setOnNavigatorEvent(this.handleNavEval);
-  // }
-  componentWillReceiveProps(nextProps) {
-    // let params = getValue(nextProps, "navigation.state.params")
-    // if (!getValue(nextProps, "navigation.state.params")) {
-    //   let title = getValue(this.props, "screenProps.title")
-    //   console.log("Setting props ", { title: title})
-    //   this.props.navigation.setParams({ title: title});
-    // }
-  }
+  componentDidMount () {
+    this.props.navigation.setParams(this._getCurrentPage());
+   }
 
   _setNavButtons(props, page) {
     const { navigator, icons }  = props
@@ -141,7 +149,7 @@ class Page extends Component {
     _.each(page.components, (component, index) => {
       components.push(<BaseComponent
                           key={component.type + index}
-                          bindingData={this.props.bindingData}
+                          bindingData={page.bindingData}
                           {...component}
                           pages={this.props.pages}
                           navigation={this.props.navigation}
@@ -150,14 +158,14 @@ class Page extends Component {
     return components;
   }
 
-  // _findPage(pages) {
-  //   const id = getValue(this.props, "navigation.state.routeName");
-  //   return _.find(pages, (page) => { return page.key === id });
-  // }
+  _getCurrentPage() {
+    const {bindings, navigation, screenProps} = this.props;
+    return resolvePage(getValue(navigation, "state.params", screenProps), bindings);
+  }
 
   render() { // eslint-disable-line class-methods-use-this
-    const {pages, bindings, navigation, screenProps} = this.props
-    const page = resolvePage(getValue(navigation, "state.params", screenProps), bindings);
+    const page = this._getCurrentPage();
+
     console.log("Page props", this.props, page)
 
     let overridedStyles = [this.getInitialStyle().container, page.style];

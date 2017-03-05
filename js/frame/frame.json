@@ -1,13 +1,16 @@
 {
-  "drawer": {
-     "left": {
+  "navigation": {
+    "headerMode": "float",
+    "drawer": {
+      "right": {
          "screen": "drawer"
-     },
-     "animationType": "slide",
-     "style": {
-         "leftDrawerWidth": 50,
+      },
+      "animationType": "slide",
+      "style": {
+         "rightDrawerWidth": 50,
          "drawerShadow": true,
-     }
+      }
+    }
   },
   "bindings": {
     "subreddit": "all"
@@ -15,7 +18,34 @@
   "pages": [
     {
       "key": "stories",
-      "title": "{{subreddit}}",
+      "header": {
+        "title": "{{subreddit}}",
+        "style": {
+            "backgroundColor": "#1A2B51",
+        },
+        "tintColor": "white",
+        "right": [
+          {
+            "type": "button",
+            "text": "Yo",
+            "icon": "ios-menu",
+            "id": "menu",
+            "events": {
+              "onPress": {
+                "eventType": "toggleDrawer",
+                "params": {
+                  "side": "left",
+                  "animated": true,
+                }
+              }
+            },
+            "style": {
+              "button": {
+              }
+            }
+          }
+        ],
+      },
       "navigatorStyle": {
         	"navBarBackgroundColor": "#1A2B51",
         	"navBarTextColor": "white",
@@ -23,7 +53,7 @@
         	"statusBarTextColorScheme": "light"
       },
       "navigatorButtons": {
-        "leftButtons": [
+        "rightButtons": [
           {
             "icon": "ios-menu",
             "id": "menu",
@@ -111,12 +141,12 @@
     },
     {
       "key": "article",
-      "title": "Article",
-      "navigatorStyle": {
-        	"navBarBackgroundColor": "#1A2B51",
-        	"navBarTextColor": "white",
-        	"navBarButtonColor": "white",
-        	"statusBarTextColorScheme": "light"
+      "header": {
+        "style": {
+            "backgroundColor": "#1A2B51",
+        },
+        "tintColor": "white",
+        "title": "Article"
       },
       "style": {
         "backgroundColor": "#4E6189",
