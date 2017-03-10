@@ -2,13 +2,14 @@
   "navigation": {
     "headerMode": "float",
     "drawer": {
-      "right": {
-         "screen": "drawer"
-      },
-      "animationType": "slide",
-      "style": {
-         "rightDrawerWidth": 50,
-         "drawerShadow": true,
+      "screen": "drawer",
+      "drawerProps": {
+        "type": "static",
+        "openDrawerOffset": 100,
+        "acceptTap": true,
+        "tapToClose": true,
+        "captureGestures": true,
+
       }
     }
   },
@@ -24,23 +25,23 @@
             "backgroundColor": "#1A2B51",
         },
         "tintColor": "white",
-        "right": [
+        "left": [
           {
-            "type": "button",
-            "text": "Yo",
-            "icon": "ios-menu",
-            "id": "menu",
+            "icon": "ios-menu-outline",
             "events": {
               "onPress": {
-                "eventType": "toggleDrawer",
-                "params": {
-                  "side": "left",
-                  "animated": true,
-                }
+                "eventType": "openDrawer",
               }
-            },
-            "style": {
-              "button": {
+            }
+          }
+        ],
+        "right": [
+          {
+            "icon": "ios-mic-off-outline",
+            "events": {
+              "onPress": {
+                "eventType": "push",
+                "params": "article"
               }
             }
           }
@@ -145,6 +146,17 @@
         "style": {
             "backgroundColor": "#1A2B51",
         },
+        "right": [
+          {
+            "icon": "ios-mic-off-outline",
+            "events": {
+              "onPress": {
+                "eventType": "push",
+                "params": "article"
+              }
+            }
+          }
+        ],
         "tintColor": "white",
         "title": "Article"
       },

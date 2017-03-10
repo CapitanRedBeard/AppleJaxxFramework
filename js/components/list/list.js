@@ -79,8 +79,8 @@ class ListComponent extends Component {
     }
 
     _renderRow(data, sectionIds, rowIds, rowProps) {
-      const {rowTemplate, events, navigation, pages, updateBinding} = rowProps;
-      return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} rowTemplate={rowTemplate} events={events} navigation={navigation} pages={pages} updateBinding={updateBinding}/>
+      const {rowTemplate, events, dispatch, pages} = rowProps;
+      return <Row data={data} sectionIds={sectionIds} rowIds={rowIds} rowTemplate={rowTemplate} events={events} dispatch={dispatch} pages={pages} />
     }
 
     _renderSeparator(sectionId, rowId, separator) {

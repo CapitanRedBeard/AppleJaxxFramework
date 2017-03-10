@@ -1,20 +1,25 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react';
-import { Text, ScrollView, View, AlertIOS, StyleSheet, Image} from 'react-native';
+import { Text, ScrollView, View, AlertIOS, StyleSheet, Image, Button, TouchableOpacity} from 'react-native';
 import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
 
 import { addDataSource } from '../../actions/dataSource'
+import { toggleDrawer, openDrawer, closeDrawer } from '../../actions/drawerActions'
 import { updateBinding } from '../../actions/bindingActions';
-
+import Icon from '../icon/icon'
 import { fireEvent, handleOnPress } from '../../util/events'
 import getURL from '../../util/api';
 import getValue from '../../util/getValue';
 import baseTheme from '../../themes/base-theme'
 import { resolvePage } from '../../util/resolveBindings';
 
-import Button from "../button/button"
+
+import {
+  NavigationActions
+} from 'react-navigation';
+
 
 // Important to note that we resolve all bindings on this.page
 // then pass down immutable objects
@@ -26,32 +31,32 @@ function getCurrentParams (state) {
 }
 
 
-getHeaderButtons = (buttons) => {
-  const buttonComponents = _.map(buttons, (button, index) => {
-      if(button.type == Button.TYPE) {
-        return <Button key={button.type + index} {...button} />
-      }
-  });
-  return buttons ? <View>{buttonComponents}</View> : null;
-}
-
 class Page extends Component {
 
   static navigationOptions = {
+      drawer: ({state}) => {
+        // console.log("Drawer State: ", state)
+        return {
+          label: "Home"
+        }
+      },
+
       header: ({ state, setParams}) => {
         const header = getValue(state, "params.header");
-        if(header) {
-            const { title, style, titleStyle, tintColor, right, visible } = header;
-
+        const initialParams = getValue(state, "params.initialParams");
+        if(header && initialParams) {
+            const { title, style, titleStyle, tintColor, right, left, visible } = header;
+            // console.log("HEADP", headerProps.right)
+            // console.log("LEFT", left)
             return {
-              title: title, //String or React Element used by the header. Defaults to scene title
+              title, //String or React Element used by the header. Defaults to scene title
               // visible: visible, //Boolean toggle of header visibility. Only works when headerMode is screen.
               // backTitle: backTitle, //Title string used by the back button on iOS or null to disable label. Defaults to scene title
-              right: getHeaderButtons(right), //React Element to display on the right side of the header
-              // left: null, //React Element to display on the left side of the header
-              style: style, //Style object for the header
-              titleStyle: titleStyle, //Style object for the title component
-              tintColor: tintColor, //Tint color for the header
+              right, //React Element to display on the right side of the header
+              // left: left, //React Element to display on the left side of the header
+              style, //Style object for the header
+              // titleStyle: titleStyle, //Style object for the title component
+              tintColor, //Tint color for the header
             }
           }
         }
@@ -60,12 +65,12 @@ class Page extends Component {
 
 
   static propTypes = {
-    navigation: React.PropTypes.shape({}),
+    dispatch: React.PropTypes.shape({}),
   }
 
   constructor(props) {
     super(props);
-    this.handleNavEval = this.handleNavEval.bind(this);
+    this.handleNavEvent = this.handleNavEvent.bind(this);
   }
 
   getInitialStyle() {
@@ -82,54 +87,64 @@ class Page extends Component {
         flex: 1,
         alignSelf: 'stretch',
         width: null,
+      },
+      drawer: {
+        marginLeft: 10,
+        marginRight: 10
       }
     }
   }
 
-  handleNavEval(event){
-    const { navigator, pages, bindings} = this.props;
-    if (event.type == 'NavBarButtonPress') {
-        const events = this.navButtonEvents[event.id];
-        handleOnPress(events, navigator, pages, bindings)();
+  handleNavEvent(events){
+    const { navigation, pages, bindings, updateBinding, drawerActions} = this.props;
+    const eventDispatchers = {
+      updateBinding: updateBinding,
+      navigation: navigation,
+      drawerActions: drawerActions
     }
+    handleOnPress(events, eventDispatchers, pages, bindings)();
   }
+
+
+  //{
+  //   header: {
+  //     tintColor: 'white'
+  //     right: [
+  //       {
+  //         icon: "icon-name",
+  //         iconStyle: {},
+  //         text: "Menu",
+  //         events: {}
+  //       }
+  //     ]
+  //   }
+  // }
+
 
   componentDidMount () {
-    this.props.navigation.setParams(this._getCurrentPage());
-   }
+    let page = _.clone(this._getCurrentPage());
+    if(page.header) {
+      page.header.right = this._setNavButtons(page.header.right, page.header.tintColor)
+      page.header.left = this._setNavButtons(page.header.left, page.header.tintColor)
 
-  _setNavButtons(props, page) {
-    const { navigator, icons }  = props
-    const { navigatorButtons } = page;
-
-
-    if(navigatorButtons && ( navigatorButtons.leftButtons || navigatorButtons.leftButtons)) {
-      const leftButtons = [];
-      const rightButtons = [];
-      this.navButtonEvents = {};
-      const animated = getValue(props, "navigatorButtons.animated")
-
-      function swapOutIcon(button, list) {
-        let newButton = {};
-        if(button.icon) newButton.icon = icons[button.icon];
-        list.push(_.defaults(newButton, button));
-      }
-
-      _.each(navigatorButtons.leftButtons, (button) => {
-        swapOutIcon(button, leftButtons)
-        this.navButtonEvents[button.id] = button.events;
-      });
-      _.each(navigatorButtons.rightButtons, (button) => {
-        swapOutIcon(button, rightButtons)
-        this.navButtonEvents[button.id] = button.events;
-      });
-
-      navigator.setButtons({
-        leftButtons: leftButtons,
-        rightButtons: rightButtons,
-        animated: animated
-      });
+      this.props.navigation.setParams(_.defaults(page, {initialParams: true}));
     }
+  }
+
+  _setNavButtons(buttons, tintColor) {
+    const buttonComponents = _.map(buttons, (button) => {
+      const tintColorProp = {color: tintColor};
+      const icon = button.icon ? <Icon name={button.icon} style={tintColorProp}/> : null
+      const text = button.text ? <Text style={tintColorProp}>button.text</Text> : null
+      return (<TouchableOpacity onPress={() => this.handleNavEvent(button.events)}>
+                {icon}
+                {text}
+              </TouchableOpacity>)
+    });
+    return buttonComponents ? (<View style={this.getInitialStyle().drawer}>
+              {buttonComponents}
+            </View>) : undefined;
+
   }
 
   //
@@ -144,18 +159,21 @@ class Page extends Component {
   //   });
   // }
 
-  _getComponents(page) {
-    let components = [];
-    _.each(page.components, (component, index) => {
-      components.push(<BaseComponent
+  _getComponents(components, bindingData) {
+    const { updateBinding, navigation, pages, drawerActions } = this.props;
+    const eventDispatchers = {
+      updateBinding: updateBinding,
+      navigation: navigation,
+      drawerActions: drawerActions
+    }
+    return _.map(components, (component, index) => {
+      return (<BaseComponent
                           key={component.type + index}
-                          bindingData={page.bindingData}
+                          bindingData={bindingData}
                           {...component}
-                          pages={this.props.pages}
-                          navigation={this.props.navigation}
-                          updateBinding={this.props.updateBinding}/>)
+                          pages={pages}
+                          dispatch={eventDispatchers}/>);
     });
-    return components;
   }
 
   _getCurrentPage() {
@@ -173,14 +191,14 @@ class Page extends Component {
 
     // this._evaulateDataSection(data);
     // this._setNavButtons(this.props, page);
-    // navigator.setOnNavigatorEvent(this.handleNavEval);
+    // navigator.setOnNavigatorEvent(this.handleNavEvent);
     // navigator.setTitle(page);
 
     return (
       <Container style={this.getInitialStyle().container}>
           <Image {...backgroundImageProp} style={this.getInitialStyle().backgroundImage}>
               <View style={overridedStyles}>
-                  {this._getComponents(page)}
+                  {this._getComponents(page.components, page.bindingData)}
               </View>
           </Image>
       </Container>
@@ -203,6 +221,17 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateBinding: (binding, value) => {
       dispatch(updateBinding(binding, value))
+    },
+    drawerActions: {
+      toggleDrawer: () => {
+        dispatch(toggleDrawer())
+      },
+      closeDrawer: () => {
+        dispatch(closeDrawer())
+      },
+      openDrawer: () => {
+        dispatch(openDrawer())
+      }
     }
   }
 }

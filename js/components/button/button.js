@@ -31,7 +31,7 @@ export default class ButtonComponent extends Component {
   static TYPE = "button"
 
   static propTypes = {
-    navigation: React.PropTypes.object,
+    dispatch: React.PropTypes.object,
     style: React.PropTypes.object,
     textColor: React.PropTypes.object,
     event: React.PropTypes.object,
@@ -42,15 +42,15 @@ export default class ButtonComponent extends Component {
     this.handleButtonEval = this.handleButtonEval.bind(this);
   }
 
-  handleButtonEval(events, navigation, pages, bindings) {
+  handleButtonEval(events, dispatch, pages, bindings) {
     if(events) {
       let { eventType, params} = events
-      fireEvent(eventType, params, navigation, pages, bindings);
+      fireEvent(eventType, params, dispatch, pages, bindings);
     }
   }
 
   prepareRootProps() {
-    const {events, navigation, pages, bindings} = this.props
+    const {events, dispatch, pages, bindings} = this.props
     const {buttonText, button} = this.props.style;
     const overrideButtonStyles = [styles.button, button];
     const overrideButtonTextStyles = [styles.text, buttonText];
@@ -64,7 +64,7 @@ export default class ButtonComponent extends Component {
       ...attributes,
       style: overrideButtonStyles,
       textStyles: overrideButtonTextStyles,
-      onPress: handleOnPress(events, navigation, pages, bindings)
+      onPress: handleOnPress(events, dispatch, pages, bindings)
     }
   }
 

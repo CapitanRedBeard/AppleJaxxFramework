@@ -8,6 +8,7 @@ import {
   NavigationActions,
   addNavigationHelpers,
   StackNavigator,
+  DrawerNavigator
 } from 'react-navigation';
 
 import { registerScreens } from './util/registerScreens';
@@ -22,6 +23,7 @@ import { setInitialBindings } from './actions/bindingActions'
 import { updateGeolocation } from './actions/geolocationActions'
 import Page from './components/page/page';
 import { resolvePage } from './util/resolveBindings';
+import Drawer from 'react-native-drawer';
 
 const store = configureStore();
 
@@ -63,14 +65,6 @@ class AppNavigator extends Component {
       const navigation = getValue(frame, "navigation", {})
       const { roots, drawer, headerMode } = navigation;
 
-      // if(drawer) {
-      //   if(drawer.left)
-      //     drawer.left.passProps = pages[getValue(drawer, "left.screen")];
-      //
-      //   if(drawer.right)
-      //     drawer.right.passProps = pages[getValue(drawer, "right.screen")];
-      // }
-
       const navigationPages = {};
       _.each(keys, (key) => {
         navigationPages[key] = {screen: Page}
@@ -84,15 +78,29 @@ class AppNavigator extends Component {
         headerMode
       });
 
-      // AppNav.setParams()
-      //
-      // const AppNav = StackNavigator({
-      //     Login: { screen: Page },
-      //     Main: { screen: Page },
-      //     Profile: { screen: Page }
-      //   });
-      return <AppNav
+      const appStack = <AppNav
                 screenProps={pages[keys[0]]}/>
+
+      if(drawer) {
+        const screenProps = _.find(frame.pages, (page) => { return page.key == drawer.screen });
+        // return <Drawer open={this.props.drawerState.open} {...drawer.drawerProps}
+        //                content={<Page screenProps={screenProps}/>}>
+        //                   {appStack}
+        //         </Drawer>
+        const DrawerNav = DrawerNavigator({
+                  AppNav: {
+                    screen: AppNav,
+                  },
+                  Drawer: {
+                    screen: Page,
+                  }
+                },
+                );
+        return <DrawerNav
+                  screenProps={pages[keys[0]]}/>
+      }
+      return appStack
+
       //
       // if(footerTabs) {
       //   let tabs = [];
@@ -126,9 +134,13 @@ class AppNavigator extends Component {
 
 const AppWithNavigationState = connect(state => ({
     frameState: state.frameReducers.frameState,
-    bindingState: state.bindingReducers.bindingState
-}))(({ dispatch, frameState, bindingState }) => (
-  <AppNavigator frame={frameState} bindings={bindingState} navigation={addNavigationHelpers({ dispatch })} />
+    bindingState: state.bindingReducers.bindingState,
+    drawerState: state.drawerReducers.drawerState
+}))(({ dispatch, frameState, bindingState, drawerState }) => (
+  <AppNavigator frame={frameState}
+                bindings={bindingState}
+                drawerState={drawerState}
+                navigation={addNavigationHelpers({ dispatch })} />
 ));
 
 
