@@ -9,11 +9,18 @@ function resolveIconsFromFrame(frame) {
     tabIconPromises[name] = Icon.getImageSource(name, 30)
   });
 
-  return new Promise(function (resolve, reject) {
+  const promise = new Promise(function (resolve, reject) {
     RSVP.hash(tabIconPromises).then(function(results) {
+      console.log("hash", results);
       resolve(results);
+    }).catch(function(e) {
+      console.log("hash error", e); // "oh, no!"
     });
+  }).catch(function(e) {
+    console.log("Promise error", e); // "oh, no!"
   });
+
+  return promise
 }
 
 function _findIcons(frame){

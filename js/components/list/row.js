@@ -6,8 +6,6 @@ import BaseComponent from '../baseComponent'
 import getValue from '../../util/getValue'
 import _ from 'underscore'
 
-// import { ListItem, Icon, Thumbnail, Badge} from 'native-base';
-
 const AVAILABLE_LIST_COMPONENTS = [
   "thumbnail",
   "text",
@@ -60,10 +58,9 @@ export default class Row extends Component {
 
 
   _wrapOnClickHandler(children, events) {
-    const {navigator, pages, data, updateBinding} = this.props
-
+    const {dispatch, pages, data} = this.props
     return  (<TouchableOpacity onPress={() => {
-                  handleOnPress(events, navigator, pages, data, updateBinding)()
+                  handleOnPress(events, dispatch, pages, data)()
                 }
               } style={{flex: 1}}>
               {children}

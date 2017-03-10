@@ -1,13 +1,17 @@
 {
-  "drawer": {
-     "left": {
-         "screen": "drawer"
-     },
-     "animationType": "slide",
-     "style": {
-         "leftDrawerWidth": 50,
-         "drawerShadow": true,
-     }
+  "navigation": {
+    "headerMode": "float",
+    "drawer": {
+      "screen": "drawer",
+      "drawerProps": {
+        "type": "static",
+        "openDrawerOffset": 100,
+        "acceptTap": true,
+        "tapToClose": true,
+        "captureGestures": true,
+
+      }
+    }
   },
   "bindings": {
     "subreddit": "all"
@@ -15,7 +19,34 @@
   "pages": [
     {
       "key": "stories",
-      "title": "{{subreddit}}",
+      "header": {
+        "title": "{{subreddit}}",
+        "style": {
+            "backgroundColor": "#1A2B51",
+        },
+        "tintColor": "white",
+        "left": [
+          {
+            "icon": "ios-menu-outline",
+            "events": {
+              "onPress": {
+                "eventType": "openDrawer",
+              }
+            }
+          }
+        ],
+        "right": [
+          {
+            "icon": "ios-mic-off-outline",
+            "events": {
+              "onPress": {
+                "eventType": "push",
+                "params": "article"
+              }
+            }
+          }
+        ],
+      },
       "navigatorStyle": {
         	"navBarBackgroundColor": "#1A2B51",
         	"navBarTextColor": "white",
@@ -23,7 +54,7 @@
         	"statusBarTextColorScheme": "light"
       },
       "navigatorButtons": {
-        "leftButtons": [
+        "rightButtons": [
           {
             "icon": "ios-menu",
             "id": "menu",
@@ -68,17 +99,6 @@
             }
           },
           "rowTemplate": {
-            "leftSection": [
-              {
-                 "type": "thumbnail",
-                 "source": "{{data.thumbnail}}",
-                 "square": true,
-                 "attributes": {
-                   "square": true,
-                   "size": 50
-                 }
-              }
-            ],
             "centerSection": [
               {
                 "type": "text",
@@ -122,12 +142,23 @@
     },
     {
       "key": "article",
-      "title": "Article",
-      "navigatorStyle": {
-        	"navBarBackgroundColor": "#1A2B51",
-        	"navBarTextColor": "white",
-        	"navBarButtonColor": "white",
-        	"statusBarTextColorScheme": "light"
+      "header": {
+        "style": {
+            "backgroundColor": "#1A2B51",
+        },
+        "right": [
+          {
+            "icon": "ios-mic-off-outline",
+            "events": {
+              "onPress": {
+                "eventType": "push",
+                "params": "article"
+              }
+            }
+          }
+        ],
+        "tintColor": "white",
+        "title": "Article"
       },
       "style": {
         "backgroundColor": "#4E6189",
