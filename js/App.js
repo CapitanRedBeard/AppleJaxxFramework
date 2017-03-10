@@ -1,16 +1,11 @@
 import React, {Component} from 'react'
-import { Provider, connect } from 'react-redux'
-
-// TODO import AsyncStorange
-
-
 import {
   NavigationActions,
   addNavigationHelpers,
   StackNavigator,
   DrawerNavigator
 } from 'react-navigation';
-
+import { Provider, connect } from 'react-redux'
 import { registerScreens } from './util/registerScreens';
 import { resolveIconsFromFrame } from './util/resolveIconsFromFrame';
 import configureStore from './configureStore';
@@ -21,11 +16,13 @@ import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
 import { setInitialBindings } from './actions/bindingActions'
 import { updateGeolocation } from './actions/geolocationActions'
+
 import Page from './components/page/page';
 import { resolvePage } from './util/resolveBindings';
 import Drawer from 'react-native-drawer';
+import contentLoader from './services/dynamicContentLoader';
 
-const store = configureStore();
+export let store = configureStore();
 
 //Initialize Frame
 store.dispatch(updateFrame(frame));

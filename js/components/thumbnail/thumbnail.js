@@ -33,11 +33,16 @@ export default class ThumbnailComponent extends Component {
   }
 
   componentWillMount() {
+    this._mounted = true;
     getImage(this.props.source).then((val) => {
       if(val) {
         this.setState({"imageSource": val});
       }
     });
+  }
+
+  componentWillUnmount() {
+    this._mounted = false;
   }
 
   prepareRootProps() {
