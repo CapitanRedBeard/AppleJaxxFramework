@@ -25,6 +25,19 @@ import Page from './components/page/page';
 import { resolvePage } from './util/resolveBindings';
 import Drawer from 'react-native-drawer';
 
+import OAuthManager from 'react-native-oauth';
+
+const manager = new OAuthManager('firestackexample')
+manager.configure({
+  twitter: {
+    consumer_key: '	7KtDhU4s0uHQan28niYIWpHcI',
+    consumer_secret: '88eZiPNSCGo8ZWLSGYv7ZXOQOEr6T08EXGgH59JRlBLwVlOG32'
+  }
+});
+
+manager.authorize('twitter', {scopes: 'profile+email'})
+.then(resp => console.log('Your users ID', resp))
+.catch(err => console.log('There was an error', err));
 const store = configureStore();
 
 //Initialize Frame
