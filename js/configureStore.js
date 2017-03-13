@@ -12,7 +12,7 @@ const loggerMiddleware = createLogger()
 
 export default function configureStore():any {
   const enhancer = compose(
-    applyMiddleware(thunk, promise),
+    applyMiddleware(thunk, promise, loggerMiddleware),
     devTools({
       name: 'nativestarterkit', realtime: true,
     }),

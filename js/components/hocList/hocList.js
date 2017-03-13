@@ -87,25 +87,31 @@ export default function hocListWrapper(WrappedComponent) {
       }
 
       componentWillMount() {
-        this._getRowData(this.props.rowData).then((calculatedRowData) => {
+        this._getRowData(this.props.rowData, getValue(this.props, "oAuth.oAuthManager")).then((calculatedRowData) => {
           this.setState({rowData: calculatedRowData})
         });
       }
 
       componentWillReceiveProps(nextProps) {
-        const nextPropsUrl = getValue(nextProps, "rowData.params.url");
-        const thisPropsUrl = getValue(this.props, "rowData.params.url");
 
-        if(nextPropsUrl && nextPropsUrl != thisPropsUrl) {
+        const nextPropsUrl = getValue(nextProps, "rowData.params.url");
+        const differentUrls = nextPropsUrl != getValue(this.props, "rowData.params.url");
+        const newOAuth = getValue(nextProps, "oAuth.oAuthKeys")
+        const oldOAuth = getValue(this.props, "oAuth.oAuthKeys")
+        console.log("nextPropsUrl", this.props, nextProps)
+
+        if(nextPropsUrl && (differentUrls || newOAuth)) {
+          console.log("hocLIST componentWillMount: UPDATING: ", this.props, nextProps)
           this.setState({rowData: null}, () => {
-            this._getRowData(this.props.rowData).then((calculatedRowData) => {
+            this._getRowData(this.props.rowData, getValue(this.props, "oAuth.oAuthManager")).then((calculatedRowData) => {
+              console.log("Setting refresh")
               this.setState({rowData: calculatedRowData})
             });
           })
         }
       }
 
-      async _getRowData(rowData) {
+      async _getRowData(rowData, oAuthManager) {
         const rowDataTypes = ["raw", "url"];
         const {type, params} = rowData;
         let calculatedRowData = [];
@@ -114,11 +120,10 @@ export default function hocListWrapper(WrappedComponent) {
             calculatedRowData = params.data
             break;
           case rowDataTypes[1]:
-            const { url, dataPath } = params
-            console.debug("url", url)
-            calculatedRowData = await getURL(url);
+            const { url, oAuthProvider, dataPath } = params
+            calculatedRowData = await getURL(url, oAuthProvider, oAuthManager);
             if(!(calculatedRowData instanceof Array)) {
-              calculatedRowData = getValue(calculatedRowData, dataPath)
+              calculatedRowData = getValue(calculatedRowData, dataPath, calculatedRowData)
             }
 
             break;
@@ -145,7 +150,7 @@ export default function hocListWrapper(WrappedComponent) {
 
       _onRefresh() {
         this.setState({refreshing: true});
-        this._getRowData(this.props.rowData).then((calculatedRowData) => {
+        this._getRowData(this.props.rowData, getValue(this.props, "oAuth.oAuthManager")).then((calculatedRowData) => {
           this.setState({refreshing: false, rowData: calculatedRowData});
         });
       }
@@ -153,7 +158,7 @@ export default function hocListWrapper(WrappedComponent) {
       render() {
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         if(!this.state.rowData) {
-          return <Spinner theme={baseTheme}/>;
+          return <Spinner style={{flex: 1, alignSelf: "center"}} theme={baseTheme}/>;
         } else {
           let dataSource = ds.cloneWithRows(this.state.rowData);
           const generalProps = {

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C5A0B124F95A6F9B0A5BD2B15638879837D74639",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C5A0B124F95A6F9B0A5BD2B15638879837D74639" : 9223372036854775807,
+    "9B6A9BAB4E9B234D5120359A806F122763590F9E" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9F51E1CA-1545-4A2A-9FEB-0A0E5C7ED300",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C5A0B124F95A6F9B0A5BD2B15638879837D74639" : "Framework\/",
+    "9B6A9BAB4E9B234D5120359A806F122763590F9E" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "NativeStarterKit",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ios\/NativeStarterKit.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CapitanRedBeard\/AppleJaxx.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9B6A9BAB4E9B234D5120359A806F122763590F9E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/CapitanRedBeard\/AppleJaxxFramework.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C5A0B124F95A6F9B0A5BD2B15638879837D74639"
+    }
+  ]
+}

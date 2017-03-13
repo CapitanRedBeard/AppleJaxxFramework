@@ -25,6 +25,8 @@ export default class ImageComponent extends Component {
             flex: 1,
             alignSelf: 'stretch',
             width: null,
+            borderColor: "red",
+            borderWidth: 1
           }
       }
   }
@@ -36,12 +38,18 @@ export default class ImageComponent extends Component {
       style: this.getInitialStyle().image,
       source: null
     }
-    let computedProps = mergeDeep(this.props, defaultProps);
+    const overrideSourceProp = {
+      source: null
+    }
+
+    let computedProps = this.props.source.substring(0,4) == "http" ?
+                        mergeDeep(this.props, defaultProps) :
+                        mergeDeep(overrideSourceProp, mergeDeep(this.props, defaultProps));
 
     if( computedProps.indicator) {
-
       computedProps.indicator = this._getIndicator(computedProps)
     }
+
     if( computedProps.source) {
       computedProps.source = {uri: computedProps.source}
     }
@@ -50,6 +58,6 @@ export default class ImageComponent extends Component {
 
   render() { // eslint-disable-line class-methods-use-this
     const rootProps = this.prepareRootProps();
-    return rootProps.source ? <Image {...rootProps}/> : null
+    return rootProps.source ? <Image {...rootProps} onError={(e) => console.log("No Image,", e)}/> : null
   }
 }

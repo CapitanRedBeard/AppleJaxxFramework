@@ -19,25 +19,13 @@ import frame from './frame/frame.json';
 import getValue from './util/getValue';
 import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
+import { initializeOAuth } from './actions/dataSourceActions'
 import { setInitialBindings } from './actions/bindingActions'
 import { updateGeolocation } from './actions/geolocationActions'
 import Page from './components/page/page';
 import { resolvePage } from './util/resolveBindings';
 import Drawer from 'react-native-drawer';
 
-import OAuthManager from 'react-native-oauth';
-
-const manager = new OAuthManager('firestackexample')
-manager.configure({
-  twitter: {
-    consumer_key: '	7KtDhU4s0uHQan28niYIWpHcI',
-    consumer_secret: '88eZiPNSCGo8ZWLSGYv7ZXOQOEr6T08EXGgH59JRlBLwVlOG32'
-  }
-});
-
-manager.authorize('twitter', {scopes: 'profile+email'})
-.then(resp => console.log('Your users ID', resp))
-.catch(err => console.log('There was an error', err));
 const store = configureStore();
 
 //Initialize Frame
@@ -50,6 +38,9 @@ store.dispatch(setInitialBindings(frame.bindings));
 resolveIconsFromFrame(frame).then((icons) => {
   store.dispatch(addIconSources(icons));
 })
+
+//ConfigOAuth
+store.dispatch(initializeOAuth(frame.oAuthConfig));
 
 //Initialize geolocation
 navigator.geolocation.getCurrentPosition(

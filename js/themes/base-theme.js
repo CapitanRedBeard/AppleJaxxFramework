@@ -9,7 +9,7 @@ import _ from 'underscore'
 const defaultThemes = {
 
   //General
-  backgroundColor: 'red',
+  backgroundColor: '#F2F2F2',
 
     // Badge
   badgeBg: '#ED1727',
