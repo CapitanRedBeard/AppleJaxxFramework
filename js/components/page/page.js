@@ -5,12 +5,11 @@ import BaseComponent from '../../components/baseComponent'
 import _ from 'underscore'
 import {Container, Content} from 'native-base';
 
-import { addDataSource } from '../../actions/dataSource'
+import { oAuthAuthorize } from '../../actions/dataSourceActions'
 import { toggleDrawer, openDrawer, closeDrawer } from '../../actions/drawerActions'
 import { updateBinding } from '../../actions/bindingActions';
 import Icon from '../icon/icon'
 import { fireEvent, handleOnPress } from '../../util/events'
-import getURL from '../../util/api';
 import getValue from '../../util/getValue';
 import baseTheme from '../../themes/base-theme'
 import { resolvePage } from '../../util/resolveBindings';
@@ -35,9 +34,14 @@ class Page extends Component {
 
   static navigationOptions = {
       drawer: ({state}) => {
-        // console.log("Drawer State: ", state)
+        console.log("State", state)
+        // const drawer = getValue(state, "params.drawer");
+        // const { label } = drawer;
+        // return {
+        //   label: label
+        // }
         return {
-          label: "Home"
+          label: "Derp"
         }
       },
 
@@ -48,9 +52,10 @@ class Page extends Component {
             const { title, style, titleStyle, tintColor, right, left, visible } = header;
             // console.log("HEADP", headerProps.right)
             // console.log("LEFT", left)
+
             return {
               title, //String or React Element used by the header. Defaults to scene title
-              // visible: visible, //Boolean toggle of header visibility. Only works when headerMode is screen.
+              visible, //Boolean toggle of header visibility. Only works when headerMode is screen.
               // backTitle: backTitle, //Title string used by the back button on iOS or null to disable label. Defaults to scene title
               right, //React Element to display on the right side of the header
               // left: left, //React Element to display on the left side of the header
@@ -96,11 +101,12 @@ class Page extends Component {
   }
 
   handleNavEvent(events){
-    const { navigation, pages, bindings, updateBinding, drawerActions} = this.props;
+    const { navigation, pages, bindings, updateBinding, drawerActions, authorize} = this.props;
     const eventDispatchers = {
-      updateBinding: updateBinding,
-      navigation: navigation,
-      drawerActions: drawerActions
+      updateBinding,
+      navigation,
+      drawerActions,
+      authorize
     }
     handleOnPress(events, eventDispatchers, pages, bindings)();
   }
@@ -124,8 +130,9 @@ class Page extends Component {
   componentDidMount () {
     let page = _.clone(this._getCurrentPage());
     if(page.header) {
-      page.header.right = this._setNavButtons(page.header.right, page.header.tintColor)
-      page.header.left = this._setNavButtons(page.header.left, page.header.tintColor)
+      console.log("type of ", page.header.right, typeof page.header.right)
+      page.header.right = page.header.right && this._setNavButtons(page.header.right, page.header.tintColor)
+      page.header.left = page.header.left && this._setNavButtons(page.header.left, page.header.tintColor)
 
       this.props.navigation.setParams(_.defaults(page, {initialParams: true}));
     }
@@ -134,8 +141,8 @@ class Page extends Component {
   _setNavButtons(buttons, tintColor) {
     const buttonComponents = _.map(buttons, (button) => {
       const tintColorProp = {color: tintColor};
-      const icon = button.icon ? <Icon name={button.icon} style={tintColorProp}/> : null
-      const text = button.text ? <Text style={tintColorProp}>button.text</Text> : null
+      const icon = button.icon ? <Icon key="navIcon" name={button.icon} style={tintColorProp}/> : null
+      const text = button.text ? <Text key="navText" style={tintColorProp}>button.text</Text> : null
       return (<TouchableOpacity onPress={() => this.handleNavEvent(button.events)}>
                 {icon}
                 {text}
@@ -147,24 +154,13 @@ class Page extends Component {
 
   }
 
-  //
-  // async _evaulateDataSection() {
-  //   _.each(this.props.data, (data) => {
-  //
-  //     const {url, returnPath, binding} = data;
-  //     // _getAndAddURLDataSource(this.props.dispatch, url, returnPath, binding)
-  //     // getURL(url).then(response => console.log("Derp", response))
-  //     getURL(url).then((res) => { return this.props.dispatchAddDataSource(res, returnPath, binding)});
-  //     // console.log("Dater", data, returnPath, binding);
-  //   });
-  // }
-
   _getComponents(components, bindingData) {
-    const { updateBinding, navigation, pages, drawerActions } = this.props;
+    const { updateBinding, navigation, pages, drawerActions, authorize, oAuth } = this.props;
     const eventDispatchers = {
-      updateBinding: updateBinding,
-      navigation: navigation,
-      drawerActions: drawerActions
+      updateBinding,
+      navigation,
+      drawerActions,
+      authorize
     }
     return _.map(components, (component, index) => {
       return (<BaseComponent
@@ -172,6 +168,7 @@ class Page extends Component {
                           bindingData={bindingData}
                           {...component}
                           pages={pages}
+                          oAuth={oAuth}
                           dispatch={eventDispatchers}/>);
     });
   }
@@ -210,14 +207,15 @@ const mapStateToProps = (state) => {
   return {
     pages: state.frameReducers.frameState.pages,
     icons: state.iconsReducers.icons,
-    bindings: state.bindingReducers.bindingState
+    bindings: state.bindingReducers.bindingState,
+    oAuth: state.dataSourceReducers.dataSource
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatchAddDataSource: (response, returnPath, binding) => {
-      dispatch(addDataSource(response, returnPath, binding))
+    authorize: (provider, options) => {
+      dispatch(oAuthAuthorize(provider, options))
     },
     updateBinding: (binding, value) => {
       dispatch(updateBinding(binding, value))

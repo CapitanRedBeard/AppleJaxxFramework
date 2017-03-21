@@ -7,7 +7,6 @@ import { Spinner } from 'native-base'
 import baseTheme from '../../themes/base-theme'
 import Row from './row';
 import hocListWrapper from '../hocList/hocList';
-import getURL from "../../util/api"
   // "type": "list",
   // "style": {
   //   "backgroundColor": "white"

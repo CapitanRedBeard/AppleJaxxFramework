@@ -12,7 +12,8 @@ const EVENT_TYPES = {
   PUSH: "push",
   POP: "pop",
   SETBINDING: "setBinding",
-  BACK: "back"
+  BACK: "back",
+  OAUTH_AUTHORIZE: "authorize"
 }
 
 function fireEvent(eventType, params, dispatch, pages, bindings) {
@@ -49,8 +50,12 @@ function fireEvent(eventType, params, dispatch, pages, bindings) {
       // navigation.pop(Navigation.getRegisteredScreen(params));
       break;
     case EVENT_TYPES.SETBINDING:
-      const {binding, bindingValue} = params
+      const {binding, bindingValue} = params;
       dispatch.updateBinding(binding, bindings[bindingValue]);
+      break;
+    case EVENT_TYPES.OAUTH_AUTHORIZE:
+      const {provider, options} = params;
+      dispatch.authorize(provider, options);
       break;
     default:
       console.warn("EventType, " + eventType + " doesn't exist");

@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { Spinner } from 'native-base'
 import CardSection from './cardSection';
 import hocListWrapper from '../hocList/hocList';
-import getURL from "../../util/api"
 
 //========= CARD =========
 // "type": "cards",

@@ -8,7 +8,8 @@ import {
   NavigationActions,
   addNavigationHelpers,
   StackNavigator,
-  DrawerNavigator
+  DrawerNavigator,
+  TabNavigator
 } from 'react-navigation';
 
 import { registerScreens } from './util/registerScreens';
@@ -19,11 +20,11 @@ import frame from './frame/frame.json';
 import getValue from './util/getValue';
 import { addIconSources } from './actions/icons'
 import { updateFrame } from './actions/frameActions'
+import { initializeOAuth } from './actions/dataSourceActions'
 import { setInitialBindings } from './actions/bindingActions'
 import { updateGeolocation } from './actions/geolocationActions'
 import Page from './components/page/page';
 import { resolvePage } from './util/resolveBindings';
-import Drawer from 'react-native-drawer';
 
 const store = configureStore();
 
@@ -38,6 +39,9 @@ resolveIconsFromFrame(frame).then((icons) => {
   store.dispatch(addIconSources(icons));
 })
 
+//ConfigOAuth
+store.dispatch(initializeOAuth(frame.oAuthConfig));
+
 //Initialize geolocation
 navigator.geolocation.getCurrentPosition(
    (position) => {
@@ -51,6 +55,26 @@ navigator.geolocation.getCurrentPosition(
 // frame = resolveBindings(frame);
 
 // registerScreens(store, Provider, frame);
+
+function getStackNavigation(navPages, routeParams, headerMode) {
+  return StackNavigator(
+    navPages,
+  {
+    initialRouteName: routeParams.key,
+    initialRouteParams: routeParams,
+    headerMode
+  });
+}
+
+function getTabNavigation(navPages, routeParams, headerMode) {
+  return TabNavigator(
+    navPages,
+  {
+    initialRouteName: routeParams.key,
+    initialRouteParams: routeParams,
+    headerMode
+  });
+}
 
 class AppNavigator extends Component {
   render() {
@@ -70,13 +94,9 @@ class AppNavigator extends Component {
         navigationPages[key] = {screen: Page}
       })
 
-      const AppNav = StackNavigator(
-        navigationPages,
-      {
-        initialRouteName: pages[keys[0]].key,
-        initialRouteParams: pages[keys[0]],
-        headerMode
-      });
+      const AppNav = navigation.roots ?
+        getTabNavigation(navigationPages, pages[keys[0]], headerMode) :
+        getStackNavigation(navigationPages, pages[keys[0]], headerMode);
 
       const appStack = <AppNav
                 screenProps={pages[keys[0]]}/>

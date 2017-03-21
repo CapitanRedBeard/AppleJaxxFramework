@@ -1,12 +1,24 @@
 import RNFetchBlob from 'react-native-fetch-blob'
 import { Platform } from 'react-native';
 
-export default async function getURL(url){
+export default async function getURL(url, oAuthProvider, oAuthManager){
   try {
-    let response = await fetch(url);
-    let responseJson = await response.json()
-    return responseJson
-
+    if(oAuthProvider) {
+      return oAuthManager.makeRequest(oAuthProvider, url).then(response => {
+        if(response.status >= 400) {
+          console.error('Error in getURL', response)
+        }
+        return response.data;
+      });
+    }else {
+      let response = await fetch(url);
+      let responseJson = await response.json();
+      if(responseJson.errors) {
+        console.warn("Warning, couldn't find dataSource", responseJson.errors);
+        return {};
+      }
+      return responseJson;
+    }
     // return fetch(url).then((res) => res.json());
   } catch(error) {
     console.warn("Warning, couldn't find dataSource", error);

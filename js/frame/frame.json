@@ -1,6 +1,24 @@
 {
+  "oAuthConfig": [
+    {
+      "provider": "twitter",
+      "scope": "email+profile",
+      "options": {
+        "consumer_key": "7KtDhU4s0uHQan28niYIWpHcI",
+        "consumer_secret": "88eZiPNSCGo8ZWLSGYv7ZXOQOEr6T08EXGgH59JRlBLwVlOG32"
+      }
+    },
+    {
+      "provider": "facebook",
+      "scope": "user_likes",
+      "options": {
+        "client_id": "576995175770173",
+        "client_secret": "5d5f36e0034e95539af76c5240c66f62"
+      }
+    }
+  ],
   "navigation": {
-    "headerMode": "float",
+    "headerMode": "screen",
     "drawer": {
       "screen": "drawer",
       "drawerProps": {
@@ -9,87 +27,182 @@
         "acceptTap": true,
         "tapToClose": true,
         "captureGestures": true,
-
       }
-    }
+    },
+    "roots": [
+      {
+        "label": "Twitter",
+        "icon": "logo-twitter",
+        "screen": "twitterPage"
+      },
+      {
+        "label": "Facebook",
+        "icon": "logo-facebook",
+        "screen": "facebookPage"
+      }
+    ]
   },
   "bindings": {
-    "subreddit": "all"
   },
   "pages": [
     {
-      "key": "stories",
+      "events": {
+        "onStart": {
+          "eventType": "authenticate",
+          "params": "twitter"
+        }
+      },
+      "key": "twitterPage",
       "header": {
-        "title": "{{subreddit}}",
-        "style": {
-            "backgroundColor": "#1A2B51",
-        },
+        "title": "Twitter",
         "tintColor": "white",
-        "left": [
-          {
-            "icon": "ios-menu-outline",
-            "events": {
-              "onPress": {
-                "eventType": "openDrawer",
-              }
-            }
-          }
-        ],
-        "right": [
-          {
-            "icon": "ios-mic-off-outline",
-            "events": {
-              "onPress": {
-                "eventType": "push",
-                "params": "article"
-              }
-            }
-          }
-        ],
+        "style": {
+          "backgroundColor": "#4099FF"
+        }
       },
-      "navigatorStyle": {
-        	"navBarBackgroundColor": "#1A2B51",
-        	"navBarTextColor": "white",
-        	"navBarButtonColor": "white",
-        	"statusBarTextColorScheme": "light"
+      "drawer": {
+        "title": "Twitter"
       },
-      "navigatorButtons": {
-        "rightButtons": [
-          {
-            "icon": "ios-menu",
-            "id": "menu",
-            "events": {
-              "onPress": {
-                "eventType": "toggleDrawer",
-                "params": {
-                  "side": "left",
-                  "animated": true,
-                }
-              }
+      "components": [
+        {
+          "type": "cards",
+          "transparent": false,
+          "style": {
+            "padding": 20
+          },
+          "refreshable": {
+              "tintColor": "#4099FF",
+              "title": "Finding More...",
+              "titleColor": "#4099FF"
+          },
+          "rowData": {
+            "type": "url",
+            "params": {
+              "oAuthProvider": "twitter",
+              "url": "https://api.twitter.com/1.1/statuses/home_timeline.json?count=20",
             }
+          },
+          "rowTemplate": {
+            "cardStyle": {
+              "borderColor": "#4099FF",
+              "borderWidth": 0,
+              "borderBottomWidth": 2
+            },
+            "rowSections": [
+              {
+                 "style": {
+                   "padding": 10,
+                   "justifyContent": "flex-start",
+                   "alignItems": "center"
+                 },
+                 "components": [
+                   {
+                     "type": "text",
+                     "style": {
+                       "fontSize": 16,
+                       "color": "#333",
+                       "paddingLeft": 10
+                     },
+                     "text": "{{user.name}}"
+                   },
+                   {
+                     "type": "text",
+                     "style": {
+                       "fontSize": 14,
+                       "color": "#BBB",
+                       "paddingLeft": 10
+                     },
+                     "text": "{{user.screen_name}}"
+                   }
+                 ]
+              },
+              {
+
+                 "components": [
+                   {
+                     "type": "image",
+                     "source": "{{extended_entities.media.media_url}}",
+                     "style": {
+                     },
+                     "resizeMode": "cover",
+                     "indicator": {
+                       "type": "bar",
+                       "params": {}
+                     }
+                   }
+                 ]
+              },
+              {
+                 "style": {
+                     "padding": 10,
+                 },
+                 "components": [
+                   {
+                     "type": "text",
+                     "style": {
+                       "fontSize": 12,
+                       "lineHeight": 12,
+                       "color": "#888"
+                     },
+                     "text": "{{text}}"
+                   }
+                 ]
+              },
+              {
+                 "style": {
+                     "paddingRight": 10,
+                     "paddingBottom": 10,
+                     "justifyContent": "flex-end",
+                     "alignItems": "center"
+
+                 },
+                 "components": [
+                   {
+                     "type": "text",
+                     "style": {
+                       "color": "#4099FF",
+                       "fontSize": 12,
+                     },
+                     "text": "{{retweet_count}}"
+                   },
+                   {
+                      "type": "icon",
+                      "style": {
+                        "paddingRight": 2,
+                        "color": "#4099FF",
+                        "fontSize": 16,
+                      },
+                      "name": "ios-star"
+                    }
+                 ]
+              }
+            ]
           }
-        ],
-        "animated": true
+        }
+      ]
+    },
+    {
+      "key": "facebookPage",
+      "header": {
+        "title": "Facebook",
+        "tintColor": "white",
+        "style": {
+          "backgroundColor": "#4099FF"
+        }
       },
-      "style": {
-        "backgroundColor": "#4E6189",
+      "drawer": {
+        "title": "Facebook"
       },
       "components": [
         {
           "type": "list",
           "style": {
-            "backgroundColor": "#4E6189"
+            "padding": 20
           },
           "refreshable": {
-              "tintColor": "white",
-              "title": "Refreshing!",
-              "titleColor": "white"
-          },
-          "events": {
-            "onPress": {
-              "eventType": "push",
-              "params": "article"
-            }
+              "tintColor": "#4099FF",
+              "title": "Finding More...",
+              "titleColor": "#4099FF"
           },
           "rowData": {
             "type": "url",
@@ -140,183 +253,12 @@
         }
       ]
     },
-    {
-      "key": "article",
-      "header": {
-        "style": {
-            "backgroundColor": "#1A2B51",
-        },
-        "right": [
-          {
-            "icon": "ios-mic-off-outline",
-            "events": {
-              "onPress": {
-                "eventType": "push",
-                "params": "article"
-              }
-            }
-          }
-        ],
-        "tintColor": "white",
-        "title": "Article"
-      },
-      "style": {
-        "backgroundColor": "#4E6189",
-      },
-      "components": [
-        {
-           "type": "image",
-           "source": "{{data.url}}",
-           "style": {
-             "height": 200
-           },
-           "indicator": {
-             "type": "bar",
-             "params": {}
-           }
-         },
-        {
-          "type": "text",
-          "style": {
-            "textAlign": "center",
-            "fontSize": 14,
-            "padding": 4,
-            "fontFamily": "Helvetica Neue",
-            "color": "grey"
-          },
-          "text": "{{data.selftext}}"
-        },
-        {
-          "type": "text",
-          "style": {
-            "textAlign": "center",
-            "fontSize": 18,
-            "padding": 10,
-            "fontFamily": "Helvetica Neue",
-            "color": "#1A2B51"
-          },
-          "text": "{{data.title}}"
-        },
-       {
-         "type": "text",
-         "style": {
-           "textAlign": "center",
-           "fontSize": 14,
-           "padding": 4,
-           "fontFamily": "Helvetica Neue",
-           "color": "orange"
-         },
-         "text": "{{data.score}}"
-       },
-      {
-        "type": "text",
-        "style": {
-          "textAlign": "center",
-          "fontSize": 14,
-          "padding": 4,
-          "fontFamily": "Helvetica Neue",
-          "color": "grey"
-        },
-        "text": "{{data.author}}"
-      },
-     {
-       "type": "text",
-       "style": {
-         "textAlign": "center",
-         "fontSize": 14,
-         "padding": 4,
-         "fontFamily": "Helvetica Neue",
-         "color": "grey"
-       },
-       "text": "/r/{{data.subreddit}}"
-     }
-      ]
-    },
-    {
-      "key": "drawer",
-      "style": {
-        "backgroundColor": "rgba(26,43,81,0.8)",
-        "paddingTop": 20,
-        "justifyContent": "center",
-        "flex": 1
-      },
-      "backgroundImage": "https://unsplash.it/900/600/?random",
-      "components": [
-        {
-          "type": "list",
-          "style": {
-            "backgroundColor": "transparent"
-          },
-          "events": {
-            "onPress": {
-                "eventType": "setBinding",
-                "params": {
-                  "binding": "subreddit",
-                  "bindingValue": "menu_subreddit",
-                }
-            }
-          },
-          "rowData": {
-            "type": "raw",
-            "params": {
-              "data": [
-                {
-                  "menu_subreddit": "all",
-                },
-                {
-                  "menu_subreddit": "worldnews",
-                },
-                {
-                  "menu_subreddit": "pics",
-                },
-                {
-                  "menu_subreddit": "AskReddit",
-                },
-                {
-                  "menu_subreddit": "Overwatch",
-                },
-                {
-                  "menu_subreddit": "Jokes",
-                },
-                {
-                  "menu_subreddit": "funny",
-                },
-                {
-                  "menu_subreddit": "todayilearned",
-                },
-                {
-                  "menu_subreddit": "memeeconomy",
-                }
-
-              ]
-            }
-          },
-          "rowTemplate": {
-            "leftSection": [
-              {
-                 "type": "text",
-                 "text": "{{menu_subreddit}}",
-                 "style": {
-                   "fontSize": 14,
-                   "lineHeight": 14,
-                   "color": "white",
-                   "paddingLeft": 5
-                 }
-              }
-            ]
-          },
-          "separator": {
-              "backgroundColor": "#888"
-          }
-        }
-      ]
-    }
   ],
   "metaData": {
     "frameID": "listFrame"
   },
 	"theme": {
-		"defaultSpinnerColor": "white",
+		"defaultSpinnerColor": "#4099FF",
     "fontFamily": "Futura"
 	}
 }
