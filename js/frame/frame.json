@@ -7,10 +7,18 @@
         "consumer_key": "7KtDhU4s0uHQan28niYIWpHcI",
         "consumer_secret": "88eZiPNSCGo8ZWLSGYv7ZXOQOEr6T08EXGgH59JRlBLwVlOG32"
       }
+    },
+    {
+      "provider": "facebook",
+      "scope": "user_likes",
+      "options": {
+        "client_id": "576995175770173",
+        "client_secret": "5d5f36e0034e95539af76c5240c66f62"
+      }
     }
   ],
   "navigation": {
-    "headerMode": "float",
+    "headerMode": "screen",
     "drawer": {
       "screen": "drawer",
       "drawerProps": {
@@ -20,19 +28,40 @@
         "tapToClose": true,
         "captureGestures": true,
       }
-    }
+    },
+    "roots": [
+      {
+        "label": "Twitter",
+        "icon": "logo-twitter",
+        "screen": "twitterPage"
+      },
+      {
+        "label": "Facebook",
+        "icon": "logo-facebook",
+        "screen": "facebookPage"
+      }
+    ]
   },
   "bindings": {
   },
   "pages": [
     {
-      "key": "cardPage",
+      "events": {
+        "onStart": {
+          "eventType": "authenticate",
+          "params": "twitter"
+        }
+      },
+      "key": "twitterPage",
       "header": {
         "title": "Twitter",
         "tintColor": "white",
         "style": {
           "backgroundColor": "#4099FF"
         }
+      },
+      "drawer": {
+        "title": "Twitter"
       },
       "components": [
         {
@@ -153,24 +182,77 @@
       ]
     },
     {
-      "key": "drawer",
-      "layout": "2:2",
-      "style": {
-        "backgroundColor": "#333"
+      "key": "facebookPage",
+      "header": {
+        "title": "Facebook",
+        "tintColor": "white",
+        "style": {
+          "backgroundColor": "#4099FF"
+        }
+      },
+      "drawer": {
+        "title": "Facebook"
       },
       "components": [
         {
-          "layout": "1:2",
-          "type": "text",
+          "type": "list",
           "style": {
-            "fontSize": 24,
-            "fontFamily": "Helvetica Neue",
-            "color": "white"
+            "padding": 20
           },
-          "text": "Drawer"
+          "refreshable": {
+              "tintColor": "#4099FF",
+              "title": "Finding More...",
+              "titleColor": "#4099FF"
+          },
+          "rowData": {
+            "type": "url",
+            "params": {
+              "url": "https://www.reddit.com/r/{{subreddit}}/hot.json",
+              "dataPath": "data.children"
+            }
+          },
+          "rowTemplate": {
+            "centerSection": [
+              {
+                "type": "text",
+                "style": {
+                  "fontSize": 16,
+                  "color": "#bbb",
+                  "paddingLeft": 10
+                },
+                "text": "{{data.title}}"
+              },
+              {
+                "type": "text",
+                "style": {
+                  "fontSize": 12,
+                  "lineHeight": 12,
+                  "color": "#ddd",
+                  "paddingLeft": 20
+                },
+                "text": "{{data.author}}"
+              }
+            ],
+            "rightSection": [
+              {
+                "type": "text",
+                "style": {
+                  "fontSize": 12,
+                  "lineHeight": 12,
+                  "color": "orange",
+                  "paddingLeft": 20
+                },
+                "text": "{{data.score}}"
+              }
+            ]
+          },
+          "separator": {
+              "backgroundColor": "#4e8ef7",
+              "marginLeft": 75
+          }
         }
       ]
-    }
+    },
   ],
   "metaData": {
     "frameID": "listFrame"

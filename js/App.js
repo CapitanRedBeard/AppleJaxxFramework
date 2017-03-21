@@ -8,7 +8,8 @@ import {
   NavigationActions,
   addNavigationHelpers,
   StackNavigator,
-  DrawerNavigator
+  DrawerNavigator,
+  TabNavigator
 } from 'react-navigation';
 
 import { registerScreens } from './util/registerScreens';
@@ -24,7 +25,6 @@ import { setInitialBindings } from './actions/bindingActions'
 import { updateGeolocation } from './actions/geolocationActions'
 import Page from './components/page/page';
 import { resolvePage } from './util/resolveBindings';
-import Drawer from 'react-native-drawer';
 
 const store = configureStore();
 
@@ -56,6 +56,26 @@ navigator.geolocation.getCurrentPosition(
 
 // registerScreens(store, Provider, frame);
 
+function getStackNavigation(navPages, routeParams, headerMode) {
+  return StackNavigator(
+    navPages,
+  {
+    initialRouteName: routeParams.key,
+    initialRouteParams: routeParams,
+    headerMode
+  });
+}
+
+function getTabNavigation(navPages, routeParams, headerMode) {
+  return TabNavigator(
+    navPages,
+  {
+    initialRouteName: routeParams.key,
+    initialRouteParams: routeParams,
+    headerMode
+  });
+}
+
 class AppNavigator extends Component {
   render() {
       console.log(":IUEFFRAME", this.props)
@@ -74,13 +94,9 @@ class AppNavigator extends Component {
         navigationPages[key] = {screen: Page}
       })
 
-      const AppNav = StackNavigator(
-        navigationPages,
-      {
-        initialRouteName: pages[keys[0]].key,
-        initialRouteParams: pages[keys[0]],
-        headerMode
-      });
+      const AppNav = navigation.roots ?
+        getTabNavigation(navigationPages, pages[keys[0]], headerMode) :
+        getStackNavigation(navigationPages, pages[keys[0]], headerMode);
 
       const appStack = <AppNav
                 screenProps={pages[keys[0]]}/>

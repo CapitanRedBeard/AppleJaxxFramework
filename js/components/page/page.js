@@ -34,9 +34,14 @@ class Page extends Component {
 
   static navigationOptions = {
       drawer: ({state}) => {
-        // console.log("Drawer State: ", state)
+        console.log("State", state)
+        // const drawer = getValue(state, "params.drawer");
+        // const { label } = drawer;
+        // return {
+        //   label: label
+        // }
         return {
-          label: "Home"
+          label: "Derp"
         }
       },
 
@@ -50,7 +55,7 @@ class Page extends Component {
 
             return {
               title, //String or React Element used by the header. Defaults to scene title
-              visible: false, //Boolean toggle of header visibility. Only works when headerMode is screen.
+              visible, //Boolean toggle of header visibility. Only works when headerMode is screen.
               // backTitle: backTitle, //Title string used by the back button on iOS or null to disable label. Defaults to scene title
               right, //React Element to display on the right side of the header
               // left: left, //React Element to display on the left side of the header
@@ -125,8 +130,9 @@ class Page extends Component {
   componentDidMount () {
     let page = _.clone(this._getCurrentPage());
     if(page.header) {
-      page.header.right = this._setNavButtons(page.header.right, page.header.tintColor)
-      page.header.left = this._setNavButtons(page.header.left, page.header.tintColor)
+      console.log("type of ", page.header.right, typeof page.header.right)
+      page.header.right = page.header.right && this._setNavButtons(page.header.right, page.header.tintColor)
+      page.header.left = page.header.left && this._setNavButtons(page.header.left, page.header.tintColor)
 
       this.props.navigation.setParams(_.defaults(page, {initialParams: true}));
     }
